@@ -1,47 +1,47 @@
 import * as React from "react";
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import Icon from "@expo/vector-icons/Foundation";
+import { StyleSheet, View, Text, Image } from "react-native";
+import { format } from "date-fns";
 
 type PropTypes = {
   title: String;
   subtitle: String;
+  currentDate: number;
+  dayIncrement: number;
+  hourIncrement: number;
+  minuteIncrement: number;
 };
 
 const Plant = (props: PropTypes) => {
-  const { title, subtitle } = props;
-  const { card, row, column, buttonRow, button, buttonText } = styles;
+  const {
+    title,
+    subtitle,
+    currentDate,
+    dayIncrement,
+    hourIncrement,
+    minuteIncrement,
+  } = props;
+  const { card, row, column, titleStyle, subTitleStyle } = styles;
+
+  console.log(currentDate);
+  const displayDate = format(currentDate, "MM-d-yy hh:mm a");
 
   return (
     <View style={card}>
       <View style={row}>
-        <Icon
-          {...props}
-          name="trees"
-          size={50}
-          style={{
-            color: `#12561d`,
-          }}
+        <Image
+          source={{ uri: "https://picsum.photos/1018" }}
+          style={{ width: 50, height: 50, borderRadius: 8 }}
         />
         <View style={column}>
-          <Text>{title}</Text>
-          <Text>{subtitle}</Text>
+          <Text style={titleStyle}>{title}</Text>
+          <Text style={subTitleStyle}>{subtitle}</Text>
         </View>
-      </View>
-      <Image
-        source={{ uri: "https://picsum.photos/700" }}
-        style={{ width: 200, height: 200, borderRadius: 8 }}
-      />
-      <View style={buttonRow}>
-        <TouchableOpacity
-          style={button}
-          onPress={() => console.log("Oyy")}>
-          <Text style={buttonText}>Cancel</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={button}
-          onPress={() => console.log("Cunt")}>
-          <Text style={buttonText}>Ok</Text>
-        </TouchableOpacity>
+        <View style={column}>
+          <Text style={subTitleStyle}>Next: {displayDate}</Text>
+          <Text style={subTitleStyle}>
+            Increment: {dayIncrement} d {hourIncrement} h {minuteIncrement} m
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -49,16 +49,16 @@ const Plant = (props: PropTypes) => {
 
 const styles = StyleSheet.create({
   card: {
-    justifyContent: "center",
-    alignItems: "center",
+    alignSelf: "stretch",
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "#a1a1a1",
     borderRadius: 8,
     padding: 8,
+    marginTop: 8,
+    margin: 8,
   },
   row: {
-    width: 200,
     flexDirection: "row",
     justifyContent: "flex-start",
   },
@@ -67,24 +67,15 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-around",
   },
-  buttonRow: {
-    marginTop: 8,
-    width: 200,
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-  button: {
-    width: 75,
-    backgroundColor: "#6a828a",
-    padding: 4,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#e4eef0",
+  titleStyle: {
+    color: "#dfdfdf",
     fontSize: 16,
-    fontweight: "bold",
-  }
+  },
+  subTitleStyle: {
+    color: "#dfdfdf",
+    fontSize: 12,
+    flexWrap: "wrap",
+  },
 });
 
 export default Plant;
