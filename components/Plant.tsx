@@ -1,6 +1,7 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-import { format } from "date-fns";
+import * as Moment from "moment";
+import { extendMoment } from "moment-range";
 
 type PropTypes = {
   title: String;
@@ -22,8 +23,22 @@ const Plant = (props: PropTypes) => {
   } = props;
   const { card, row, column, titleStyle, subTitleStyle } = styles;
 
-  console.log(currentDate);
-  const displayDate = format(currentDate, "MM-d-yy hh:mm a");
+  const moment = extendMoment(Moment);
+  const range = moment.range(new Date(), new Date(currentDate));
+  const [days, setDays] = useState<number>(range.diff("days"));
+  const [hours, setHours] = useState<number>(range.diff("hours") - days * 24);
+  const [minutes, setMinutes] = useState<number>(
+    range.diff("minutes") - hours * 60 - days * 24 * 60
+  );
+
+  useEffect(() => {
+    setInterval(() => {
+      const newRange = moment.range(new Date(), new Date(currentDate));
+      setDays(newRange.diff("days"));
+      setHours(newRange.diff("hours") - days * 24);
+      setMinutes(newRange.diff("minutes") - hours * 60 - days * 24 * 60);
+    }, 1000 * 15);
+  });
 
   return (
     <View style={card}>
@@ -37,7 +52,9 @@ const Plant = (props: PropTypes) => {
           <Text style={subTitleStyle}>{subtitle}</Text>
         </View>
         <View style={column}>
-          <Text style={subTitleStyle}>Next: {displayDate}</Text>
+          <Text style={subTitleStyle}>
+            Next: {days} {hours} {minutes}
+          </Text>
           <Text style={subTitleStyle}>
             Increment: {dayIncrement} d {hourIncrement} h {minuteIncrement} m
           </Text>
