@@ -1,97 +1,124 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
-import * as Moment from "moment";
-import { extendMoment } from "moment-range";
+import React from "react";
+import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 type PropTypes = {
-  title: String;
-  subtitle: String;
-  currentDate: number;
-  dayIncrement: number;
-  hourIncrement: number;
-  minuteIncrement: number;
+  title?: String;
+  subtitle?: String;
+  lastWatered: number;
+  nextWatering: number;
+  index: number;
+  selectedTaskIndex: number;
+  // schedulePushNotification: Function;
+  setSelectedTaskIndex: Function;
 };
 
 const Plant = (props: PropTypes) => {
   const {
     title,
-    subtitle,
-    currentDate,
-    dayIncrement,
-    hourIncrement,
-    minuteIncrement,
+    index,
+    selectedTaskIndex,
+    // schedulePushNotification,
+    setSelectedTaskIndex,
   } = props;
-  const { card, row, column, titleStyle, subTitleStyle } = styles;
+  const {
+    card,
+    plant,
+    column,
+    titleStyle,
+    timeStyle,
+    textStyle,
+    img,
+    row,
+    waterIcon,
+    timeIcon,
+    selected,
+  } = styles;
 
-  const moment = extendMoment(Moment);
-  const range = moment.range(new Date(), new Date(currentDate));
-  const [days, setDays] = useState<number>(range.diff("days"));
-  const [hours, setHours] = useState<number>(range.diff("hours") - days * 24);
-  const [minutes, setMinutes] = useState<number>(
-    range.diff("minutes") - hours * 60 - days * 24 * 60
-  );
-
-  useEffect(() => {
-    setInterval(() => {
-      const newRange = moment.range(new Date(), new Date(currentDate));
-      setDays(newRange.diff("days"));
-      setHours(newRange.diff("hours") - days * 24);
-      setMinutes(newRange.diff("minutes") - hours * 60 - days * 24 * 60);
-    }, 1000 * 15);
-  });
+  const isCurrentTaskSelected = selectedTaskIndex === index;
 
   return (
-    <View style={card}>
-      <View style={row}>
-        <Image
-          source={{ uri: "https://picsum.photos/1018" }}
-          style={{ width: 50, height: 50, borderRadius: 8 }}
-        />
+    <TouchableOpacity onPress={() => setSelectedTaskIndex(index)}>
+      <View style={[card, plant, isCurrentTaskSelected ? selected : null]}>
         <View style={column}>
-          <Text style={titleStyle}>{title}</Text>
-          <Text style={subTitleStyle}>{subtitle}</Text>
-        </View>
-        <View style={column}>
-          <Text style={subTitleStyle}>
-            Next: {days} {hours} {minutes}
-          </Text>
-          <Text style={subTitleStyle}>
-            Increment: {dayIncrement} d {hourIncrement} h {minuteIncrement} m
-          </Text>
+          <Image source={{ uri: "https://picsum.photos/1018" }} style={img} />
+          <View style={row}>
+            <Text style={titleStyle}>{title}</Text>
+          </View>
+          <View style={row}>
+            <Entypo name="time-slot" size={18} style={timeIcon} />
+            <Text style={timeStyle}>5 days ago</Text>
+          </View>
+          <View style={row}>
+            <MaterialCommunityIcons
+              name="watering-can-outline"
+              size={22}
+              style={waterIcon}
+            />
+            <Text style={textStyle}>3 days</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    alignSelf: "stretch",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "#a1a1a1",
-    borderRadius: 8,
-    padding: 8,
-    marginTop: 8,
-    margin: 8,
+  plant: {
+    width: 110,
+    height: 185,
+    marginVertical: 5,
   },
-  row: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
+  card: {
+    borderRadius: 8,
+    backgroundColor: "#fff",
+    elevation: 5,
+    shadowColor: "#27411f",
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.7,
+    shadowRadius: 3,
+    marginLeft: 12,
+  },
+  selected: {
+    backgroundColor: "#c5d8be",
   },
   column: {
-    marginLeft: 8,
     flexDirection: "column",
-    justifyContent: "space-around",
   },
   titleStyle: {
-    color: "#dfdfdf",
+    color: "#192c19",
     fontSize: 16,
+    paddingLeft: 2,
   },
-  subTitleStyle: {
-    color: "#dfdfdf",
-    fontSize: 12,
-    flexWrap: "wrap",
+  timeStyle: {
+    color: "#192c19",
+    fontSize: 14,
+    paddingLeft: 8,
+  },
+  textStyle: {
+    color: "#192c19",
+    fontSize: 14,
+    paddingLeft: 4,
+  },
+  img: {
+    width: 110,
+    height: 110,
+    borderTopLeftRadius: 9,
+    borderTopRightRadius: 8,
+  },
+  row: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    textAlign: "center",
+    paddingLeft: 4,
+    paddingTop: 3,
+  },
+  waterIcon: {
+    color: "#69a2e2",
+  },
+  timeIcon: {
+    color: "#5e5e5e",
   },
 });
 

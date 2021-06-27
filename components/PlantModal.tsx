@@ -6,14 +6,37 @@ import {
   TouchableOpacity,
   Modal,
   TextInput,
+  Platform,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { format } from "date-fns";
+import * as Notifications from "expo-notifications";
 
 type PropTypes = {
   visible: boolean;
   setVisible: Function;
   addTask: Function;
+};
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
+const schedulePushNotification = async (time: number) => {
+  if (Platform.OS !== "web") {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Hey there! It's time to water your plant!",
+        body: "{X} plant needs {Y} amount of water",
+        // data: { data: "goes here" },
+      },
+      trigger: { seconds: time },
+    });
+  }
 };
 
 const PlantModal = (props: PropTypes) => {
@@ -187,6 +210,7 @@ const PlantModal = (props: PropTypes) => {
                 hourIncrement,
                 minuteIncrement,
               });
+              schedulePushNotification((currentDate - Date.now()) / 1000);
               initialState();
               setVisible(false);
             }}
