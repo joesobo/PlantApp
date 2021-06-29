@@ -12,6 +12,7 @@ import {
 import { Entypo } from "@expo/vector-icons";
 import PlantModal from "../components/PlantModal";
 import Plant from "../components/Plant";
+import WeatherModule from "../components/WeatherModule";
 
 var height = Dimensions.get("window").height; //full height
 var width = Dimensions.get("window").width; //full width
@@ -89,7 +90,7 @@ const Home = () => {
           <TextInput
             onChangeText={setText}
             value={text}
-            style={search}
+            style={[search, card]}
             placeholder="Search..."
           ></TextInput>
           <ScrollView showsVerticalScrollIndicator={false} style={mainScroll}>
@@ -117,7 +118,9 @@ const Home = () => {
                 <Text>{tempTitle}</Text>
               </View>
             ) : null}
-            <View style={[weather, card]}></View>
+            <View style={[weather, card]}>
+              <WeatherModule />
+            </View>
           </ScrollView>
         </View>
       </View>
@@ -149,7 +152,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 24,
+    marginTop: 32,
     marginHorizontal: 12,
   },
   icon: {
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    color: "#eef3e7",
+    color: "#e7e7e7",
     fontWeight: "bold",
     marginTop: 24,
     marginHorizontal: 12,
@@ -179,7 +182,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#fff",
     elevation: 5,
-    shadowColor: "#27411f",
+    shadowColor: "#000000",
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.7,
     shadowRadius: 3,
@@ -194,6 +197,7 @@ const styles = StyleSheet.create({
     width: width - 24,
     height: 125,
     marginTop: 16,
+    marginBottom: 64,
   },
 });
 

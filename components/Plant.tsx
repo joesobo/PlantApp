@@ -24,11 +24,13 @@ const Plant = (props: PropTypes) => {
   const {
     card,
     plant,
+    plantSelected,
     column,
     titleStyle,
     timeStyle,
     textStyle,
     img,
+    imgLg,
     row,
     waterIcon,
     timeIcon,
@@ -39,9 +41,18 @@ const Plant = (props: PropTypes) => {
 
   return (
     <TouchableOpacity onPress={() => setSelectedTaskIndex(index)}>
-      <View style={[card, plant, isCurrentTaskSelected ? selected : null]}>
+      <View
+        style={[
+          card,
+          isCurrentTaskSelected ? plantSelected : plant,
+          isCurrentTaskSelected ? selected : null,
+        ]}
+      >
         <View style={column}>
-          <Image source={{ uri: "https://picsum.photos/1018" }} style={img} />
+          <Image
+            source={{ uri: "https://picsum.photos/1018" }}
+            style={isCurrentTaskSelected ? imgLg : img}
+          />
           <View style={row}>
             <Text style={titleStyle}>{title}</Text>
           </View>
@@ -69,18 +80,23 @@ const styles = StyleSheet.create({
     height: 185,
     marginVertical: 5,
   },
+  plantSelected: {
+    width: 115,
+    height: 190,
+    marginVertical: 5,
+  },
   card: {
     borderRadius: 8,
-    backgroundColor: "#fff",
+    backgroundColor: "#e0e0e0",
     elevation: 5,
-    shadowColor: "#27411f",
+    shadowColor: "#000000",
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.7,
     shadowRadius: 3,
     marginLeft: 12,
   },
   selected: {
-    backgroundColor: "#c5d8be",
+    backgroundColor: "#fff",
   },
   column: {
     flexDirection: "column",
@@ -103,6 +119,12 @@ const styles = StyleSheet.create({
   img: {
     width: 110,
     height: 110,
+    borderTopLeftRadius: 9,
+    borderTopRightRadius: 8,
+  },
+  imgLg: {
+    width: 115,
+    height: 115,
     borderTopLeftRadius: 9,
     borderTopRightRadius: 8,
   },
