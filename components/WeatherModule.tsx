@@ -48,7 +48,7 @@ const WeatherModule = () => {
       />
       <View style={barChart}>
         {days.map((day) => {
-          return(
+          return (
             <View key={day} style={barColumn}>
               <View style={barBackground}>
                 <View style={bar}>
@@ -62,7 +62,7 @@ const WeatherModule = () => {
               </View>
               <Text style={dayText}>{day}</Text>
             </View>
-          )
+          );
         })}
       </View>
       <View style={temperature}>
