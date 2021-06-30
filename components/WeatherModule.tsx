@@ -13,8 +13,10 @@ const WeatherModule = () => {
   };
 
   const chartConfig = {
-    backgroundGradientFrom: "#fff",
-    backgroundGradientTo: "#fff",
+    backgroundGradientFrom: "transparent",
+    backgroundGradientTo: "transparent",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientToOpacity: 0,
     color: (opacity = 1) => `rgba(154, 192, 98, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.75,
@@ -33,40 +35,44 @@ const WeatherModule = () => {
     barColumn,
     dayText,
     gradient,
+    weather,
+    card,
   } = styles;
 
   return (
-    <View style={row}>
-      <ProgressChart
-        data={data1}
-        width={125}
-        height={125}
-        strokeWidth={12}
-        radius={40}
-        chartConfig={chartConfig}
-        hideLegend={true}
-      />
-      <View style={barChart}>
-        {days.map((day) => {
-          return (
-            <View key={day} style={barColumn}>
-              <View style={barBackground}>
-                <View style={bar}>
-                  <LinearGradient
-                    colors={["#D3ECA3bc", "#9DC569bc"]}
-                    start={[1, 0]}
-                    end={[0, 1]}
-                    style={gradient}
-                  ></LinearGradient>
+    <View style={[weather, card]}>
+      <View style={row}>
+        <ProgressChart
+          data={data1}
+          width={125}
+          height={125}
+          strokeWidth={12}
+          radius={40}
+          chartConfig={chartConfig}
+          hideLegend={true}
+        />
+        <View style={barChart}>
+          {days.map((day) => {
+            return (
+              <View key={day} style={barColumn}>
+                <View style={barBackground}>
+                  <View style={bar}>
+                    <LinearGradient
+                      colors={["#D3ECA3bc", "#9DC569bc"]}
+                      start={[1, 0]}
+                      end={[0, 1]}
+                      style={gradient}
+                    ></LinearGradient>
+                  </View>
                 </View>
+                <Text style={dayText}>{day}</Text>
               </View>
-              <Text style={dayText}>{day}</Text>
-            </View>
-          );
-        })}
-      </View>
-      <View style={temperature}>
-        <Text style={tempValue}>90 °F</Text>
+            );
+          })}
+        </View>
+        <View style={temperature}>
+          <Text style={tempValue}>90 °F</Text>
+        </View>
       </View>
     </View>
   );
@@ -131,6 +137,22 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     color: "#CBCBCB",
+  },
+  weather: {
+    width: width - 24,
+    height: 125,
+    marginTop: 16,
+    marginBottom: 64,
+  },
+  card: {
+    borderRadius: 8,
+    backgroundColor: "#FAFAFA",
+    elevation: 5,
+    shadowColor: "#000000",
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.7,
+    shadowRadius: 3,
+    marginLeft: 12,
   },
 });
 

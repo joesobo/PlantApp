@@ -13,11 +13,12 @@ import { Entypo } from "@expo/vector-icons";
 import PlantModal from "../components/PlantModal";
 import Plant from "../components/Plant";
 import WeatherModule from "../components/WeatherModule";
+import PlantDisplayModule from "../components/PlantDisplayModule";
 
 var height = Dimensions.get("window").height; //full height
 var width = Dimensions.get("window").width; //full width
 
-type Task = {
+export type Task = {
   title?: string;
   description?: string;
   lastWatered: number;
@@ -33,11 +34,9 @@ const Home = () => {
     smallHeight,
     row,
     icon,
-    title,
+    titleText,
     search,
     card,
-    fullPlant,
-    weather,
     mainScroll,
   } = styles;
 
@@ -51,13 +50,13 @@ const Home = () => {
     setTaskItems(temp);
   };
 
-  let tempTitle = "";
-  if (
-    selectedTaskIndex !== -1 &&
-    taskItems[selectedTaskIndex].title !== undefined
-  ) {
-    tempTitle = taskItems[selectedTaskIndex].title as string;
-  }
+  // let tempTitle = "";
+  // if (
+  //   selectedTaskIndex !== -1 &&
+  //   taskItems[selectedTaskIndex].title !== undefined
+  // ) {
+  //   tempTitle = taskItems[selectedTaskIndex].title as string;
+  // }
 
   return (
     <View style={page}>
@@ -86,7 +85,7 @@ const Home = () => {
               <Entypo name="add-to-list" size={20} style={icon} />
             </TouchableOpacity>
           </View>
-          <Text style={title}>Your Plants</Text>
+          <Text style={titleText}>Your Plants</Text>
           <TextInput
             onChangeText={setText}
             value={text}
@@ -114,13 +113,9 @@ const Home = () => {
               })}
             </ScrollView>
             {selectedTaskIndex !== -1 ? (
-              <View style={[fullPlant, card]}>
-                <Text>{tempTitle}</Text>
-              </View>
+              <PlantDisplayModule task={taskItems[selectedTaskIndex]} />
             ) : null}
-            <View style={[weather, card]}>
-              <WeatherModule />
-            </View>
+            <WeatherModule />
           </ScrollView>
         </View>
       </View>
@@ -158,7 +153,7 @@ const styles = StyleSheet.create({
   icon: {
     color: "#fff",
   },
-  title: {
+  titleText: {
     fontSize: 32,
     color: "#e7e7e7",
     fontWeight: "bold",
@@ -180,24 +175,13 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 8,
-    backgroundColor: "#fff",
+    backgroundColor: "#FAFAFA",
     elevation: 5,
     shadowColor: "#000000",
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.7,
     shadowRadius: 3,
     marginLeft: 12,
-  },
-  fullPlant: {
-    width: width - 24,
-    height: 250,
-    marginTop: 16,
-  },
-  weather: {
-    width: width - 24,
-    height: 125,
-    marginTop: 16,
-    marginBottom: 64,
   },
 });
 

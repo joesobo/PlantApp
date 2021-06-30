@@ -1,5 +1,5 @@
 import React from "react";
-import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 type PropTypes = {
@@ -27,13 +27,11 @@ const Plant = (props: PropTypes) => {
     plantSelected,
     column,
     titleStyle,
-    timeStyle,
     textStyle,
     img,
     imgLg,
     row,
     waterIcon,
-    timeIcon,
     selected,
   } = styles;
 
@@ -57,16 +55,12 @@ const Plant = (props: PropTypes) => {
             <Text style={titleStyle}>{title}</Text>
           </View>
           <View style={row}>
-            <Entypo name="time-slot" size={18} style={timeIcon} />
-            <Text style={timeStyle}>5 days ago</Text>
-          </View>
-          <View style={row}>
             <MaterialCommunityIcons
               name="watering-can-outline"
               size={22}
               style={waterIcon}
             />
-            <Text style={textStyle}>3 days</Text>
+            <Text style={textStyle}>5 days</Text>
           </View>
         </View>
       </View>
@@ -77,12 +71,12 @@ const Plant = (props: PropTypes) => {
 const styles = StyleSheet.create({
   plant: {
     width: 110,
-    height: 185,
+    height: 165,
     marginVertical: 5,
   },
   plantSelected: {
     width: 115,
-    height: 190,
+    height: 170,
     marginVertical: 5,
   },
   card: {
@@ -106,11 +100,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingLeft: 2,
   },
-  timeStyle: {
-    color: "#192c19",
-    fontSize: 14,
-    paddingLeft: 8,
-  },
   textStyle: {
     color: "#192c19",
     fontSize: 14,
@@ -119,13 +108,13 @@ const styles = StyleSheet.create({
   img: {
     width: 110,
     height: 110,
-    borderTopLeftRadius: 9,
+    borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
   imgLg: {
     width: 115,
     height: 115,
-    borderTopLeftRadius: 9,
+    borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
   row: {
@@ -138,9 +127,6 @@ const styles = StyleSheet.create({
   },
   waterIcon: {
     color: "#69a2e2",
-  },
-  timeIcon: {
-    color: "#5e5e5e",
   },
 });
 
