@@ -8,8 +8,6 @@ import {
   TextInput,
   Platform,
 } from "react-native";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { format } from "date-fns";
 import * as Notifications from "expo-notifications";
 
 type PropTypes = {
@@ -42,10 +40,7 @@ const schedulePushNotification = async (time: number) => {
 const PlantModal = (props: PropTypes) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [isDatePickerVisible, setDatePickerVisible] = useState<boolean>(false);
   const [dayIncrement, setDayIncrement] = useState<number>(0);
-  const [hourIncrement, setHourIncrement] = useState<number>(0);
-  const [minuteIncrement, setMinuteIncrement] = useState<number>(0);
   const [currentDate, setCurrentDate] = useState<number>(Date.now());
 
   const { visible, setVisible, addTask } = props;
@@ -58,8 +53,6 @@ const PlantModal = (props: PropTypes) => {
     row,
     column,
     commandText,
-    currentTime,
-    timeView,
     button,
     leftButton,
     rightButton,
@@ -68,10 +61,7 @@ const PlantModal = (props: PropTypes) => {
   const initialState = () => {
     setTitle("");
     setDescription("");
-    setDatePickerVisible(false);
     setDayIncrement(0);
-    setHourIncrement(0);
-    setMinuteIncrement(0);
     setCurrentDate(Date.now());
   };
 
@@ -85,30 +75,6 @@ const PlantModal = (props: PropTypes) => {
       num = 30;
     }
     setDayIncrement(num);
-  };
-
-  const onHoursChanged = (text: string) => {
-    text.replace(/[^0-9]/g, "");
-    let num = parseInt(text);
-    if (isNaN(num) || num == undefined || num < 0) {
-      num = 0;
-    }
-    if (num > 72) {
-      num = 72;
-    }
-    setHourIncrement(num);
-  };
-
-  const onMinutesChanged = (text: string) => {
-    text.replace(/[^0-9]/g, "");
-    let num = parseInt(text);
-    if (isNaN(num) || num == undefined || num < 0) {
-      num = 0;
-    }
-    if (num > 60) {
-      num = 60;
-    }
-    setMinuteIncrement(num);
   };
 
   return (
@@ -137,56 +103,16 @@ const PlantModal = (props: PropTypes) => {
             placeholder="Description..."
           />
         </View>
-        <View style={timeView}>
+        <View style={column}>
           <View style={row}>
-            <Text style={commandText}>Pick Start Date</Text>
-            <TouchableOpacity onPress={() => setDatePickerVisible(true)}>
-              <Text style={currentTime}>
-                {format(currentDate, "hh:mm a MM-d-yy")}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            mode="datetime"
-            minimumDate={new Date()}
-            onConfirm={(date) => {
-              setCurrentDate(date.valueOf());
-              setDatePickerVisible(false);
-            }}
-            onCancel={() => setDatePickerVisible(false)}
-          />
-          <View style={column}>
-            <View style={row}>
-              <Text style={commandText}>Pick A Day Increment</Text>
-              <TextInput
-                style={input}
-                value={dayIncrement.toString()}
-                onChangeText={onDaysChanged}
-                keyboardType="numeric"
-                maxLength={2}
-              />
-            </View>
-            <View style={row}>
-              <Text style={commandText}>Pick A Hour Increment</Text>
-              <TextInput
-                style={input}
-                value={hourIncrement.toString()}
-                onChangeText={onHoursChanged}
-                keyboardType="numeric"
-                maxLength={3}
-              />
-            </View>
-            <View style={row}>
-              <Text style={commandText}>Pick a Minute Increment</Text>
-              <TextInput
-                style={input}
-                value={minuteIncrement.toString()}
-                onChangeText={onMinutesChanged}
-                keyboardType="numeric"
-                maxLength={3}
-              />
-            </View>
+            <Text style={commandText}>Set Increment</Text>
+            <TextInput
+              style={input}
+              value={dayIncrement.toString()}
+              onChangeText={onDaysChanged}
+              keyboardType="numeric"
+              maxLength={2}
+            />
           </View>
         </View>
         <View style={row}>
@@ -207,8 +133,6 @@ const PlantModal = (props: PropTypes) => {
                 description,
                 currentDate,
                 dayIncrement,
-                hourIncrement,
-                minuteIncrement,
               });
               schedulePushNotification((currentDate - Date.now()) / 1000);
               initialState();
@@ -240,7 +164,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   modalView: {
-    backgroundColor: "#363636",
+    backgroundColor: "#ffffff",
     borderBottomColor: "#a1a1a1",
     borderBottomWidth: 1,
     paddingHorizontal: 8,
@@ -250,15 +174,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   titleWrapper: {
-    backgroundColor: "#363636",
+    backgroundColor: "#ffffff",
     borderBottomColor: "#a1a1a1",
     borderBottomWidth: 1,
     paddingTop: 16,
   },
   titleText: {
     fontWeight: "bold",
-    fontSize: 16,
-    color: "#dfdfdf",
+    fontSize: 18,
+    color: "#52554F",
     paddingTop: 24,
     paddingBottom: 16,
     alignSelf: "stretch",
@@ -276,16 +200,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   commandText: {
-    color: "#dfdfdf",
+    color: "#656965",
     minWidth: "55%",
     marginRight: 8,
-  },
-  currentTime: {
-    color: "#718de0",
-  },
-  timeView: {
-    marginVertical: 24,
-    alignSelf: "stretch",
   },
   button: {
     borderWidth: 1,
