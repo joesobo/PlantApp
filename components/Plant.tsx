@@ -71,12 +71,12 @@ const Plant = (props: PropTypes) => {
 const styles = StyleSheet.create({
   plant: {
     width: 110,
-    height: 165,
+    height: 155,
     marginVertical: 5,
   },
   plantSelected: {
     width: 115,
-    height: 170,
+    height: 160,
     marginVertical: 5,
   },
   card: {
@@ -107,13 +107,13 @@ const styles = StyleSheet.create({
   },
   img: {
     width: 110,
-    height: 110,
+    height: 100,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
   imgLg: {
     width: 115,
-    height: 115,
+    height: 105,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
