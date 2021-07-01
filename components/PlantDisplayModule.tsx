@@ -78,16 +78,20 @@ const PlantDisplayModule = (props: PropTypes) => {
           </View>
         </View>
 
+        {/* Water */}
         <View style={[row, generalContainer]}>
-          <ProgressChart
-            data={data1}
-            width={100}
-            height={100}
-            strokeWidth={12}
-            radius={40}
-            chartConfig={chartConfig1}
-            hideLegend={true}
-          />
+          <View style={infoContainer}>
+            <Text style={infoValue}>5 days</Text>
+            <ProgressChart
+              data={data1}
+              width={100}
+              height={100}
+              strokeWidth={12}
+              radius={40}
+              chartConfig={chartConfig1}
+              hideLegend={true}
+            />
+          </View>
           <View style={[col, generalInfo]}>
             <View style={titleRow}>
               <MaterialCommunityIcons
@@ -98,25 +102,26 @@ const PlantDisplayModule = (props: PropTypes) => {
               <Text style={infoTitle}>Hydration</Text>
             </View>
             <Text style={infoText}>Interval: 3 days</Text>
-            <Text style={infoText}>Water amount: 3 gallons</Text>
-          </View>
-          <View style={infoContainer}>
-            <Text style={infoValue}>5 days</Text>
+            <Text style={infoText}>Water: 3 gallons</Text>
           </View>
         </View>
 
+        {/* Fertilizer */}
         <View style={[row, generalContainer]}>
-          <ProgressChart
-            data={data2}
-            width={100}
-            height={100}
-            strokeWidth={12}
-            radius={40}
-            chartConfig={chartConfig2}
-            hideLegend={true}
-          />
+          <View style={infoContainer}>
+            <Text style={infoValue}>2 weeks</Text>
+            <ProgressChart
+              data={data2}
+              width={100}
+              height={100}
+              strokeWidth={12}
+              radius={40}
+              chartConfig={chartConfig2}
+              hideLegend={true}
+            />
+          </View>
           <View style={[col, generalInfo]}>
-          <View style={titleRow}>
+            <View style={titleRow}>
               <MaterialCommunityIcons
                 name="tree-outline"
                 size={26}
@@ -125,10 +130,7 @@ const PlantDisplayModule = (props: PropTypes) => {
               <Text style={infoTitle}>Fertilizer</Text>
             </View>
             <Text style={infoText}>Interval: 1 week</Text>
-            <Text style={infoText}>Fertalizer amount: 2 scoops</Text>
-          </View>
-          <View style={infoContainer}>
-            <Text style={infoValue}>2 weeks</Text>
+            <Text style={infoText}>Fertalizer: 2 scoops</Text>
           </View>
         </View>
       </View>
@@ -176,13 +178,14 @@ const styles = StyleSheet.create({
     color: "#bbbbbb",
   },
   generalContainer: {
-    marginTop: 8,
-    marginLeft: 8,
+    marginTop: 12,
     display: "flex",
     alignItems: "center",
+    paddingLeft: 8,
+    marginVertical: 4,
   },
   generalInfo: {
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#f5f5f5",
     flex: 1,
     minHeight: 50,
     display: "flex",
@@ -191,26 +194,30 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     borderRadius: 8,
     padding: 12,
+    paddingLeft: 105,
   },
   infoText: {
     fontSize: 14,
     color: "#757575",
   },
   infoContainer: {
-    height: 100,
-    width: 100,
+    backgroundColor: "#ffffff",
+    height: 110,
+    width: 110,
     position: "absolute",
-    left: 0,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: 2,
+    zIndex: 1,
+    borderBottomRightRadius: 55,
+    borderTopRightRadius: 55,
   },
   infoValue: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#656965",
+    position: "absolute",
   },
   infoTitle: {
     fontSize: 22,
@@ -228,7 +235,7 @@ const styles = StyleSheet.create({
   },
   fertIcon: {
     color: "#A2CA6B",
-  }
+  },
 });
 
 export default PlantDisplayModule;

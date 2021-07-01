@@ -253,6 +253,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#363636",
     borderBottomColor: "#a1a1a1",
     borderBottomWidth: 1,
+    paddingTop: 16,
   },
   titleText: {
     fontWeight: "bold",
