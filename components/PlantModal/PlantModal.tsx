@@ -198,6 +198,7 @@ const PlantModal = (props: PropTypes) => {
                   description,
                   currentDate,
                   dayIncrement,
+                  image
                 });
                 schedulePushNotification((currentDate - Date.now()) / 1000);
                 initialState();

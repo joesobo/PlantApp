@@ -6,8 +6,8 @@ import { styles } from "./Plant.styled";
 type PropTypes = {
   title?: String;
   subtitle?: String;
-  lastWatered: number;
-  nextWatering: number;
+  waterIncrement: number;
+  image: string;
   index: number;
   selectedTaskIndex: number;
   // schedulePushNotification: Function;
@@ -19,6 +19,7 @@ const Plant = (props: PropTypes) => {
     title,
     index,
     selectedTaskIndex,
+    image,
     // schedulePushNotification,
     setSelectedTaskIndex,
   } = props;
@@ -49,7 +50,7 @@ const Plant = (props: PropTypes) => {
       >
         <View style={column}>
           <Image
-            source={{ uri: "https://picsum.photos/1018" }}
+            source={{ uri: image }}
             style={isCurrentTaskSelected ? imgLg : img}
           />
           <View style={row}>

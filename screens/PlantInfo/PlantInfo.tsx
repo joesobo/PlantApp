@@ -2,14 +2,19 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { StackScreenProps } from "@react-navigation/stack";
-import { RootStackParamList } from "../../types";
+import { Task } from "../../types";
 import { styles } from "./PlantInfo.styled";
 import { LinearGradient } from "expo-linear-gradient";
+import { RouteProp } from "@react-navigation/native";
 
-const PlantInfo = ({
-  navigation,
-}: StackScreenProps<RootStackParamList, "PlantInfo">) => {
+type PropTypes = {
+  route: RouteProp<{ params: { task: Task } }, "params">;
+  navigation: any;
+};
+
+const PlantInfo = ({ route, navigation }: PropTypes) => {
+  const { task } = route.params;
+  const { title, description, image } = task;
   const {
     container,
     row,
@@ -74,12 +79,12 @@ const PlantInfo = ({
 
       <View style={bottomInfo}>
         <View style={imgWrapper}>
-          <Image source={{ uri: "https://picsum.photos/1018" }} style={img} />
+          <Image source={{ uri: image }} style={img} />
         </View>
 
         <View style={col}>
-          <Text>Title</Text>
-          <Text>Description...</Text>
+          <Text>{title}</Text>
+          <Text>{description}</Text>
         </View>
 
         {/* Water */}

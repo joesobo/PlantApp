@@ -10,7 +10,7 @@ type PropTypes = {
 
 const PlantDisplayModule = (props: PropTypes) => {
   const { task, navigation } = props;
-  const { title, description } = task;
+  const { title, description, image } = task;
   const {
     fullPlant,
     card,
@@ -27,13 +27,19 @@ const PlantDisplayModule = (props: PropTypes) => {
     <View style={[fullPlant, card]}>
       <View style={col}>
         <View style={row}>
-          <Image source={{ uri: "https://picsum.photos/1018" }} style={img} />
+          <Image source={{ uri: image }} style={img} />
           <View style={[rightCol, descContainer]}>
             <View style={col}>
               <Text style={titleText}>{title}</Text>
               <Text style={descText}>{description}</Text>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate("PlantInfo")}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("PlantInfo", {
+                  task: task,
+                })
+              }
+            >
               <Text style={descText}>See more...</Text>
             </TouchableOpacity>
           </View>

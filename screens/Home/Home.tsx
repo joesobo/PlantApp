@@ -77,15 +77,15 @@ const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
           <ScrollView showsVerticalScrollIndicator={false} style={mainScroll}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {taskItems.map((item, index) => {
-                const { title, description, lastWatered, nextWatering } = item;
+                const { title, description, waterIncrement, image } = item;
 
                 return (
                   <Plant
                     key={index}
                     title={title}
                     subtitle={description}
-                    lastWatered={lastWatered}
-                    nextWatering={nextWatering}
+                    waterIncrement={waterIncrement}
+                    image={image}
                     index={index}
                     selectedTaskIndex={selectedTaskIndex}
                     setSelectedTaskIndex={setSelectedTaskIndex}
