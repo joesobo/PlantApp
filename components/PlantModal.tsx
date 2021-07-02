@@ -69,6 +69,7 @@ const PlantModal = (props: PropTypes) => {
     uploadButton,
     uploadText,
     uploadButtonText,
+    areaContainer,
   } = styles;
 
   const initialState = () => {
@@ -136,13 +137,15 @@ const PlantModal = (props: PropTypes) => {
           {/* Image */}
           <View style={row}>
             <View style={imageUpload}>
-              {!image && <Feather name="image" size={22} style={icon} />}
-              {image && (
-                <Image
-                  source={{ uri: image }}
-                  style={{ width: 150, height: 150, borderRadius: 8 }}
-                />
-              )}
+              <Text>
+                {!image && <Feather name="image" size={22} style={icon} />}
+                {image && (
+                  <Image
+                    source={{ uri: image }}
+                    style={{ width: 150, height: 150, borderRadius: 8 }}
+                  />
+                )}
+              </Text>
             </View>
             <View style={uploadColumn}>
               <Text style={uploadText}>
@@ -168,8 +171,10 @@ const PlantModal = (props: PropTypes) => {
           <View style={row}>
             <Text style={commandText}>Description</Text>
             <TextInput
-              style={input}
+              style={[input, areaContainer]}
               value={description}
+              multiline={true}
+              numberOfLines={3}
               onChangeText={setDescription}
               placeholderTextColor="#858585"
               placeholder="Description..."
@@ -177,7 +182,7 @@ const PlantModal = (props: PropTypes) => {
           </View>
           <View style={column}>
             <View style={row}>
-              <Text style={commandText}>Set Increment</Text>
+              <Text style={commandText}>Water Increment</Text>
               <TextInput
                 style={input}
                 value={dayIncrement.toString()}
@@ -330,6 +335,10 @@ const styles = StyleSheet.create({
   },
   uploadButtonText: {
     color: "#656965",
+  },
+  areaContainer: {
+    height: 100,
+    borderRadius: 16,
   },
 });
 

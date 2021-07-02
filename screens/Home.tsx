@@ -14,6 +14,8 @@ import PlantModal from "../components/PlantModal";
 import Plant from "../components/Plant";
 import WeatherModule from "../components/WeatherModule";
 import PlantDisplayModule from "../components/PlantDisplayModule";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../types";
 
 var height = Dimensions.get("window").height; //full height
 var width = Dimensions.get("window").width; //full width
@@ -25,7 +27,7 @@ export type Task = {
   nextWatering: number;
 };
 
-const Home = () => {
+const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
   const {
     page,
     container,
@@ -89,7 +91,7 @@ const Home = () => {
           <TextInput
             onChangeText={setText}
             value={text}
-            style={[search, card]}
+            style={search}
             placeholder="Search..."
           ></TextInput>
           <ScrollView showsVerticalScrollIndicator={false} style={mainScroll}>
@@ -113,7 +115,10 @@ const Home = () => {
               })}
             </ScrollView>
             {selectedTaskIndex !== -1 ? (
-              <PlantDisplayModule task={taskItems[selectedTaskIndex]} />
+              <PlantDisplayModule
+                task={taskItems[selectedTaskIndex]}
+                navigation={navigation}
+              />
             ) : null}
             <WeatherModule />
           </ScrollView>
