@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
   View,
   Text,
   TouchableOpacity,
   Modal,
   TextInput,
   Platform,
-  Dimensions,
   Image,
 } from "react-native";
 import * as Notifications from "expo-notifications";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-
-const width = Dimensions.get("window").width; //full width
+import { styles } from "./PlantModal.styled";
 
 type PropTypes = {
   visible: boolean;
@@ -215,131 +212,5 @@ const PlantModal = (props: PropTypes) => {
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  column: {
-    flexDirection: "column",
-    alignSelf: "stretch",
-  },
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    alignSelf: "stretch",
-  },
-  titleRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    alignSelf: "stretch",
-    marginBottom: 24,
-  },
-  modal: {
-    borderWidth: 0,
-    borderColor: "transparent",
-    alignSelf: "stretch",
-  },
-  background: {
-    backgroundColor: "#00000090",
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-end",
-  },
-  modalView: {
-    backgroundColor: "#ffffff",
-    borderBottomColor: "#a1a1a1",
-    borderBottomWidth: 1,
-    paddingHorizontal: 28,
-    paddingBottom: 24,
-    paddingTop: 20,
-    justifyContent: "space-around",
-    borderTopRightRadius: 50,
-    borderTopLeftRadius: 50,
-  },
-  titleText: {
-    fontWeight: "bold",
-    fontSize: 18,
-    color: "#52554F",
-    paddingTop: 8,
-    alignSelf: "stretch",
-    textAlign: "center",
-  },
-  input: {
-    height: 40,
-    marginVertical: 8,
-    padding: 4,
-    paddingLeft: 8,
-    borderWidth: 1,
-    borderColor: "#a1a1a1",
-    color: "#656965",
-    alignSelf: "stretch",
-    width: "40%",
-    borderRadius: 50,
-  },
-  commandText: {
-    color: "#656965",
-    minWidth: "55%",
-    marginRight: 8,
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 18,
-  },
-  button: {
-    backgroundColor: "#a3cb70",
-    borderRadius: 50,
-    padding: 8,
-    marginVertical: 8,
-    flex: 1,
-    textAlign: "center",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  icon: {
-    color: "#52554F",
-  },
-  imageUpload: {
-    backgroundColor: "#f2f2f2",
-    width: 150,
-    height: 150,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 8,
-    marginBottom: 8,
-  },
-  uploadColumn: {
-    flexDirection: "column",
-    alignSelf: "stretch",
-    justifyContent: "center",
-    marginLeft: 8,
-    marginBottom: 8,
-    width: 150,
-  },
-  uploadButton: {
-    borderColor: "#656965",
-    borderWidth: 1,
-    borderRadius: 8,
-    marginVertical: 8,
-    padding: 4,
-    textAlign: "center",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  uploadText: {
-    color: "#656965",
-  },
-  uploadButtonText: {
-    color: "#656965",
-  },
-  areaContainer: {
-    height: 100,
-    borderRadius: 16,
-  },
-});
 
 export default PlantModal;

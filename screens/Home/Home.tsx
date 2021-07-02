@@ -1,31 +1,20 @@
 import React, { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import {
-  StyleSheet,
   View,
-  Dimensions,
   Text,
   TouchableOpacity,
   ScrollView,
   TextInput,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import PlantModal from "../components/PlantModal";
-import Plant from "../components/Plant";
-import WeatherModule from "../components/WeatherModule";
-import PlantDisplayModule from "../components/PlantDisplayModule";
+import PlantModal from "../../components/PlantModal/PlantModal";
+import Plant from "../../components/Plant/Plant";
+import WeatherModule from "../../components/WeatherModule/WeatherModule";
+import PlantDisplayModule from "../../components/PlantDisplayModule/PlantDisplayModule";
 import { StackScreenProps } from "@react-navigation/stack";
-import { RootStackParamList } from "../types";
-
-var height = Dimensions.get("window").height; //full height
-var width = Dimensions.get("window").width; //full width
-
-export type Task = {
-  title?: string;
-  description?: string;
-  lastWatered: number;
-  nextWatering: number;
-};
+import { RootStackParamList, Task } from "../../types";
+import { styles } from "./Home.styled";
 
 const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
   const {
@@ -38,7 +27,6 @@ const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
     icon,
     titleText,
     search,
-    card,
     mainScroll,
   } = styles;
 
@@ -51,14 +39,6 @@ const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
     const temp = taskItems.concat(task);
     setTaskItems(temp);
   };
-
-  // let tempTitle = "";
-  // if (
-  //   selectedTaskIndex !== -1 &&
-  //   taskItems[selectedTaskIndex].title !== undefined
-  // ) {
-  //   tempTitle = taskItems[selectedTaskIndex].title as string;
-  // }
 
   return (
     <View style={page}>
@@ -127,67 +107,5 @@ const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  page: {
-    backgroundColor: "#fff",
-  },
-  container: {
-    position: "relative",
-  },
-  background: {
-    borderBottomLeftRadius: 50,
-    overflow: "hidden",
-    position: "absolute",
-    width: width,
-  },
-  topContainer: {
-    width: width,
-    height: height,
-  },
-  smallHeight: {
-    height: 250,
-  },
-  row: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 32,
-    marginHorizontal: 12,
-  },
-  icon: {
-    color: "#fff",
-  },
-  titleText: {
-    fontSize: 32,
-    color: "#e7e7e7",
-    fontWeight: "bold",
-    marginTop: 24,
-    marginHorizontal: 12,
-  },
-  search: {
-    width: width - 24,
-    height: 40,
-    backgroundColor: "#fff",
-    marginTop: 16,
-    marginHorizontal: 12,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-  },
-  mainScroll: {
-    marginTop: 32,
-    borderRadius: 8,
-  },
-  card: {
-    borderRadius: 8,
-    backgroundColor: "#FAFAFA",
-    elevation: 5,
-    shadowColor: "#000000",
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.7,
-    shadowRadius: 3,
-    marginLeft: 12,
-  },
-});
 
 export default Home;

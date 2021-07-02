@@ -6,8 +6,8 @@ import {
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
-import Home from "../screens/Home";
-import PlantInfo from "../screens/PlantInfo";
+import Home from "../screens/Home/Home";
+import PlantInfo from "../screens/PlantInfo/PlantInfo";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 
