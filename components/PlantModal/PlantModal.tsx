@@ -76,6 +76,7 @@ const PlantModal = (props: PropTypes) => {
     setDescription("");
     setDayIncrement(0);
     setCurrentDate(Date.now());
+    setImage("");
   };
 
   const onDaysChanged = (text: string) => {
