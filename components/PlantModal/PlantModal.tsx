@@ -12,6 +12,7 @@ import * as Notifications from "expo-notifications";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { styles } from "./PlantModal.styled";
+import { LinearGradient } from "expo-linear-gradient";
 
 type PropTypes = {
   visible: boolean;
@@ -67,6 +68,7 @@ const PlantModal = (props: PropTypes) => {
     uploadText,
     uploadButtonText,
     areaContainer,
+    gradientButton,
   } = styles;
 
   const initialState = () => {
@@ -95,8 +97,6 @@ const PlantModal = (props: PropTypes) => {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.cancelled) {
       setImage(result.uri);
@@ -204,8 +204,32 @@ const PlantModal = (props: PropTypes) => {
                 setVisible(false);
               }}
             >
-              <Text style={buttonText}>Create</Text>
+              <LinearGradient
+                colors={["#a8d371b8", "#8ab652bb"]}
+                start={[0, 0]}
+                end={[1, 1]}
+                style={gradientButton}
+              >
+                <Text style={buttonText}>Create</Text>
+              </LinearGradient>
             </TouchableOpacity>
+
+            {/* <TouchableOpacity
+              style={button}
+              onPress={() => {
+                addTask({
+                  title,
+                  description,
+                  currentDate,
+                  dayIncrement,
+                });
+                schedulePushNotification((currentDate - Date.now()) / 1000);
+                initialState();
+                setVisible(false);
+              }}
+            >
+              <Text style={buttonText}>Create</Text>
+            </TouchableOpacity> */}
           </View>
         </View>
       </View>

@@ -70,17 +70,16 @@ export const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 18,
+    textAlign: "center",
   },
   button: {
-    backgroundColor: "#a3cb70",
     borderRadius: 50,
-    padding: 8,
     marginVertical: 8,
     flex: 1,
-    textAlign: "center",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    overflow: "hidden"
+  },
+  gradientButton: {
+    padding: 8,
   },
   icon: {
     color: "#52554F",

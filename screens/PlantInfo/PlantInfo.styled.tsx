@@ -1,10 +1,12 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+var width = Dimensions.get("window").width; //full width
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
-    paddingTop: 50,
+    backgroundColor: "#F0F0F0",
     flex: 1,
+    paddingTop: 50,
   },
   row: {
     display: "flex",
@@ -67,10 +69,53 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  fertIcon: {
+    color: "#a3cb70",
+  },
   waterIcon: {
     color: "#69a2e2",
   },
-  fertIcon: {
-    color: "#A2CA6B",
+  backIcon: {
+    marginLeft: 12,
+    color: "#52554F",
+  },
+  bottomInfo: {
+    backgroundColor: "#fff",
+    paddingHorizontal: 24,
+    paddingTop: 50,
+    marginTop: 150,
+    flex: 1,
+    borderTopRightRadius: 50,
+  },
+  img: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+  },
+  imgWrapper: {
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    borderRadius: 100,
+    position: "absolute",
+    top: -150,
+    left: width / 2 - 100,
+  },
+  button: {
+    marginTop: 2,
+    marginBottom: 24,
+    borderRadius: 50,
+    overflow: "hidden"
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  gradientButton: {
+    padding: 8,
   },
 });
