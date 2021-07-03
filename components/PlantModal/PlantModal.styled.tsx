@@ -1,6 +1,7 @@
-import { StyleSheet } from "react-native";
+import { styleSheetFactory } from "../../constants/Theme";
+import { Colors } from "../../constants/types";
 
-export const styles = StyleSheet.create({
+export const styles = styleSheetFactory((theme: Colors) => ({
   column: {
     flexDirection: "column",
     alignSelf: "stretch",
@@ -31,8 +32,8 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   modalView: {
-    backgroundColor: "#ffffff",
-    borderBottomColor: "#a1a1a1",
+    backgroundColor: theme.background,
+    borderBottomColor: theme.border,
     borderBottomWidth: 1,
     paddingHorizontal: 28,
     paddingBottom: 24,
@@ -44,7 +45,7 @@ export const styles = StyleSheet.create({
   titleText: {
     fontWeight: "bold",
     fontSize: 18,
-    color: "#52554F",
+    color: theme.titleText,
     paddingTop: 8,
     alignSelf: "stretch",
     textAlign: "center",
@@ -55,19 +56,19 @@ export const styles = StyleSheet.create({
     padding: 4,
     paddingLeft: 8,
     borderWidth: 1,
-    borderColor: "#a1a1a1",
-    color: "#656965",
+    borderColor: theme.border,
+    color: theme.text,
     alignSelf: "stretch",
     width: "40%",
     borderRadius: 50,
   },
   commandText: {
-    color: "#656965",
+    color: theme.text,
     minWidth: "55%",
     marginRight: 8,
   },
   buttonText: {
-    color: "#fff",
+    color: theme.buttonText,
     fontWeight: "bold",
     fontSize: 18,
     textAlign: "center",
@@ -76,7 +77,7 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
     marginVertical: 8,
     flex: 1,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   gradientButton: {
     padding: 8,
@@ -103,7 +104,7 @@ export const styles = StyleSheet.create({
     width: 150,
   },
   uploadButton: {
-    borderColor: "#656965",
+    borderColor: theme.border,
     borderWidth: 1,
     borderRadius: 8,
     marginVertical: 8,
@@ -114,13 +115,13 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   uploadText: {
-    color: "#656965",
+    color: theme.text,
   },
   uploadButtonText: {
-    color: "#656965",
+    color: theme.text,
   },
   areaContainer: {
     height: 100,
     borderRadius: 16,
   },
-});
+}));

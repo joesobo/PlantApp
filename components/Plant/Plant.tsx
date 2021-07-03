@@ -1,7 +1,8 @@
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { styles } from "./Plant.styled";
+import { styles as themedStyles } from "./Plant.styled";
+import { useTheme } from "react-native-themed-styles";
 
 type PropTypes = {
   title?: String;
@@ -23,6 +24,7 @@ const Plant = (props: PropTypes) => {
     // schedulePushNotification,
     setSelectedTaskIndex,
   } = props;
+  const [styles] = useTheme(themedStyles);
   const {
     card,
     plant,
@@ -51,7 +53,7 @@ const Plant = (props: PropTypes) => {
         <View style={column}>
           <Image
             source={{ uri: image }}
-            style={isCurrentTaskSelected ? imgLg : img}
+            // style={isCurrentTaskSelected ? imgLg : img}
           />
           <View style={row}>
             <Text style={titleStyle}>{title}</Text>

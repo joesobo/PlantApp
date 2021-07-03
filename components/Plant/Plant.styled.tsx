@@ -1,6 +1,7 @@
-import { StyleSheet } from "react-native";
+import { styleSheetFactory } from "../../constants/Theme";
+import { Colors } from "../../constants/types";
 
-export const styles = StyleSheet.create({
+export const styles = styleSheetFactory((theme: Colors) => ({
   plant: {
     width: 110,
     height: 155,
@@ -15,14 +16,14 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#e0e0e0",
     elevation: 5,
-    shadowColor: "#000000",
+    shadowColor: theme.shadow,
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.7,
     shadowRadius: 3,
     marginLeft: 12,
   },
   selected: {
-    backgroundColor: "#fff",
+    backgroundColor: theme.background,
   },
   column: {
     flexDirection: "column",
@@ -58,6 +59,6 @@ export const styles = StyleSheet.create({
     paddingTop: 3,
   },
   waterIcon: {
-    color: "#69a2e2",
+    color: theme.waterColor,
   },
-});
+}));

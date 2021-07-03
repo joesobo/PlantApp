@@ -1,17 +1,19 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
+import { styleSheetFactory } from "../../constants/Theme";
+import { Colors } from "../../constants/types";
 
 var width = Dimensions.get("window").width; //full width
 
-export const styles = StyleSheet.create({
+export const styles = styleSheetFactory((theme: Colors) => ({
   fullPlant: {
     width: width - 24,
     marginTop: 16,
   },
   card: {
     borderRadius: 8,
-    backgroundColor: "#fff",
+    backgroundColor: theme.background,
     elevation: 5,
-    shadowColor: "#000000",
+    shadowColor: theme.shadow,
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.7,
     shadowRadius: 3,
@@ -40,11 +42,11 @@ export const styles = StyleSheet.create({
   },
   descText: {
     fontSize: 14,
-    color: "#bbbbbb",
+    color: theme.descText,
   },
   rightCol: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
   },
-});
+}));

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { Task } from "../../types";
+import { Task } from "../../constants/types";
 import { styles } from "./PlantInfo.styled";
 import { LinearGradient } from "expo-linear-gradient";
 import { RouteProp } from "@react-navigation/native";

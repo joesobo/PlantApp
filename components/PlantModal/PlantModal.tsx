@@ -11,7 +11,8 @@ import {
 import * as Notifications from "expo-notifications";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { styles } from "./PlantModal.styled";
+import { styles as themedStyles } from "./PlantModal.styled";
+import { useTheme } from "react-native-themed-styles";
 import { LinearGradient } from "expo-linear-gradient";
 
 type PropTypes = {
@@ -49,6 +50,7 @@ const PlantModal = (props: PropTypes) => {
   const [image, setImage] = useState<string>("");
 
   const { visible, setVisible, addTask } = props;
+  const [styles] = useTheme(themedStyles);
   const {
     modal,
     background,
@@ -199,7 +201,7 @@ const PlantModal = (props: PropTypes) => {
                   description,
                   currentDate,
                   dayIncrement,
-                  image
+                  image,
                 });
                 schedulePushNotification((currentDate - Date.now()) / 1000);
                 initialState();

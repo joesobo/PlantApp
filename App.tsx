@@ -5,7 +5,6 @@ import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Navigation from "./navigation";
-import useColorScheme from "./hooks/useColorScheme";
 
 const registerForPushNotificationsAsync = async () => {
   let token;
@@ -39,9 +38,6 @@ const registerForPushNotificationsAsync = async () => {
 };
 
 export default function App() {
-  // const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
-
   useEffect(() => {
     if (Platform.OS !== "web") {
       registerForPushNotificationsAsync();
@@ -50,7 +46,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <Navigation colorScheme={colorScheme} />
+      <Navigation />
       <StatusBar />
     </SafeAreaProvider>
   );

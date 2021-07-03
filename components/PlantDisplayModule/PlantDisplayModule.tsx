@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { Task } from "../../types";
-import { styles } from "./PlantDisplayModule.styled";
+import { Task } from "../../constants/types";
+import { styles as themedStyles } from "./PlantDisplayModule.styled";
+import { useTheme } from "react-native-themed-styles";
 
 type PropTypes = {
   task: Task;
@@ -11,6 +12,7 @@ type PropTypes = {
 const PlantDisplayModule = (props: PropTypes) => {
   const { task, navigation } = props;
   const { title, description, image } = task;
+  const [styles] = useTheme(themedStyles);
   const {
     fullPlant,
     card,
@@ -27,7 +29,7 @@ const PlantDisplayModule = (props: PropTypes) => {
     <View style={[fullPlant, card]}>
       <View style={col}>
         <View style={row}>
-          <Image source={{ uri: image }} style={img} />
+          {/* <Image source={{ uri: image }} style={img} /> */}
           <View style={[rightCol, descContainer]}>
             <View style={col}>
               <Text style={titleText}>{title}</Text>
