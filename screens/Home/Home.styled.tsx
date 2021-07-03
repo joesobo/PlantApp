@@ -1,11 +1,13 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
+import { styleSheetFactory } from "../../constants/Theme";
+import { Colors } from "../../constants/types";
 
 var height = Dimensions.get("window").height; //full height
 var width = Dimensions.get("window").width; //full width
 
-export const styles = StyleSheet.create({
+export const styles = styleSheetFactory((theme: Colors) => ({
   page: {
-    backgroundColor: "#fff",
+    backgroundColor: theme.background,
   },
   container: {
     position: "relative",
@@ -31,11 +33,11 @@ export const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
   icon: {
-    color: "#fff",
+    color: theme.topIcon,
   },
   titleText: {
     fontSize: 32,
-    color: "#e7e7e7",
+    color: theme.background,
     fontWeight: "bold",
     marginTop: 24,
     marginHorizontal: 12,
@@ -43,7 +45,7 @@ export const styles = StyleSheet.create({
   search: {
     width: width - 24,
     height: 40,
-    backgroundColor: "#fff",
+    backgroundColor: theme.background,
     marginTop: 16,
     marginHorizontal: 12,
     borderRadius: 8,
@@ -53,4 +55,4 @@ export const styles = StyleSheet.create({
     marginTop: 32,
     borderRadius: 8,
   },
-});
+}));

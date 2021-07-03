@@ -14,9 +14,12 @@ import WeatherModule from "../../components/WeatherModule/WeatherModule";
 import PlantDisplayModule from "../../components/PlantDisplayModule/PlantDisplayModule";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList, Task } from "../../constants/types";
-import { styles } from "./Home.styled";
+import { styles as themedStyles } from "./Home.styled";
+import { useTheme } from "react-native-themed-styles";
+import { backgroundGradient } from "../../constants/Colors";
 
 const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
+  const [styles] = useTheme(themedStyles);
   const {
     page,
     container,
@@ -51,7 +54,7 @@ const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
         {/* background */}
         <View style={[background, smallHeight]}>
           <LinearGradient
-            colors={["#9ac565", "#406428"]}
+            colors={[backgroundGradient.start, backgroundGradient.end]}
             start={[1, 0]}
             end={[0, 1]}
             style={smallHeight}

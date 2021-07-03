@@ -14,7 +14,7 @@ export const styles = styleSheetFactory((theme: Colors) => ({
   },
   card: {
     borderRadius: 8,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: theme.background,
     elevation: 5,
     shadowColor: theme.shadow,
     shadowOffset: { width: 1, height: 1 },
@@ -29,12 +29,12 @@ export const styles = styleSheetFactory((theme: Colors) => ({
     flexDirection: "column",
   },
   titleStyle: {
-    color: "#192c19",
+    color: theme.titleText,
     fontSize: 16,
     paddingLeft: 2,
   },
   textStyle: {
-    color: "#192c19",
+    color: theme.text,
     fontSize: 14,
     paddingLeft: 4,
   },

@@ -1,10 +1,12 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
+import { styleSheetFactory } from "../../constants/Theme";
+import { Colors } from "../../constants/types";
 
 var width = Dimensions.get("window").width; //full width
 
-export const styles = StyleSheet.create({
+export const styles = styleSheetFactory((theme: Colors) => ({
   container: {
-    backgroundColor: "#F0F0F0",
+    backgroundColor: theme.displayBackground,
     flex: 1,
     paddingTop: 50,
   },
@@ -24,7 +26,7 @@ export const styles = StyleSheet.create({
     marginVertical: 4,
   },
   generalInfo: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: theme.darkBackground,
     flex: 1,
     minHeight: 50,
     display: "flex",
@@ -37,10 +39,10 @@ export const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 14,
-    color: "#757575",
+    color: theme.text,
   },
   infoContainer: {
-    backgroundColor: "#ffffff",
+    backgroundColor: theme.background,
     height: 110,
     width: 110,
     position: "absolute",
@@ -55,13 +57,13 @@ export const styles = StyleSheet.create({
   infoValue: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#656965",
+    color: theme.text,
     position: "absolute",
   },
   infoTitle: {
     fontSize: 22,
     fontWeight: "bold",
-    color: "#52554F",
+    color: theme.titleText,
     marginLeft: 8,
   },
   titleRow: {
@@ -70,17 +72,17 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   fertIcon: {
-    color: "#a3cb70",
+    color: theme.mainColor,
   },
   waterIcon: {
-    color: "#69a2e2",
+    color: theme.waterColor,
   },
   backIcon: {
     marginLeft: 12,
-    color: "#52554F",
+    color: theme.generalIcon,
   },
   bottomInfo: {
-    backgroundColor: "#fff",
+    backgroundColor: theme.background,
     paddingHorizontal: 24,
     paddingTop: 50,
     marginTop: 150,
@@ -94,7 +96,7 @@ export const styles = StyleSheet.create({
   },
   imgWrapper: {
     elevation: 5,
-    shadowColor: "#000",
+    shadowColor: theme.shadow,
     shadowOffset: { width: 2, height: 3 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
@@ -107,10 +109,10 @@ export const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: 24,
     borderRadius: 50,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   buttonText: {
-    color: "#fff",
+    color: theme.buttonText,
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
@@ -118,4 +120,4 @@ export const styles = StyleSheet.create({
   gradientButton: {
     padding: 8,
   },
-});
+}));

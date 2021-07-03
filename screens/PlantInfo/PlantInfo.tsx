@@ -3,9 +3,11 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Task } from "../../constants/types";
-import { styles } from "./PlantInfo.styled";
+import { styles as themedStyles } from "./PlantInfo.styled";
+import { useTheme } from "react-native-themed-styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { RouteProp } from "@react-navigation/native";
+import { waterGradient, fertGradient } from "../../constants/Colors";
 
 type PropTypes = {
   route: RouteProp<{ params: { task: Task } }, "params">;
@@ -15,6 +17,7 @@ type PropTypes = {
 const PlantInfo = ({ route, navigation }: PropTypes) => {
   const { task } = route.params;
   const { title, description, image } = task;
+  const [styles] = useTheme(themedStyles);
   const {
     container,
     row,
@@ -79,7 +82,7 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
 
       <View style={bottomInfo}>
         <View style={imgWrapper}>
-          <Image source={{ uri: image }} style={img} />
+          {/* <Image source={{ uri: image }} style={img} /> */}
         </View>
 
         <View style={col}>
@@ -118,7 +121,7 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
 
           <TouchableOpacity style={button}>
             <LinearGradient
-              colors={["#98bfebb9", "#69a2e2bc"]}
+              colors={[waterGradient.start, waterGradient.end]}
               start={[0, 0]}
               end={[1, 1]}
               style={gradientButton}
@@ -159,7 +162,7 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
 
           <TouchableOpacity style={button}>
             <LinearGradient
-              colors={["#f3cb90ba", "#efb051bc"]}
+              colors={[fertGradient.start, fertGradient.end]}
               start={[0, 0]}
               end={[1, 1]}
               style={gradientButton}

@@ -14,6 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import { styles as themedStyles } from "./PlantModal.styled";
 import { useTheme } from "react-native-themed-styles";
 import { LinearGradient } from "expo-linear-gradient";
+import { mainGradient } from "../../constants/Colors";
 
 type PropTypes = {
   visible: boolean;
@@ -209,7 +210,7 @@ const PlantModal = (props: PropTypes) => {
               }}
             >
               <LinearGradient
-                colors={["#a8d371b8", "#8ab652bb"]}
+                colors={[mainGradient.start, mainGradient.end]}
                 start={[0, 0]}
                 end={[1, 1]}
                 style={gradientButton}
@@ -217,23 +218,6 @@ const PlantModal = (props: PropTypes) => {
                 <Text style={buttonText}>Create</Text>
               </LinearGradient>
             </TouchableOpacity>
-
-            {/* <TouchableOpacity
-              style={button}
-              onPress={() => {
-                addTask({
-                  title,
-                  description,
-                  currentDate,
-                  dayIncrement,
-                });
-                schedulePushNotification((currentDate - Date.now()) / 1000);
-                initialState();
-                setVisible(false);
-              }}
-            >
-              <Text style={buttonText}>Create</Text>
-            </TouchableOpacity> */}
           </View>
         </View>
       </View>

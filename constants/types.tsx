@@ -13,10 +13,17 @@ export type Task = {
 export type Colors = {
   shadow: string;
   background: string;
+  barBackground: string;
+  displayBackground: string;
+  darkBackground: string;
   waterColor: string;
+  mainColor: string;
   descText: string;
   titleText: string;
   buttonText: string;
   text: string;
+  lightText: string;
   border: string;
+  topIcon: string;
+  generalIcon: string;
 };

@@ -2,7 +2,9 @@ import React from "react";
 import { View, Text } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { LinearGradient } from "expo-linear-gradient";
-import { styles } from "./WeatherModule.styled";
+import { styles as themedStyles } from "./WeatherModule.styled";
+import { useTheme } from "react-native-themed-styles";
+import { mainGradient } from "../../constants/Colors";
 
 const WeatherModule = () => {
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -24,6 +26,7 @@ const WeatherModule = () => {
     fillShadowGradientOpacity: 1,
   };
 
+  const [styles] = useTheme(themedStyles);
   const {
     row,
     barChart,
@@ -57,7 +60,7 @@ const WeatherModule = () => {
                 <View style={barBackground}>
                   <View style={bar}>
                     <LinearGradient
-                      colors={["#D3ECA3bc", "#9DC569bc"]}
+                      colors={[mainGradient.start, mainGradient.end]}
                       start={[1, 0]}
                       end={[0, 1]}
                       style={gradient}

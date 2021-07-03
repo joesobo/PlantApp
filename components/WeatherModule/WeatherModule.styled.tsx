@@ -1,8 +1,10 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
+import { styleSheetFactory } from "../../constants/Theme";
+import { Colors } from "../../constants/types";
 
 const width = Dimensions.get("window").width; //full width
 
-export const styles = StyleSheet.create({
+export const styles = styleSheetFactory((theme: Colors) => ({
   row: {
     display: "flex",
     flexDirection: "row",
@@ -30,7 +32,7 @@ export const styles = StyleSheet.create({
   barBackground: {
     width: 12,
     height: 80,
-    backgroundColor: "#F1F3EF",
+    backgroundColor: theme.barBackground,
     borderRadius: 12,
     display: "flex",
     flexDirection: "row",
@@ -50,7 +52,7 @@ export const styles = StyleSheet.create({
   tempValue: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#656965",
+    color: theme.text,
   },
   barColumn: {
     display: "flex",
@@ -60,7 +62,7 @@ export const styles = StyleSheet.create({
   dayText: {
     fontSize: 12,
     fontWeight: "bold",
-    color: "#CBCBCB",
+    color: theme.lightText,
   },
   weather: {
     width: width - 24,
@@ -70,12 +72,12 @@ export const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 8,
-    backgroundColor: "#FAFAFA",
+    backgroundColor: theme.background,
     elevation: 5,
-    shadowColor: "#000000",
+    shadowColor: theme.shadow,
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.7,
     shadowRadius: 3,
     marginLeft: 12,
   },
-});
+}));
