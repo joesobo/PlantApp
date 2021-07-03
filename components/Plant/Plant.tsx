@@ -1,6 +1,6 @@
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, ImageStyle } from "react-native";
 import { styles as themedStyles } from "./Plant.styled";
 import { useTheme } from "react-native-themed-styles";
 
@@ -53,7 +53,11 @@ const Plant = (props: PropTypes) => {
         <View style={column}>
           <Image
             source={{ uri: image }}
-            // style={isCurrentTaskSelected ? imgLg : img}
+            style={
+              isCurrentTaskSelected
+                ? (imgLg as ImageStyle)
+                : (img as ImageStyle)
+            }
           />
           <View style={row}>
             <Text style={titleStyle}>{title}</Text>

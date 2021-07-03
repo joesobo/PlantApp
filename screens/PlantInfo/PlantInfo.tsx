@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image, ImageStyle } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Task } from "../../constants/types";
@@ -82,7 +82,7 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
 
       <View style={bottomInfo}>
         <View style={imgWrapper}>
-          {/* <Image source={{ uri: image }} style={img} /> */}
+          <Image source={{ uri: image }} style={img as ImageStyle} />
         </View>
 
         <View style={col}>
