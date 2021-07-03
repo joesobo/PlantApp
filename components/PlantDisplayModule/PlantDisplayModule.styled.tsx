@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
   },
   descContainer: {
+    flexShrink: 1,
     marginLeft: 8,
   },
   titleText: {
