@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "./WeatherModule.styled";
-import { mainGradient } from "../../constants/Colors";
+import { mainGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 
 const WeatherModule = () => {

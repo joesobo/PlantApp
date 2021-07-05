@@ -6,7 +6,7 @@ import Constants from "expo-constants";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Navigation from "./navigation";
 import { MainContext } from "./constants/context";
-import { light, dark } from "./constants/Colors";
+import { light, dark } from "./constants/colors";
 
 const registerForPushNotificationsAsync = async () => {
   let token;

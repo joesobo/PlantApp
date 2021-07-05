@@ -15,7 +15,7 @@ import PlantDisplayModule from "../../components/PlantDisplayModule/PlantDisplay
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList, Task } from "../../constants/types";
 import { styles } from "./Home.styled";
-import { backgroundGradient } from "../../constants/Colors";
+import { backgroundGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 
 const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {

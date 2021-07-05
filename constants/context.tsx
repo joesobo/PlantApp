@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { useColorScheme } from "react-native-appearance";
-import { light } from "./Colors";
+import { light } from "./colors";
 // const colorScheme = useColorScheme();
   // return ["light", "dark"].includes(colorScheme) ? colorScheme : "light";
 

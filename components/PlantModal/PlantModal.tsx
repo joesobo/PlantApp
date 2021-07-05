@@ -13,7 +13,7 @@ import { AntDesign, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { styles } from "./PlantModal.styled";
 import { LinearGradient } from "expo-linear-gradient";
-import { mainGradient } from "../../constants/Colors";
+import { mainGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 
 type PropTypes = {

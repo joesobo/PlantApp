@@ -6,7 +6,7 @@ import { Task } from "../../constants/types";
 import { styles } from "./PlantInfo.styled";
 import { LinearGradient } from "expo-linear-gradient";
 import { RouteProp } from "@react-navigation/native";
-import { waterGradient, fertGradient } from "../../constants/Colors";
+import { waterGradient, fertGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 
 type PropTypes = {
