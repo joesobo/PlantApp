@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -11,10 +11,10 @@ import {
 import * as Notifications from "expo-notifications";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { styles as themedStyles } from "./PlantModal.styled";
-import { useTheme } from "react-native-themed-styles";
+import { styles } from "./PlantModal.styled";
 import { LinearGradient } from "expo-linear-gradient";
 import { mainGradient } from "../../constants/Colors";
+import { MainContext } from "../../constants/context";
 
 type PropTypes = {
   visible: boolean;
@@ -44,6 +44,7 @@ const schedulePushNotification = async (time: number) => {
 };
 
 const PlantModal = (props: PropTypes) => {
+  const { theme } = useContext(MainContext);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [dayIncrement, setDayIncrement] = useState<number>(0);
@@ -51,7 +52,6 @@ const PlantModal = (props: PropTypes) => {
   const [image, setImage] = useState<string>("");
 
   const { visible, setVisible, addTask } = props;
-  const [styles] = useTheme(themedStyles);
   const {
     modal,
     background,
@@ -72,7 +72,7 @@ const PlantModal = (props: PropTypes) => {
     uploadButtonText,
     areaContainer,
     gradientButton,
-  } = styles;
+  } = styles(theme.colors);
 
   const initialState = () => {
     setTitle("");

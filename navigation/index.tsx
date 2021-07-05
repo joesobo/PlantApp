@@ -6,7 +6,7 @@ import PlantInfo from "../screens/PlantInfo/PlantInfo";
 import { RootStackParamList } from "../constants/types";
 import LinkingConfiguration from "./LinkingConfiguration";
 
-export default function Navigation() {
+export default function Navigation(isDarkTheme: boolean) {
   return (
     <NavigationContainer linking={LinkingConfiguration}>
       <RootNavigator />

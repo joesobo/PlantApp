@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { LinearGradient } from "expo-linear-gradient";
-import { styles as themedStyles } from "./WeatherModule.styled";
-import { useTheme } from "react-native-themed-styles";
+import { styles } from "./WeatherModule.styled";
 import { mainGradient } from "../../constants/Colors";
+import { MainContext } from "../../constants/context";
 
 const WeatherModule = () => {
+  const { theme } = useContext(MainContext);
+  
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   const data1 = {
@@ -26,7 +28,6 @@ const WeatherModule = () => {
     fillShadowGradientOpacity: 1,
   };
 
-  const [styles] = useTheme(themedStyles);
   const {
     row,
     barChart,
@@ -39,7 +40,7 @@ const WeatherModule = () => {
     gradient,
     weather,
     card,
-  } = styles;
+  } = styles(theme.colors);
 
   return (
     <View style={[weather, card]}>

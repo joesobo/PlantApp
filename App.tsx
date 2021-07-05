@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Navigation from "./navigation";
+import { MainContext } from "./constants/context";
+import { light, dark } from "./constants/Colors";
 
 const registerForPushNotificationsAsync = async () => {
   let token;
@@ -38,16 +40,32 @@ const registerForPushNotificationsAsync = async () => {
 };
 
 export default function App() {
-  useEffect(() => {
-    if (Platform.OS !== "web") {
-      registerForPushNotificationsAsync();
-    }
-  });
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
+
+  const context = useMemo(
+    () => ({
+      toggleTheme: () => {
+        setIsDarkTheme(!isDarkTheme);
+      },
+      theme: {
+        colors: isDarkTheme ? dark : light,
+      },
+    }),
+    [isDarkTheme]
+  );
+
+  // useEffect(() => {
+  //   if (Platform.OS !== "web") {
+  //     registerForPushNotificationsAsync();
+  //   }
+  // });
 
   return (
-    <SafeAreaProvider>
-      <Navigation />
-      <StatusBar />
-    </SafeAreaProvider>
+    <MainContext.Provider value={context}>
+      <SafeAreaProvider>
+        <Navigation {...isDarkTheme} />
+        <StatusBar />
+      </SafeAreaProvider>
+    </MainContext.Provider>
   );
 }

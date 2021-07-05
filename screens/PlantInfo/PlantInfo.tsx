@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, TouchableOpacity, Image, ImageStyle } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Task } from "../../constants/types";
-import { styles as themedStyles } from "./PlantInfo.styled";
-import { useTheme } from "react-native-themed-styles";
+import { styles } from "./PlantInfo.styled";
 import { LinearGradient } from "expo-linear-gradient";
 import { RouteProp } from "@react-navigation/native";
 import { waterGradient, fertGradient } from "../../constants/Colors";
+import { MainContext } from "../../constants/context";
 
 type PropTypes = {
   route: RouteProp<{ params: { task: Task } }, "params">;
@@ -15,9 +15,9 @@ type PropTypes = {
 };
 
 const PlantInfo = ({ route, navigation }: PropTypes) => {
+  const { theme } = useContext(MainContext);
   const { task } = route.params;
   const { title, description, image } = task;
-  const [styles] = useTheme(themedStyles);
   const {
     container,
     row,
@@ -38,7 +38,7 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     fertIcon,
     waterIcon,
     gradientButton,
-  } = styles;
+  } = styles(theme.colors);
 
   const data1 = {
     data: [0.3],

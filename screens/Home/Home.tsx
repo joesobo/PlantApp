@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   View,
@@ -14,24 +14,24 @@ import WeatherModule from "../../components/WeatherModule/WeatherModule";
 import PlantDisplayModule from "../../components/PlantDisplayModule/PlantDisplayModule";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList, Task } from "../../constants/types";
-import { styles as themedStyles } from "./Home.styled";
-import { useTheme } from "react-native-themed-styles";
+import { styles } from "./Home.styled";
 import { backgroundGradient } from "../../constants/Colors";
+import { MainContext } from "../../constants/context";
 
 const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
-  const [styles] = useTheme(themedStyles);
+  const { toggleTheme, theme } = useContext(MainContext);
   const {
     page,
+    icon,
     container,
     background,
     topContainer,
     smallHeight,
     row,
-    icon,
     titleText,
     search,
     mainScroll,
-  } = styles;
+  } = styles(theme.colors);
 
   const [text, setText] = React.useState("");
   const [taskItems, setTaskItems] = useState<Task[]>([]);
@@ -63,7 +63,7 @@ const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
         {/* top elements */}
         <View style={topContainer}>
           <View style={row}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={toggleTheme}>
               <Entypo name="menu" size={20} style={icon} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setModalVisible(true)}>

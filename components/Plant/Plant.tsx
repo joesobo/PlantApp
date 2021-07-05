@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View, Text, Image, TouchableOpacity, ImageStyle } from "react-native";
-import { styles as themedStyles } from "./Plant.styled";
-import { useTheme } from "react-native-themed-styles";
+import { styles } from "./Plant.styled";
+import { MainContext } from "../../constants/context";
 
 type PropTypes = {
   title?: String;
@@ -16,6 +16,7 @@ type PropTypes = {
 };
 
 const Plant = (props: PropTypes) => {
+  const { theme } = useContext(MainContext);
   const {
     title,
     index,
@@ -24,7 +25,6 @@ const Plant = (props: PropTypes) => {
     // schedulePushNotification,
     setSelectedTaskIndex,
   } = props;
-  const [styles] = useTheme(themedStyles);
   const {
     card,
     plant,
@@ -37,7 +37,7 @@ const Plant = (props: PropTypes) => {
     row,
     waterIcon,
     selected,
-  } = styles;
+  } = styles(theme.colors);
 
   const isCurrentTaskSelected = selectedTaskIndex === index;
 

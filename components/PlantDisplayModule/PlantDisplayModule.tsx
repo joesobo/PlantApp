@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Image, TouchableOpacity, ImageStyle } from "react-native";
+import { MainContext } from "../../constants/context";
 import { Task } from "../../constants/types";
-import { styles as themedStyles } from "./PlantDisplayModule.styled";
-import { useTheme } from "react-native-themed-styles";
+import { styles } from "./PlantDisplayModule.styled";
 
 type PropTypes = {
   task: Task;
@@ -10,9 +10,9 @@ type PropTypes = {
 };
 
 const PlantDisplayModule = (props: PropTypes) => {
+  const { theme } = useContext(MainContext);
   const { task, navigation } = props;
   const { title, description, image } = task;
-  const [styles] = useTheme(themedStyles);
   const {
     fullPlant,
     card,
@@ -23,7 +23,7 @@ const PlantDisplayModule = (props: PropTypes) => {
     titleText,
     descText,
     rightCol,
-  } = styles;
+  } = styles(theme.colors);
 
   return (
     <View style={[fullPlant, card]}>
