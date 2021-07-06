@@ -7,6 +7,7 @@ import {
   TextInput,
   Platform,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import * as Notifications from "expo-notifications";
 import { AntDesign, Feather } from "@expo/vector-icons";
@@ -122,6 +123,7 @@ const PlantModal = (props: PropTypes) => {
   return (
     <Modal style={modal} animationType="fade" visible={visible} transparent>
       <View style={background}>
+      <KeyboardAvoidingView behavior="padding" enabled>
         <View style={modalView}>
           <View style={titleRow}>
             <Text style={titleText}>Plant Information</Text>
@@ -220,6 +222,7 @@ const PlantModal = (props: PropTypes) => {
             </TouchableOpacity>
           </View>
         </View>
+        </KeyboardAvoidingView>
       </View>
     </Modal>
   );
