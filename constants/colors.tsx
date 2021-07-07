@@ -38,6 +38,8 @@ export const light = {
   border: "#a1a1a1",
   topIcon: "#fff",
   generalIcon: "#52554F",
+  cardBackground: "#ececec",
+  selectedBackground: "#fff",
 };
 
 export const dark = {
@@ -57,4 +59,6 @@ export const dark = {
   border: "#373737",
   topIcon: "#1D1D1D",
   generalIcon: "#000",
+  cardBackground: "#232323",
+  selectedBackground: "#2b2a2a",
 };

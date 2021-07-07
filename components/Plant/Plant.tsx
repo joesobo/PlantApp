@@ -37,6 +37,7 @@ const Plant = (props: PropTypes) => {
     row,
     waterIcon,
     selected,
+    unselected,
   } = styles(theme.colors);
 
   const isCurrentTaskSelected = selectedTaskIndex === index;
@@ -47,7 +48,7 @@ const Plant = (props: PropTypes) => {
         style={[
           card,
           isCurrentTaskSelected ? plantSelected : plant,
-          isCurrentTaskSelected ? selected : null,
+          isCurrentTaskSelected ? selected : unselected,
         ]}
       >
         <View style={column}>

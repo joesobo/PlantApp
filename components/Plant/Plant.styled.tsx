@@ -15,7 +15,7 @@ export let styles = (props: Colors) =>
     },
     card: {
       borderRadius: 8,
-      backgroundColor: props.background,
+      backgroundColor: props.displayBackground,
       elevation: 5,
       shadowColor: props.shadow,
       shadowOffset: { width: 1, height: 1 },
@@ -24,7 +24,10 @@ export let styles = (props: Colors) =>
       marginLeft: 12,
     },
     selected: {
-      backgroundColor: props.background,
+      backgroundColor: props.selectedBackground,
+    },
+    unselected: {
+      backgroundColor: props.cardBackground,
     },
     column: {
       flexDirection: "column",
