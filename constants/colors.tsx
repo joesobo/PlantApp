@@ -24,7 +24,7 @@ export const disabledButton = {
 export const light = {
   shadow: "#000",
   background: "#fff",
-  barBackground: "#F1F3EF",
+  barBackground: "#F2F2F2",
   displayBackground: "#F0F0F0",
   darkBackground: "#f5f5f5",
   waterColor: waterColor,
@@ -58,7 +58,7 @@ export const dark = {
   disabledText: "#464646",
   border: "#373737",
   topIcon: "#1D1D1D",
-  generalIcon: "#000",
+  generalIcon: "#111111",
   cardBackground: "#232323",
   selectedBackground: "#2b2a2a",
 };

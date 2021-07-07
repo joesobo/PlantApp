@@ -84,10 +84,10 @@ export let styles = (props: Colors) =>
       padding: 8,
     },
     icon: {
-      color: "#52554F",
+      color: props.generalIcon,
     },
     imageUpload: {
-      backgroundColor: "#f2f2f2",
+      backgroundColor: props.barBackground,
       width: 150,
       height: 150,
       display: "flex",
