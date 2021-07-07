@@ -12,14 +12,13 @@ import PlantModal from "../../components/PlantModal/PlantModal";
 import Plant from "../../components/Plant/Plant";
 import WeatherModule from "../../components/WeatherModule/WeatherModule";
 import PlantDisplayModule from "../../components/PlantDisplayModule/PlantDisplayModule";
-import { StackScreenProps } from "@react-navigation/stack";
-import { RootStackParamList, Task } from "../../constants/types";
+import { Task } from "../../constants/types";
 import { styles } from "./Home.styled";
 import { backgroundGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 
-const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
-  const { toggleTheme, theme } = useContext(MainContext);
+const Home = ({ navigation }: any) => {
+  const { theme } = useContext(MainContext);
   const {
     page,
     icon,
@@ -39,7 +38,7 @@ const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const addTask = (task: Task) => {
-    if(taskItems.length === 0) setSelectedTaskIndex(0);
+    if (taskItems.length === 0) setSelectedTaskIndex(0);
     const temp = taskItems.concat(task);
     setTaskItems(temp);
   };
@@ -64,7 +63,7 @@ const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
         {/* top elements */}
         <View style={topContainer}>
           <View style={row}>
-            <TouchableOpacity onPress={toggleTheme}>
+            <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
               <Entypo name="menu" size={20} style={icon} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setModalVisible(true)}>

@@ -1,12 +1,18 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 import Home from "../screens/Home/Home";
 import PlantInfo from "../screens/PlantInfo/PlantInfo";
-import { RootStackParamList } from "../constants/types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import { styles } from "./index.styled";
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from "@react-navigation/drawer";
+import { MainContext } from "../constants/context";
 
-export default function Navigation(isDarkTheme: boolean) {
+export default function Navigation() {
   return (
     <NavigationContainer linking={LinkingConfiguration}>
       <RootNavigator />
@@ -14,15 +20,46 @@ export default function Navigation(isDarkTheme: boolean) {
   );
 }
 
-// A root stack navigator is often used for displaying modals on top of all other content
-// Read more here: https://reactnavigation.org/docs/modal
-const Stack = createStackNavigator<RootStackParamList>();
+function CustomDrawerContent(props: any) {
+  const { toggleTheme, theme } = React.useContext(MainContext);
+  const { container } = styles(theme.colors);
+
+  return (
+    <DrawerContentScrollView {...props} style={container}>
+      <DrawerItemList {...props} />
+      <DrawerItem
+        label="Close Drawer"
+        onPress={() => props.navigation.closeDrawer()}
+      />
+      <DrawerItem label="Toggle Dark Mode" onPress={toggleTheme} />
+    </DrawerContentScrollView>
+  );
+}
+
+const Drawer = createDrawerNavigator();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="PlantInfo" component={PlantInfo} />
-    </Stack.Navigator>
+    <Drawer.Navigator
+      screenOptions={{ headerShown: false }}
+      drawerContent={(props) => {
+        const filteredProps = {
+          ...props,
+          state: {
+            ...props.state,
+            routeNames: props.state.routeNames.filter((routeNames) => {
+              return routeNames !== "PlantInfo";
+            }),
+            routes: props.state.routes.filter((route) => {
+              return route.name !== "PlantInfo";
+            }),
+          },
+        };
+        return <CustomDrawerContent {...filteredProps} />;
+      }}
+    >
+      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="PlantInfo" component={PlantInfo} />
+    </Drawer.Navigator>
   );
 }

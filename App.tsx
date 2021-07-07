@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 import { StatusBar } from "expo-status-bar";
@@ -64,7 +64,7 @@ export default function App() {
   return (
     <MainContext.Provider value={context}>
       <SafeAreaProvider>
-        <Navigation {...isDarkTheme} />
+        <Navigation />
         <StatusBar />
       </SafeAreaProvider>
     </MainContext.Provider>
