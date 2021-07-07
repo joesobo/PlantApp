@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, ImageStyle } from "react-native";
 import { MainContext } from "../../constants/context";
 import { Task } from "../../constants/types";
 import { styles } from "./PlantDisplayModule.styled";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 type PropTypes = {
   task: Task;
@@ -23,6 +24,10 @@ const PlantDisplayModule = (props: PropTypes) => {
     titleText,
     descText,
     rightCol,
+    spacedRow,
+    spacedCol,
+    icon,
+    moreText,
   } = styles(theme.colors);
 
   return (
@@ -31,8 +36,17 @@ const PlantDisplayModule = (props: PropTypes) => {
         <View style={row}>
           <Image source={{ uri: image }} style={img as ImageStyle} />
           <View style={[rightCol, descContainer]}>
-            <View style={col}>
-              <Text style={titleText}>{title}</Text>
+            <View style={spacedCol}>
+              <View style={spacedRow}>
+                <Text style={titleText}>{title}</Text>
+                <TouchableOpacity onPress={() => null}>
+                  <MaterialCommunityIcons
+                    name="delete-empty-outline"
+                    style={icon}
+                    size={22}
+                  />
+                </TouchableOpacity>
+              </View>
               <Text style={descText}>{description}</Text>
             </View>
             <TouchableOpacity
@@ -42,7 +56,7 @@ const PlantDisplayModule = (props: PropTypes) => {
                 })
               }
             >
-              <Text style={descText}>See more...</Text>
+              <Text style={moreText}>See more...</Text>
             </TouchableOpacity>
           </View>
         </View>
