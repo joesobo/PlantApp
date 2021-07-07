@@ -39,6 +39,7 @@ const Home = ({ navigation }: StackScreenProps<RootStackParamList, "Home">) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const addTask = (task: Task) => {
+    if(taskItems.length === 0) setSelectedTaskIndex(0);
     const temp = taskItems.concat(task);
     setTaskItems(temp);
   };

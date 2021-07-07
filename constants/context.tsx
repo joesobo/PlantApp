@@ -5,6 +5,7 @@ import { light } from "./colors";
   // return ["light", "dark"].includes(colorScheme) ? colorScheme : "light";
 
 export const MainContext = createContext({
+  isDark: false,
   toggleTheme: () => {},
   theme: {
     // colors: ["light", "dark"].includes(useColorScheme()) ? useColorScheme() : "light",

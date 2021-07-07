@@ -16,6 +16,10 @@ export const backgroundGradient = {
   start: "#9ac565",
   end: "#406428",
 }
+export const disabledButton = {
+  light: "#e4e4e4",
+  dark: "#353535"
+}
 
 export const light = {
   shadow: "#000",
@@ -30,6 +34,7 @@ export const light = {
   buttonText: "#fff",
   text: "#656965",
   lightText: "#CBCBCB",
+  disabledText: "#cccccc",
   border: "#a1a1a1",
   topIcon: "#fff",
   generalIcon: "#52554F",
@@ -48,6 +53,7 @@ export const dark = {
   buttonText: "#2c2c2c",
   text: "#b9b9b9",
   lightText: "#494949",
+  disabledText: "#464646",
   border: "#373737",
   topIcon: "#1D1D1D",
   generalIcon: "#000",

@@ -44,6 +44,7 @@ export default function App() {
 
   const context = useMemo(
     () => ({
+      isDark: isDarkTheme,
       toggleTheme: () => {
         setIsDarkTheme(!isDarkTheme);
       },

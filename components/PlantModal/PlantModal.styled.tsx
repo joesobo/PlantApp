@@ -125,4 +125,7 @@ export let styles = (props: Colors) =>
       height: 100,
       borderRadius: 16,
     },
+    disabledText: {
+      color: props.disabledText,
+    }
   });
