@@ -120,4 +120,13 @@ export let styles = (props: Colors) =>
     gradientButton: {
       padding: 8,
     },
+    spacedRow: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    editIcon: {
+      marginRight: 20,
+      color: props.generalIcon,
+    }
   });

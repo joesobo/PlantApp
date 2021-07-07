@@ -27,7 +27,6 @@ export type Colors = {
   border: string;
   topIcon: string;
   generalIcon: string;
-  deleteIcon: string;
   cardBackground: string;
   selectedBackground: string;
 };

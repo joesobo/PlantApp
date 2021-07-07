@@ -63,7 +63,7 @@ export let styles = (props: Colors) =>
       alignSelf: "stretch",
     },
     icon: {
-      color: props.deleteIcon,
+      color: props.generalIcon,
     },
     moreText: {
       color: props.lightText,
