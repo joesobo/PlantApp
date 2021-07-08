@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   View,
@@ -32,15 +32,34 @@ const Home = ({ navigation }: any) => {
     mainScroll,
   } = styles(theme.colors);
 
-  const [text, setText] = React.useState("");
-  const [taskItems, setTaskItems] = useState<Task[]>([]);
+  const [text, setText] = useState("");
+  //TODO: Test data remove!
+  const [taskItems, setTaskItems] = useState<Task[]>([
+    { title: "1", waterIncrement: 0, image: "" },
+    { title: "2", waterIncrement: 0, image: "" },
+    { title: "3", waterIncrement: 0, image: "" },
+  ]);
   const [selectedTaskIndex, setSelectedTaskIndex] = useState<number>(-1);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [, updateState] = useState<any>();
+  const forceUpdate = useCallback(() => updateState({}), []);
 
   const addTask = (task: Task) => {
     if (taskItems.length === 0) setSelectedTaskIndex(0);
     const temp = taskItems.concat(task);
     setTaskItems(temp);
+  };
+
+  const deleteTask = () => {
+    let temp = taskItems;
+    temp.splice(selectedTaskIndex, 1);
+    setTaskItems(temp);
+
+    if (temp.length <= 0) {
+      setSelectedTaskIndex(-1);
+    } else {
+      forceUpdate();
+    }
   };
 
   return (
@@ -100,6 +119,7 @@ const Home = ({ navigation }: any) => {
             {selectedTaskIndex !== -1 ? (
               <PlantDisplayModule
                 task={taskItems[selectedTaskIndex]}
+                deleteTask={deleteTask}
                 navigation={navigation}
               />
             ) : null}

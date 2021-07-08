@@ -4,7 +4,7 @@ export type RootStackParamList = {
 };
 
 export type Task = {
-  title?: string;
+  title: string;
   description?: string;
   waterIncrement: number;
   image: string;

@@ -7,12 +7,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 type PropTypes = {
   task: Task;
+  deleteTask: () => void;
   navigation: any;
 };
 
 const PlantDisplayModule = (props: PropTypes) => {
   const { theme } = useContext(MainContext);
-  const { task, navigation } = props;
+  const { task, deleteTask, navigation } = props;
   const { title, description, image } = task;
   const {
     fullPlant,
@@ -39,7 +40,7 @@ const PlantDisplayModule = (props: PropTypes) => {
             <View style={spacedCol}>
               <View style={spacedRow}>
                 <Text style={titleText}>{title}</Text>
-                <TouchableOpacity onPress={() => null}>
+                <TouchableOpacity onPress={deleteTask}>
                   <MaterialCommunityIcons
                     name="delete-empty-outline"
                     style={icon}
