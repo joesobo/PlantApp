@@ -62,16 +62,17 @@ const Home = ({ navigation }: any) => {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   const updateTask = (task: Task, index: number) => {
-    const temp = taskItems;
-    temp[index] = task;
-    setTaskItems(temp);
+    setTaskItems([
+      ...taskItems.slice(0, index),
+      task,
+      ...taskItems.slice(index + 1),
+    ]);
   };
 
   const addTask = (task: Task) => {
     if (taskItems.length === 0) setSelectedTaskIndex(0);
     const temp = taskItems.concat(task);
     setTaskItems(temp);
-    console.log(task.image);
   };
 
   const deleteTask = () => {
