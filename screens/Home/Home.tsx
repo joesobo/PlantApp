@@ -16,6 +16,7 @@ import { Task } from "../../constants/types";
 import { styles } from "./Home.styled";
 import { backgroundGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
+import EditModal from "../../components/EditModal/EditModal";
 
 const Home = ({ navigation }: any) => {
   const { theme } = useContext(MainContext);
@@ -35,19 +36,40 @@ const Home = ({ navigation }: any) => {
   const [text, setText] = useState("");
   //TODO: Test data remove!
   const [taskItems, setTaskItems] = useState<Task[]>([
-    { title: "1", waterIncrement: 0, image: "" },
-    { title: "2", waterIncrement: 0, image: "" },
-    { title: "3", waterIncrement: 0, image: "" },
+    {
+      title: "1",
+      waterIncrement: 0,
+      image:
+        "file:///Users/joesoboleski/Library/Developer/CoreSimulator/Devices/1649EB64-C7C3-4809-8282-55967BDED21C/data/Containers/Data/Application/E1BABDE4-AC46-4CDE-AC44-141C790F96D0/Library/Caches/ExponentExperienceData/%2540joesobo%252FPlantApp/ImagePicker/85B2D44A-77AF-4B11-B982-804CE79B6017.jpg",
+    },
+    {
+      title: "2",
+      waterIncrement: 0,
+      image:
+        "file:///Users/joesoboleski/Library/Developer/CoreSimulator/Devices/1649EB64-C7C3-4809-8282-55967BDED21C/data/Containers/Data/Application/E1BABDE4-AC46-4CDE-AC44-141C790F96D0/Library/Caches/ExponentExperienceData/%2540joesobo%252FPlantApp/ImagePicker/85B2D44A-77AF-4B11-B982-804CE79B6017.jpg",
+    },
+    {
+      title: "3",
+      waterIncrement: 0,
+      image:
+        "file:///Users/joesoboleski/Library/Developer/CoreSimulator/Devices/1649EB64-C7C3-4809-8282-55967BDED21C/data/Containers/Data/Application/E1BABDE4-AC46-4CDE-AC44-141C790F96D0/Library/Caches/ExponentExperienceData/%2540joesobo%252FPlantApp/ImagePicker/85B2D44A-77AF-4B11-B982-804CE79B6017.jpg",
+    },
   ]);
   const [selectedTaskIndex, setSelectedTaskIndex] = useState<number>(-1);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
+  const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [, updateState] = useState<any>();
   const forceUpdate = useCallback(() => updateState({}), []);
+
+  const updateTask = () => {
+    console.log("Update task");
+  };
 
   const addTask = (task: Task) => {
     if (taskItems.length === 0) setSelectedTaskIndex(0);
     const temp = taskItems.concat(task);
     setTaskItems(temp);
+    console.log(task.image);
   };
 
   const deleteTask = () => {
@@ -65,10 +87,18 @@ const Home = ({ navigation }: any) => {
   return (
     <View style={page}>
       <PlantModal
-        visible={modalVisible}
-        setVisible={setModalVisible}
+        visible={newModalVisible}
+        setVisible={setNewModalVisible}
         addTask={addTask}
       />
+      {selectedTaskIndex !== -1 ? (
+        <EditModal
+          visible={editModalVisible}
+          setVisible={setEditModalVisible}
+          updateTask={updateTask}
+          task={taskItems[selectedTaskIndex]}
+        />
+      ) : null}
       <View style={container}>
         {/* background */}
         <View style={[background, smallHeight]}>
@@ -85,7 +115,7 @@ const Home = ({ navigation }: any) => {
             <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
               <Entypo name="menu" size={20} style={icon} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <TouchableOpacity onPress={() => setNewModalVisible(true)}>
               <Entypo name="add-to-list" size={20} style={icon} />
             </TouchableOpacity>
           </View>
@@ -121,6 +151,7 @@ const Home = ({ navigation }: any) => {
                 task={taskItems[selectedTaskIndex]}
                 deleteTask={deleteTask}
                 navigation={navigation}
+                setEditModalVisible={setEditModalVisible}
               />
             ) : null}
             <WeatherModule />

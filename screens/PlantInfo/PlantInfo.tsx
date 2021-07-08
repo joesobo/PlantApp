@@ -38,8 +38,6 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     fertIcon,
     waterIcon,
     gradientButton,
-    spacedRow,
-    editIcon,
   } = styles(theme.colors);
 
   const data1 = {
@@ -78,14 +76,9 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
 
   return (
     <View style={container}>
-      <View style={spacedRow}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <MaterialIcons style={backIcon} name="arrow-back" size={26} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => null}>
-          <MaterialIcons style={editIcon} name="edit" size={26} />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <MaterialIcons style={backIcon} name="arrow-back" size={26} />
+      </TouchableOpacity>
 
       <View style={bottomInfo}>
         <View style={imgWrapper}>

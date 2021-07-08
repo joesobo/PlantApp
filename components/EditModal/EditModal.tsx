@@ -9,51 +9,30 @@ import {
   Image,
   KeyboardAvoidingView,
 } from "react-native";
-import * as Notifications from "expo-notifications";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { styles } from "./PlantModal.styled";
+import { styles } from "./EditModal.styled";
 import { LinearGradient } from "expo-linear-gradient";
 import { mainGradient, disabledButton } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
+import { Task } from "../../constants/types";
 
 type PropTypes = {
   visible: boolean;
   setVisible: Function;
-  addTask: Function;
+  updateTask: Function;
+  task: Task;
 };
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
+const EditModal = (props: PropTypes) => {
+  const { visible, setVisible, updateTask, task } = props;
 
-const schedulePushNotification = async (time: number) => {
-  if (Platform.OS !== "web") {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Hey there! It's time to water your plant!",
-        body: "{X} plant needs {Y} amount of water",
-        // data: { data: "goes here" },
-      },
-      trigger: { seconds: time },
-    });
-  }
-};
-
-const PlantModal = (props: PropTypes) => {
-  const { theme, isDark } = useContext(MainContext);
+  const { theme } = useContext(MainContext);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [waterIncrement, setWaterIncrement] = useState<number>(0);
-  const [currentDate, setCurrentDate] = useState<number>(Date.now());
-  const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
 
-  const { visible, setVisible, addTask } = props;
   const {
     modal,
     background,
@@ -76,14 +55,6 @@ const PlantModal = (props: PropTypes) => {
     gradientButton,
     disabledText,
   } = styles(theme.colors);
-
-  const initialState = () => {
-    setTitle("");
-    setDescription("");
-    setWaterIncrement(0);
-    setCurrentDate(Date.now());
-    setImage("");
-  };
 
   const onWaterChanged = (text: string) => {
     text.replace(/[^0-9]/g, "");
@@ -117,12 +88,12 @@ const PlantModal = (props: PropTypes) => {
   }, []);
 
   useEffect(() => {
-    if (image !== "" && title !== "") {
-      setIsButtonEnabled(true);
-    } else {
-      setIsButtonEnabled(false);
-    }
-  }, [image, title]);
+    const { title, description, waterIncrement, image } = task;
+    setTitle(title);
+    setDescription(description as string);
+    setWaterIncrement(waterIncrement);
+    setImage(image);
+  }, [task]);
 
   return (
     <Modal style={modal} animationType="fade" visible={visible} transparent>
@@ -130,10 +101,9 @@ const PlantModal = (props: PropTypes) => {
         <KeyboardAvoidingView behavior="padding" enabled>
           <View style={modalView}>
             <View style={titleRow}>
-              <Text style={titleText}>Plant Information</Text>
+              <Text style={titleText}>Update Information</Text>
               <TouchableOpacity
                 onPress={() => {
-                  initialState();
                   setVisible(false);
                 }}
               >
@@ -204,40 +174,18 @@ const PlantModal = (props: PropTypes) => {
             <View style={row}>
               <TouchableOpacity
                 style={button}
-                disabled={!isButtonEnabled}
                 onPress={() => {
-                  addTask({
-                    title,
-                    description,
-                    currentDate,
-                    waterIncrement,
-                    image,
-                  });
-                  schedulePushNotification((currentDate - Date.now()) / 1000);
-                  initialState();
+                  updateTask();
                   setVisible(false);
                 }}
               >
                 <LinearGradient
-                  colors={[
-                    isButtonEnabled
-                      ? mainGradient.start
-                      : isDark
-                      ? disabledButton.dark
-                      : disabledButton.light,
-                    isButtonEnabled
-                      ? mainGradient.end
-                      : isDark
-                      ? disabledButton.dark
-                      : disabledButton.light,
-                  ]}
+                  colors={[mainGradient.start, mainGradient.end]}
                   start={[0, 0]}
                   end={[1, 1]}
                   style={gradientButton}
                 >
-                  <Text style={[buttonText, !isButtonEnabled && disabledText]}>
-                    Create
-                  </Text>
+                  <Text style={buttonText}>Save</Text>
                 </LinearGradient>
               </TouchableOpacity>
             </View>
@@ -248,4 +196,4 @@ const PlantModal = (props: PropTypes) => {
   );
 };
 
-export default PlantModal;
+export default EditModal;

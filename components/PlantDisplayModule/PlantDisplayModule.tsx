@@ -3,17 +3,18 @@ import { View, Text, Image, TouchableOpacity, ImageStyle } from "react-native";
 import { MainContext } from "../../constants/context";
 import { Task } from "../../constants/types";
 import { styles } from "./PlantDisplayModule.styled";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 type PropTypes = {
   task: Task;
   deleteTask: () => void;
   navigation: any;
+  setEditModalVisible: (res: boolean) => void;
 };
 
 const PlantDisplayModule = (props: PropTypes) => {
   const { theme } = useContext(MainContext);
-  const { task, deleteTask, navigation } = props;
+  const { task, deleteTask, navigation, setEditModalVisible } = props;
   const { title, description, image } = task;
   const {
     fullPlant,
@@ -31,6 +32,10 @@ const PlantDisplayModule = (props: PropTypes) => {
     moreText,
   } = styles(theme.colors);
 
+  const openEditModal = () => {
+    setEditModalVisible(true);
+  }
+
   return (
     <View style={[fullPlant, card]}>
       <View style={col}>
@@ -40,13 +45,18 @@ const PlantDisplayModule = (props: PropTypes) => {
             <View style={spacedCol}>
               <View style={spacedRow}>
                 <Text style={titleText}>{title}</Text>
-                <TouchableOpacity onPress={deleteTask}>
-                  <MaterialCommunityIcons
-                    name="delete-empty-outline"
-                    style={icon}
-                    size={22}
-                  />
-                </TouchableOpacity>
+                <View style={row}>
+                  <TouchableOpacity onPress={openEditModal}>
+                    <MaterialIcons style={icon} name="edit" size={22} />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={deleteTask}>
+                    <MaterialCommunityIcons
+                      name="delete-empty-outline"
+                      style={icon}
+                      size={22}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
               <Text style={descText}>{description}</Text>
             </View>
