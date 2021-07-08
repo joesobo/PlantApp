@@ -25,13 +25,12 @@ type PropTypes = {
 };
 
 const EditModal = (props: PropTypes) => {
-  const { visible, setVisible, updateTask, task } = props;
-
   const { theme } = useContext(MainContext);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [waterIncrement, setWaterIncrement] = useState<number>(0);
   const [image, setImage] = useState<string>("");
+  const { visible, setVisible, updateTask, task } = props;
 
   const {
     modal,
@@ -58,8 +57,12 @@ const EditModal = (props: PropTypes) => {
 
   const onWaterChanged = (text: string) => {
     text.replace(/[^0-9]/g, "");
-    let num = parseInt(text);
-    setWaterIncrement(num);
+    if (text == "") {
+      setWaterIncrement(0);
+    } else {
+      let num = parseInt(text);
+      setWaterIncrement(num);
+    }
   };
 
   const pickImage = async () => {

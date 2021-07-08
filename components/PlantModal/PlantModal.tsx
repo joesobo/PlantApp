@@ -87,8 +87,12 @@ const PlantModal = (props: PropTypes) => {
 
   const onWaterChanged = (text: string) => {
     text.replace(/[^0-9]/g, "");
-    let num = parseInt(text);
-    setWaterIncrement(num);
+    if (text == "") {
+      setWaterIncrement(0);
+    } else {
+      let num = parseInt(text);
+      setWaterIncrement(num);
+    }
   };
 
   const pickImage = async () => {
