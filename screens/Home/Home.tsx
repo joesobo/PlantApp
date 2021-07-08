@@ -61,8 +61,10 @@ const Home = ({ navigation }: any) => {
   const [, updateState] = useState<any>();
   const forceUpdate = useCallback(() => updateState({}), []);
 
-  const updateTask = () => {
-    console.log("Update task");
+  const updateTask = (task: Task, index: number) => {
+    const temp = taskItems;
+    temp[index] = task;
+    setTaskItems(temp);
   };
 
   const addTask = (task: Task) => {
@@ -97,6 +99,7 @@ const Home = ({ navigation }: any) => {
           setVisible={setEditModalVisible}
           updateTask={updateTask}
           task={taskItems[selectedTaskIndex]}
+          index={selectedTaskIndex}
         />
       ) : null}
       <View style={container}>

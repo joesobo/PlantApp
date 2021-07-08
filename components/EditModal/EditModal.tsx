@@ -22,6 +22,7 @@ type PropTypes = {
   setVisible: Function;
   updateTask: Function;
   task: Task;
+  index: number;
 };
 
 const EditModal = (props: PropTypes) => {
@@ -30,7 +31,7 @@ const EditModal = (props: PropTypes) => {
   const [description, setDescription] = useState<string>("");
   const [waterIncrement, setWaterIncrement] = useState<number>(0);
   const [image, setImage] = useState<string>("");
-  const { visible, setVisible, updateTask, task } = props;
+  const { visible, setVisible, updateTask, task, index } = props;
 
   const {
     modal,
@@ -178,7 +179,15 @@ const EditModal = (props: PropTypes) => {
               <TouchableOpacity
                 style={button}
                 onPress={() => {
-                  updateTask();
+                  updateTask(
+                    {
+                      title: title,
+                      description: description,
+                      image: image,
+                      waterIncrement: waterIncrement,
+                    },
+                    index
+                  );
                   setVisible(false);
                 }}
               >
