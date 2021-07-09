@@ -23,6 +23,7 @@ export type Colors = {
   buttonText: string;
   text: string;
   lightText: string;
+  darkText: string;
   disabledText: string;
   border: string;
   topIcon: string;

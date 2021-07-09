@@ -4,9 +4,9 @@ import Home from "../screens/Home/Home";
 import PlantInfo from "../screens/PlantInfo/PlantInfo";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { styles } from "./index.styled";
+import { View } from "react-native";
 import {
   createDrawerNavigator,
-  DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
 } from "@react-navigation/drawer";
@@ -22,17 +22,24 @@ export default function Navigation() {
 
 function CustomDrawerContent(props: any) {
   const { toggleTheme, theme } = React.useContext(MainContext);
-  const { container } = styles(theme.colors);
+  const { spaced, buttons } = styles(theme.colors);
 
   return (
-    <DrawerContentScrollView {...props} style={container}>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        label="Close Drawer"
-        onPress={() => props.navigation.closeDrawer()}
+    <View style={spaced}>
+      <DrawerItemList
+        {...props}
+        labelStyle={{ color: theme.colors.darkText }}
+        activeBackgroundColor="#9ac565bb"
       />
-      <DrawerItem label="Toggle Dark Mode" onPress={toggleTheme} />
-    </DrawerContentScrollView>
+
+      <View style={buttons}>
+        <DrawerItem
+          label="Toggle Dark Mode"
+          labelStyle={{ color: theme.colors.text }}
+          onPress={toggleTheme}
+        />
+      </View>
+    </View>
   );
 }
 
@@ -56,6 +63,16 @@ function RootNavigator() {
           },
         };
         return <CustomDrawerContent {...filteredProps} />;
+      }}
+      drawerStyle={{
+        width: 200,
+      }}
+      drawerContentOptions={{
+        itemStyle: {
+          marginHorizontal: 0,
+          marginTop: 48,
+          borderRadius: 0,
+        },
       }}
     >
       <Drawer.Screen name="Home" component={Home} />
