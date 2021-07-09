@@ -6,9 +6,22 @@ import { styles } from "./WeatherModule.styled";
 import { mainGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 
-const WeatherModule = () => {
+type PropTypes = {
+  weatherData: any;
+};
+
+const WeatherModule = (props: PropTypes) => {
+  const { weatherData } = props;
   const { theme } = useContext(MainContext);
-  
+
+  // const { currentTemp, weekTemps } = weatherData;
+  let currentTemp = 0;
+  let weekTemps: number[] = [0, 0, 0, 0, 0, 0, 0];
+  if (weatherData) {
+    currentTemp = weatherData.currentTemp;
+    weekTemps = weatherData.weekTemps;
+  }
+
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   const data1 = {
@@ -55,11 +68,13 @@ const WeatherModule = () => {
           hideLegend={true}
         />
         <View style={barChart}>
-          {days.map((day) => {
+          {days.map((day, index) => {
             return (
               <View key={day} style={barColumn}>
                 <View style={barBackground}>
-                  <View style={bar}>
+                  <View
+                    style={[bar, { height: (weekTemps[index] / 100) * 80 }]}
+                  >
                     <LinearGradient
                       colors={[mainGradient.start, mainGradient.end]}
                       start={[1, 0]}
@@ -74,7 +89,7 @@ const WeatherModule = () => {
           })}
         </View>
         <View style={temperature}>
-          <Text style={tempValue}>90 °F</Text>
+          <Text style={tempValue}>{currentTemp} °F</Text>
         </View>
       </View>
     </View>

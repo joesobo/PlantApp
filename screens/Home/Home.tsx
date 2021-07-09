@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from "react";
+import React, { useState, useContext, useCallback, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   View,
@@ -17,6 +17,8 @@ import { styles } from "./Home.styled";
 import { backgroundGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 import EditModal from "../../components/EditModal/EditModal";
+import { getCurrentTemperature } from "../../api/weather";
+import * as Location from "expo-location";
 
 const Home = ({ navigation }: any) => {
   const { theme } = useContext(MainContext);
@@ -58,8 +60,24 @@ const Home = ({ navigation }: any) => {
   const [selectedTaskIndex, setSelectedTaskIndex] = useState<number>(-1);
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
+  const [, setLocation] = useState<Location.LocationObject>();
+  const [weatherData, setWeatherData] = useState<any>();
   const [, updateState] = useState<any>();
   const forceUpdate = useCallback(() => updateState({}), []);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+
+      fetchWeatherData(location);
+    })();
+  }, []);
 
   const updateTask = (task: Task, index: number) => {
     setTaskItems([
@@ -84,6 +102,17 @@ const Home = ({ navigation }: any) => {
       setSelectedTaskIndex(-1);
     } else {
       forceUpdate();
+    }
+  };
+
+  const fetchWeatherData = async (location: Location.LocationObject) => {
+    if (location) {
+      const temp = await getCurrentTemperature(
+        (location as Location.LocationObject).coords.latitude as number,
+        (location as Location.LocationObject).coords.longitude as number
+      );
+      console.log(temp);
+      setWeatherData(temp);
     }
   };
 
@@ -158,7 +187,7 @@ const Home = ({ navigation }: any) => {
                 setEditModalVisible={setEditModalVisible}
               />
             ) : null}
-            <WeatherModule />
+            <WeatherModule weatherData={weatherData} />
           </ScrollView>
         </View>
       </View>

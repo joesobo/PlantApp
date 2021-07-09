@@ -23,6 +23,7 @@ export let styles = (props: Colors) => StyleSheet.create({
   topContainer: {
     width: width,
     height: height,
+    paddingTop: 16,
   },
   smallHeight: {
     height: 250,
