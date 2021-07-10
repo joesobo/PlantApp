@@ -63,53 +63,58 @@ const WeatherModule = (props: PropTypes) => {
     gradient,
     weatherCard,
     card,
+    error,
   } = styles(theme.colors);
 
   return (
     <View style={[weatherCard, card]}>
-      <View style={row}>
-        <ProgressChart
-          data={data1}
-          width={125}
-          height={125}
-          strokeWidth={12}
-          radius={40}
-          chartConfig={chartConfig}
-          hideLegend={true}
-        />
-        <View style={barChart}>
-          {days.map((day, index) => {
-            return (
-              <View key={day} style={barColumn}>
-                <View style={barBackground}>
-                  <View
-                    style={[
-                      bar,
-                      {
-                        height:
-                          weekTemps[index] === 0
-                            ? 0
-                            : (weekTemps[index] / 100) * 80,
-                      },
-                    ]}
-                  >
-                    <LinearGradient
-                      colors={[mainGradient.start, mainGradient.end]}
-                      start={[1, 0]}
-                      end={[0, 1]}
-                      style={gradient}
-                    ></LinearGradient>
+      {weather.error ? (
+        <Text style={error}>OpenWeatherMap API limit hit</Text>
+      ) : (
+        <View style={row}>
+          <ProgressChart
+            data={data1}
+            width={125}
+            height={125}
+            strokeWidth={12}
+            radius={40}
+            chartConfig={chartConfig}
+            hideLegend={true}
+          />
+          <View style={barChart}>
+            {days.map((day, index) => {
+              return (
+                <View key={day} style={barColumn}>
+                  <View style={barBackground}>
+                    <View
+                      style={[
+                        bar,
+                        {
+                          height:
+                            weekTemps[index] === 0
+                              ? 0
+                              : (weekTemps[index] / 100) * 80,
+                        },
+                      ]}
+                    >
+                      <LinearGradient
+                        colors={[mainGradient.start, mainGradient.end]}
+                        start={[1, 0]}
+                        end={[0, 1]}
+                        style={gradient}
+                      ></LinearGradient>
+                    </View>
                   </View>
+                  <Text style={dayText}>{day}</Text>
                 </View>
-                <Text style={dayText}>{day}</Text>
-              </View>
-            );
-          })}
+              );
+            })}
+          </View>
+          <View style={temperature}>
+            <Text style={tempValue}>{currentTemp} °F</Text>
+          </View>
         </View>
-        <View style={temperature}>
-          <Text style={tempValue}>{currentTemp} °F</Text>
-        </View>
-      </View>
+      )}
     </View>
   );
 };

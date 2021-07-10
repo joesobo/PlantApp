@@ -69,6 +69,9 @@ export let styles = (props: Colors) =>
       height: 125,
       marginTop: 16,
       marginBottom: 64,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
     card: {
       borderRadius: 8,
@@ -80,4 +83,9 @@ export let styles = (props: Colors) =>
       shadowRadius: 3,
       marginLeft: 12,
     },
+    error: {
+      color: "#ff8484",
+      fontSize: 16,
+      fontWeight: "bold",
+    }
   });
