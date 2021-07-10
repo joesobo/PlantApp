@@ -64,7 +64,7 @@ export let styles = (props: Colors) =>
       fontWeight: "bold",
       color: props.lightText,
     },
-    weather: {
+    weatherCard: {
       width: width - 24,
       height: 125,
       marginTop: 16,

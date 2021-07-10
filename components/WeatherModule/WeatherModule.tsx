@@ -1,26 +1,36 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "./WeatherModule.styled";
 import { mainGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
+import { connect } from "react-redux";
+import { fetchWeatherFromAPI } from "../../actions/actions";
 
 type PropTypes = {
-  weatherData: any;
+  getWeather: any;
+  weather: any;
 };
 
 const WeatherModule = (props: PropTypes) => {
-  const { weatherData } = props;
+  const { weather, getWeather } = props;
+
   const { theme } = useContext(MainContext);
 
-  // const { currentTemp, weekTemps } = weatherData;
-  let currentTemp = 0;
-  let weekTemps: number[] = [0, 0, 0, 0, 0, 0, 0];
-  if (weatherData) {
-    currentTemp = weatherData.currentTemp;
-    weekTemps = weatherData.weekTemps;
-  }
+  const [currentTemp, setCurrentTemp] = useState<number>(0);
+  const [weekTemps, setWeekTemps] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
+
+  useEffect(() => {
+    getWeather();
+  }, []);
+
+  useEffect(() => {
+    if (!weather.isFetching && weather.weekTemps.length > 0) {
+      setCurrentTemp(weather.currentTemp);
+      setWeekTemps(weather.weekTemps);
+    }
+  }, [!weather.isFetching && weather.weekTemps.length > 0]);
 
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -51,12 +61,12 @@ const WeatherModule = (props: PropTypes) => {
     barColumn,
     dayText,
     gradient,
-    weather,
+    weatherCard,
     card,
   } = styles(theme.colors);
 
   return (
-    <View style={[weather, card]}>
+    <View style={[weatherCard, card]}>
       <View style={row}>
         <ProgressChart
           data={data1}
@@ -73,7 +83,15 @@ const WeatherModule = (props: PropTypes) => {
               <View key={day} style={barColumn}>
                 <View style={barBackground}>
                   <View
-                    style={[bar, { height: (weekTemps[index] / 100) * 80 }]}
+                    style={[
+                      bar,
+                      {
+                        height:
+                          weekTemps[index] === 0
+                            ? 0
+                            : (weekTemps[index] / 100) * 80,
+                      },
+                    ]}
                   >
                     <LinearGradient
                       colors={[mainGradient.start, mainGradient.end]}
@@ -96,4 +114,16 @@ const WeatherModule = (props: PropTypes) => {
   );
 };
 
-export default WeatherModule;
+function mapStateToProps(state: { weather: any }) {
+  return {
+    weather: state.weather,
+  };
+}
+
+function mapDispatchToProps(dispatch: (func: any) => any) {
+  return {
+    getWeather: () => dispatch(fetchWeatherFromAPI()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherModule);

@@ -7,6 +7,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import Navigation from "./navigation";
 import { MainContext } from "./constants/context";
 import { light, dark } from "./constants/colors";
+import { Provider as StoreProvider } from "react-redux";
+import configureStore from "./reducers/store";
 
 const registerForPushNotificationsAsync = async () => {
   let token;
@@ -61,12 +63,16 @@ export default function App() {
   //   }
   // });
 
+  const store = configureStore();
+
   return (
-    <MainContext.Provider value={context}>
-      <SafeAreaProvider>
-        <Navigation />
-        <StatusBar />
-      </SafeAreaProvider>
-    </MainContext.Provider>
+    <StoreProvider store={store}>
+      <MainContext.Provider value={context}>
+        <SafeAreaProvider>
+          <Navigation />
+          <StatusBar />
+        </SafeAreaProvider>
+      </MainContext.Provider>
+    </StoreProvider>
   );
 }

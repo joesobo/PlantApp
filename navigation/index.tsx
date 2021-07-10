@@ -12,13 +12,13 @@ import {
 } from "@react-navigation/drawer";
 import { MainContext } from "../constants/context";
 
-export default function Navigation() {
+const Navigation = () => {
   return (
     <NavigationContainer linking={LinkingConfiguration}>
       <RootNavigator />
     </NavigationContainer>
   );
-}
+};
 
 function CustomDrawerContent(props: any) {
   const { toggleTheme, theme } = React.useContext(MainContext);
@@ -80,3 +80,5 @@ function RootNavigator() {
     </Drawer.Navigator>
   );
 }
+
+export default Navigation;
