@@ -3,49 +3,26 @@ import * as React from "react";
 import Home from "../screens/Home/Home";
 import PlantInfo from "../screens/PlantInfo/PlantInfo";
 import LinkingConfiguration from "./LinkingConfiguration";
-import { styles } from "./index.styled";
-import { View } from "react-native";
-import {
-  createDrawerNavigator,
-  DrawerItemList,
-  DrawerItem,
-} from "@react-navigation/drawer";
-import { MainContext } from "../constants/context";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import Sidebar from "../components/Sidebar/Sidebar";
+import { Ionicons } from "@expo/vector-icons";
+import { dark, light } from "../constants/colors";
 
-const Navigation = () => {
+const Navigation = (props: { isDarkTheme: any }) => {
+  const { isDarkTheme } = props;
+
   return (
     <NavigationContainer linking={LinkingConfiguration}>
-      <RootNavigator />
+      <RootNavigator isDarkTheme={isDarkTheme} />
     </NavigationContainer>
   );
 };
 
-function CustomDrawerContent(props: any) {
-  const { toggleTheme, theme } = React.useContext(MainContext);
-  const { spaced, buttons } = styles(theme.colors);
-
-  return (
-    <View style={spaced}>
-      <DrawerItemList
-        {...props}
-        labelStyle={{ color: theme.colors.darkText }}
-        activeBackgroundColor="#9ac565bb"
-      />
-
-      <View style={buttons}>
-        <DrawerItem
-          label="Toggle Dark Mode"
-          labelStyle={{ color: theme.colors.text }}
-          onPress={toggleTheme}
-        />
-      </View>
-    </View>
-  );
-}
-
 const Drawer = createDrawerNavigator();
 
-function RootNavigator() {
+function RootNavigator(props: { isDarkTheme: any }) {
+  const { isDarkTheme } = props;
+
   return (
     <Drawer.Navigator
       screenOptions={{ headerShown: false }}
@@ -62,7 +39,7 @@ function RootNavigator() {
             }),
           },
         };
-        return <CustomDrawerContent {...filteredProps} />;
+        return <Sidebar {...filteredProps} />;
       }}
       drawerStyle={{
         width: 200,
@@ -75,7 +52,19 @@ function RootNavigator() {
         },
       }}
     >
-      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+        options={{
+          drawerIcon: ({ size }) => (
+            <Ionicons
+              name="md-home-outline"
+              size={size}
+              color={isDarkTheme ? dark.topIcon : light.topIcon}
+            />
+          ),
+        }}
+      />
       <Drawer.Screen name="PlantInfo" component={PlantInfo} />
     </Drawer.Navigator>
   );

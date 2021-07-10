@@ -69,7 +69,7 @@ export default function App() {
     <StoreProvider store={store}>
       <MainContext.Provider value={context}>
         <SafeAreaProvider>
-          <Navigation />
+          <Navigation isDarkTheme={isDarkTheme} />
           <StatusBar />
         </SafeAreaProvider>
       </MainContext.Provider>
