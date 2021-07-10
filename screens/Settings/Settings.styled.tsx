@@ -3,17 +3,13 @@ import { Colors } from "../../constants/types";
 
 export let styles = (props: Colors) =>
   StyleSheet.create({
-    spaced: {
-      display: "flex",
-      justifyContent: "space-between",
-      flex: 1,
+    icon: {
+      color: props.generalIcon,
     },
-    buttons: {
-      marginBottom: 48,
-    },
-    stretch: {
-      display: "flex",
-      flex: 1,
+    background: {
       backgroundColor: props.background,
+      flex: 1,
+      paddingVertical: 48,
+      paddingHorizontal: 16,
     },
   });

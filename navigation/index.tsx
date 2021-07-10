@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import Home from "../screens/Home/Home";
 import PlantInfo from "../screens/PlantInfo/PlantInfo";
+import Settings from "../screens/Settings/Settings";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Sidebar from "../components/Sidebar/Sidebar";
@@ -46,9 +47,9 @@ function RootNavigator(props: { isDarkTheme: any }) {
       }}
       drawerContentOptions={{
         itemStyle: {
-          marginHorizontal: 0,
+          // marginHorizontal: 0,
           marginTop: 48,
-          borderRadius: 0,
+          // borderRadius: 0,
         },
       }}
     >
@@ -66,6 +67,7 @@ function RootNavigator(props: { isDarkTheme: any }) {
         }}
       />
       <Drawer.Screen name="PlantInfo" component={PlantInfo} />
+      <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
   );
 }
