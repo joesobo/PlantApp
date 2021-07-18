@@ -1,12 +1,6 @@
-import React, { useState, useContext, useCallback, useEffect } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  TextInput,
-} from "react-native";
+import { View, Text, ScrollView, TextInput } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import PlantModal from "../../components/PlantModal/PlantModal";
 import Plant from "../../components/Plant/Plant";
@@ -17,6 +11,7 @@ import { styles } from "./Home.styled";
 import { backgroundGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 import EditModal from "../../components/EditModal/EditModal";
+import Navbar from "../../components/Navbar/Navbar";
 
 const Home = ({ navigation }: any) => {
   const { theme } = useContext(MainContext);
@@ -89,6 +84,7 @@ const Home = ({ navigation }: any) => {
 
   return (
     <View style={page}>
+      <Navbar navigation={navigation} useAddPlant />
       <PlantModal
         visible={newModalVisible}
         setVisible={setNewModalVisible}
@@ -115,14 +111,14 @@ const Home = ({ navigation }: any) => {
         </View>
         {/* top elements */}
         <View style={topContainer}>
-          <View style={row}>
+          {/* <View style={row}>
             <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
               <Entypo name="menu" size={20} style={icon} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setNewModalVisible(true)}>
               <Entypo name="add-to-list" size={20} style={icon} />
             </TouchableOpacity>
-          </View>
+          </View> */}
           <Text style={titleText}>Your Plants</Text>
           <TextInput
             onChangeText={setText}

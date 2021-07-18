@@ -12,6 +12,7 @@ export let styles = (props: Colors) => StyleSheet.create({
     color: props.topIcon,
   },
   container: {
+    paddingTop: 50,
     position: "relative",
   },
   background: {
