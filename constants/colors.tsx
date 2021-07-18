@@ -1,5 +1,8 @@
-const waterColor = "#69a2e2";
-const mainColor = "#a3cb70";
+export const waterColor = "#69a2e2";
+export const mainColor = "#a3cb70";
+export const darkColor = "#353535";
+export const white = "#fff";
+
 export const waterGradient = {
   start: "#98bfebb9",
   end: "#69a2e2bc",
@@ -23,7 +26,7 @@ export const disabledButton = {
 
 export const light = {
   shadow: "#000",
-  background: "#fff",
+  background: white,
   barBackground: "#F2F2F2",
   displayBackground: "#F0F0F0",
   darkBackground: "#f5f5f5",
@@ -31,16 +34,16 @@ export const light = {
   mainColor: mainColor,
   descText: "#9e9e9e",
   titleText: "#52554F",
-  buttonText: "#fff",
+  buttonText: white,
   text: "#656565",
   lightText: "#CBCBCB",
   darkText: "#505050",
   disabledText: "#cccccc",
   border: "#a1a1a1",
-  topIcon: "#fff",
+  topIcon: white,
   generalIcon: "#52554F",
   cardBackground: "#ececec",
-  selectedBackground: "#fff",
+  selectedBackground: white,
 };
 
 export const dark = {

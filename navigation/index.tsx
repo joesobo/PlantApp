@@ -66,8 +66,8 @@ function RootNavigator(props: { isDarkTheme: any }) {
                     ? dark.text
                     : dark.topIcon
                   : !focused
-                    ? dark.darkText
-                    : light.topIcon
+                  ? dark.darkText
+                  : light.topIcon
               }
             />
           ),
@@ -87,8 +87,8 @@ function RootNavigator(props: { isDarkTheme: any }) {
                     ? dark.text
                     : dark.topIcon
                   : !focused
-                    ? dark.darkText
-                    : light.topIcon
+                  ? dark.darkText
+                  : light.topIcon
               }
             />
           ),

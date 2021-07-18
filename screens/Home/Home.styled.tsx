@@ -8,9 +8,6 @@ export let styles = (props: Colors) => StyleSheet.create({
   page: {
     backgroundColor: props.background,
   },
-  icon: {
-    color: props.topIcon,
-  },
   container: {
     paddingTop: 50,
     position: "relative",
@@ -28,13 +25,6 @@ export let styles = (props: Colors) => StyleSheet.create({
   },
   smallHeight: {
     height: 250,
-  },
-  row: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 32,
-    marginHorizontal: 12,
   },
   titleText: {
     fontSize: 32,

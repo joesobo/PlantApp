@@ -1,6 +1,7 @@
 import { DrawerItemList } from "@react-navigation/drawer";
 import React, { useContext } from "react";
 import { Switch, View, Text } from "react-native";
+import { darkColor, mainColor, white } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 import { styles } from "./Sidebar.styled";
 
@@ -21,9 +22,9 @@ const Sidebar = (props: any) => {
       <View style={darkSwitch}>
         <Text style={text}>Toggle Dark</Text>
         <Switch
-          trackColor={{ false: "#353535", true: "#a3cb70" }}
-          thumbColor={isDark ? "#353535" : "#fff"}
-          ios_backgroundColor={isDark ? "#353535" : "#a3cb70"}
+          trackColor={{ false: darkColor, true: mainColor }}
+          thumbColor={isDark ? darkColor : white}
+          ios_backgroundColor={isDark ? darkColor : mainColor}
           onValueChange={toggleTheme}
           value={isDark}
         />

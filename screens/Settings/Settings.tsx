@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { View, Text } from "react-native";
-// import { Ionicons } from "@expo/vector-icons";
 import { MainContext } from "../../constants/context";
 import { styles } from "./Settings.styled";
 import Navbar from "../../components/Navbar/Navbar";

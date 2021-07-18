@@ -1,7 +1,6 @@
 import React, { useState, useContext, useCallback } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { View, Text, ScrollView, TextInput } from "react-native";
-import { Entypo } from "@expo/vector-icons";
 import PlantModal from "../../components/PlantModal/PlantModal";
 import Plant from "../../components/Plant/Plant";
 import WeatherModule from "../../components/WeatherModule/WeatherModule";
@@ -17,12 +16,10 @@ const Home = ({ navigation }: any) => {
   const { theme } = useContext(MainContext);
   const {
     page,
-    icon,
     container,
     background,
     topContainer,
     smallHeight,
-    row,
     titleText,
     search,
     mainScroll,
@@ -100,7 +97,6 @@ const Home = ({ navigation }: any) => {
         />
       ) : null}
       <View style={container}>
-        {/* background */}
         <View style={[background, smallHeight]}>
           <LinearGradient
             colors={[backgroundGradient.start, backgroundGradient.end]}
@@ -109,16 +105,7 @@ const Home = ({ navigation }: any) => {
             style={smallHeight}
           ></LinearGradient>
         </View>
-        {/* top elements */}
         <View style={topContainer}>
-          {/* <View style={row}>
-            <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-              <Entypo name="menu" size={20} style={icon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setNewModalVisible(true)}>
-              <Entypo name="add-to-list" size={20} style={icon} />
-            </TouchableOpacity>
-          </View> */}
           <Text style={titleText}>Your Plants</Text>
           <TextInput
             onChangeText={setText}
