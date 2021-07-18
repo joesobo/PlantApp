@@ -21,6 +21,11 @@ export let styles = (props: Colors) =>
       fontWeight: "bold",
       paddingBottom: 8,
     },
+    body: {
+      display: "flex",
+      flexDirection: "column",
+      marginHorizontal: 16,
+    },
     backgroundContainer: {
       borderBottomLeftRadius: 50,
       position: "absolute",
@@ -33,5 +38,8 @@ export let styles = (props: Colors) =>
     container: {
       paddingTop: 50,
       position: "relative",
+    },
+    text: {
+      marginTop: 16,
     },
   });
