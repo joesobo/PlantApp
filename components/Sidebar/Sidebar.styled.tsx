@@ -8,12 +8,22 @@ export let styles = (props: Colors) =>
       justifyContent: "space-between",
       flex: 1,
     },
-    buttons: {
+    darkSwitch: {
+      display: "flex",
+      flexDirection: "row",
       marginBottom: 48,
+      justifyContent: "flex-start",
+      alignItems: "center",
+      marginLeft: 16,
     },
     stretch: {
       display: "flex",
       flex: 1,
       backgroundColor: props.background,
+    },
+    text: {
+      color: props.text,
+      fontWeight: "500",
+      marginRight: 16,
     },
   });
