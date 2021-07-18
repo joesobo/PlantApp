@@ -22,7 +22,7 @@ const Sidebar = (props: any) => {
         <Text style={text}>Toggle Dark</Text>
         <Switch
           trackColor={{ false: "#353535", true: "#a3cb70" }}
-          thumbColor={isDark ? "#a3cb70" : "#fff"}
+          thumbColor={isDark ? "#353535" : "#fff"}
           ios_backgroundColor={isDark ? "#353535" : "#a3cb70"}
           onValueChange={toggleTheme}
           value={isDark}

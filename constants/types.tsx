@@ -1,6 +1,7 @@
 export type RootStackParamList = {
   Home: undefined;
   PlantInfo: undefined;
+  Settings: undefined;
 };
 
 export type Task = {

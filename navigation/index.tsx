@@ -27,6 +27,7 @@ function RootNavigator(props: { isDarkTheme: any }) {
   return (
     <Drawer.Navigator
       screenOptions={{ headerShown: false }}
+      drawerType="slide"
       drawerContent={(props) => {
         const filteredProps = {
           ...props,
@@ -47,9 +48,7 @@ function RootNavigator(props: { isDarkTheme: any }) {
       }}
       drawerContentOptions={{
         itemStyle: {
-          // marginHorizontal: 0,
           marginTop: 48,
-          // borderRadius: 0,
         },
       }}
     >
@@ -57,17 +56,45 @@ function RootNavigator(props: { isDarkTheme: any }) {
         name="Home"
         component={Home}
         options={{
-          drawerIcon: ({ size }) => (
+          drawerIcon: ({ focused, size }) => (
             <Ionicons
               name="md-home-outline"
               size={size}
-              color={isDarkTheme ? dark.topIcon : light.topIcon}
+              color={
+                isDarkTheme
+                  ? !focused
+                    ? dark.text
+                    : dark.topIcon
+                  : !focused
+                    ? dark.darkText
+                    : light.topIcon
+              }
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          drawerIcon: ({ focused, size }) => (
+            <Ionicons
+              name="md-settings-outline"
+              size={size}
+              color={
+                isDarkTheme
+                  ? !focused
+                    ? dark.text
+                    : dark.topIcon
+                  : !focused
+                    ? dark.darkText
+                    : light.topIcon
+              }
             />
           ),
         }}
       />
       <Drawer.Screen name="PlantInfo" component={PlantInfo} />
-      <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
   );
 }

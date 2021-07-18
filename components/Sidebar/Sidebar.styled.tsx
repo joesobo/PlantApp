@@ -11,10 +11,11 @@ export let styles = (props: Colors) =>
     darkSwitch: {
       display: "flex",
       flexDirection: "row",
-      marginBottom: 48,
       justifyContent: "flex-start",
       alignItems: "center",
+      marginBottom: 48,
       marginLeft: 16,
+      marginTop: 16,
     },
     stretch: {
       display: "flex",

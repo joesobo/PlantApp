@@ -20,9 +20,6 @@ const Settings = ({ navigation }: any) => {
 
   return (
     <View style={background}>
-      {/* <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-        <Ionicons style={icon} name="md-home-outline" size={22} />
-      </TouchableOpacity> */}
       <Navbar navigation={navigation} useAddPlant={false} />
       <View style={[container, smallHeight]}>
         <View style={backgroundContainer}>

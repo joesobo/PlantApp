@@ -5,7 +5,7 @@ export default {
   config: {
     screens: {
       Home: '',
-      PlantInfo: 'plant',
+      Settings: 'settings',
     },
   },
 }
