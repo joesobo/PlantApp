@@ -81,7 +81,11 @@ const Home = ({ navigation }: any) => {
 
   return (
     <View style={page}>
-      <Navbar navigation={navigation} useAddPlant />
+      <Navbar
+        navigation={navigation}
+        setNewModalVisible={setNewModalVisible}
+        useAddPlant
+      />
       <PlantModal
         visible={newModalVisible}
         setVisible={setNewModalVisible}

@@ -6,11 +6,12 @@ import { Entypo } from "@expo/vector-icons";
 
 type PropTypes = {
   navigation: any;
-  useAddPlant: boolean;
+  useAddPlant?: boolean;
+  setNewModalVisible?: Function;
 };
 
 const Navbar = (props: PropTypes) => {
-  const { navigation, useAddPlant } = props;
+  const { navigation, useAddPlant, setNewModalVisible } = props;
   const { theme } = useContext(MainContext);
 
   const { row, icon } = styles(theme.colors);
@@ -20,8 +21,8 @@ const Navbar = (props: PropTypes) => {
       <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
         <Entypo name="menu" size={20} style={icon} />
       </TouchableOpacity>
-      {useAddPlant ? (
-        <TouchableOpacity onPress={() => null}>
+      {useAddPlant && setNewModalVisible ? (
+        <TouchableOpacity onPress={() => setNewModalVisible(true)}>
           <Entypo name="add-to-list" size={20} style={icon} />
         </TouchableOpacity>
       ) : null}
