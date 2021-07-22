@@ -3,10 +3,6 @@ import { Colors } from "../../constants/types";
 
 export let styles = (props: Colors) =>
   StyleSheet.create({
-    column: {
-      flexDirection: "column",
-      alignSelf: "stretch",
-    },
     row: {
       flexDirection: "row",
       alignItems: "center",
@@ -63,10 +59,16 @@ export let styles = (props: Colors) =>
       width: "40%",
       borderRadius: 50,
     },
+    emptySpacing: {
+      height: 40,
+      marginVertical: 8,
+      padding: 4,
+      width: "40%",
+    },
     commandText: {
       color: props.text,
-      minWidth: "55%",
       marginRight: 8,
+      width: "35%",
     },
     buttonText: {
       color: props.buttonText,
@@ -127,5 +129,5 @@ export let styles = (props: Colors) =>
     },
     disabledText: {
       color: props.disabledText,
-    }
+    },
   });

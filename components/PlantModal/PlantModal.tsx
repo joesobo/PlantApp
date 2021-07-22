@@ -8,6 +8,7 @@ import {
   Platform,
   Image,
   KeyboardAvoidingView,
+  Switch,
 } from "react-native";
 import * as Notifications from "expo-notifications";
 import { AntDesign, Feather } from "@expo/vector-icons";
@@ -16,6 +17,14 @@ import { styles } from "./PlantModal.styled";
 import { LinearGradient } from "expo-linear-gradient";
 import { mainGradient, disabledButton } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
+import {
+  darkColor,
+  waterColor,
+  fertColor,
+  white,
+  light,
+  dark,
+} from "../../constants/colors";
 
 type PropTypes = {
   visible: boolean;
@@ -48,7 +57,10 @@ const PlantModal = (props: PropTypes) => {
   const { theme, isDark } = useContext(MainContext);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [useWater, setWater] = useState<boolean>(false);
   const [waterIncrement, setWaterIncrement] = useState<number>(0);
+  const [useFert, setFert] = useState<boolean>(false);
+  const [fertIncrement, setFertIncrement] = useState<number>(0);
   const [currentDate, setCurrentDate] = useState<number>(Date.now());
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
@@ -61,7 +73,7 @@ const PlantModal = (props: PropTypes) => {
     titleText,
     input,
     row,
-    column,
+    emptySpacing,
     commandText,
     button,
     icon,
@@ -81,6 +93,9 @@ const PlantModal = (props: PropTypes) => {
     setTitle("");
     setDescription("");
     setWaterIncrement(0);
+    setWater(false);
+    setFertIncrement(0);
+    setFert(false);
     setCurrentDate(Date.now());
     setImage("");
   };
@@ -92,6 +107,16 @@ const PlantModal = (props: PropTypes) => {
     } else {
       let num = parseInt(text);
       setWaterIncrement(num);
+    }
+  };
+
+  const onFertChanged = (text: string) => {
+    text.replace(/[^0-9]/g, "");
+    if (text == "") {
+      setFertIncrement(0);
+    } else {
+      let num = parseInt(text);
+      setFertIncrement(num);
     }
   };
 
@@ -193,9 +218,26 @@ const PlantModal = (props: PropTypes) => {
                 placeholder="Description..."
               />
             </View>
-            <View style={column}>
-              <View style={row}>
-                <Text style={commandText}>Water Increment</Text>
+
+            {/* Water */}
+            <View style={row}>
+              <Text style={commandText}>Water Increment</Text>
+              <Switch
+                trackColor={{ false: darkColor, true: waterColor }}
+                thumbColor={
+                  useWater ? (isDark ? darkColor : white) : waterColor
+                }
+                ios_backgroundColor={
+                  useWater
+                    ? waterColor
+                    : isDark
+                    ? dark.barBackground
+                    : light.barBackground
+                }
+                onValueChange={() => setWater(!useWater)}
+                value={useWater}
+              />
+              {useWater ? (
                 <TextInput
                   style={input}
                   value={waterIncrement.toString()}
@@ -203,8 +245,40 @@ const PlantModal = (props: PropTypes) => {
                   keyboardType="numeric"
                   maxLength={2}
                 />
-              </View>
+              ) : (
+                <View style={emptySpacing} />
+              )}
             </View>
+
+            {/* Fertilizer */}
+            <View style={row}>
+              <Text style={commandText}>Fertilizer Increment</Text>
+              <Switch
+                trackColor={{ false: darkColor, true: fertColor }}
+                thumbColor={useFert ? (isDark ? darkColor : white) : fertColor}
+                ios_backgroundColor={
+                  useFert
+                    ? fertColor
+                    : isDark
+                    ? dark.barBackground
+                    : light.barBackground
+                }
+                onValueChange={() => setFert(!useFert)}
+                value={useFert}
+              />
+              {useFert ? (
+                <TextInput
+                  style={input}
+                  value={fertIncrement.toString()}
+                  onChangeText={onFertChanged}
+                  keyboardType="numeric"
+                  maxLength={2}
+                />
+              ) : (
+                <View style={emptySpacing} />
+              )}
+            </View>
+
             <View style={row}>
               <TouchableOpacity
                 style={button}

@@ -1,4 +1,5 @@
 export const waterColor = "#69a2e2";
+export const fertColor = "#efb051";
 export const mainColor = "#a3cb70";
 export const darkColor = "#353535";
 export const white = "#fff";
