@@ -3,7 +3,7 @@ import { FETCHING_WEATHER, FETCHING_WEATHER_SUCCESS, FETCHING_WEATHER_FAILURE } 
 import * as Location from "expo-location";
 
 export const fetchWeatherFromAPI = () => {
-  return async (dispatch: any) => {
+  return async (dispatch: (arg0: { type: string; data?: any; }) => void) => {
     dispatch(getWeather());
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -31,7 +31,7 @@ const getWeather = () => {
   }
 }
 
-const getWeatherSuccess = (data: any) => {
+const getWeatherSuccess = (data: { currentTemp: number; weekTemps: number[]; }) => {
   return {
     type: FETCHING_WEATHER_SUCCESS,
     data

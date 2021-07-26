@@ -11,7 +11,7 @@ export const getWeatherData = async (lat: number, lon: number) => {
 
   return {
     currentTemp: Math.round(json.current.temp),
-    weekTemps: json.daily.map((d: any) => {
+    weekTemps: json.daily.map((d: { temp: { day: number; }; }) => {
       return Math.round(d.temp.day)
     })
   };

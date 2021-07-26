@@ -7,7 +7,7 @@ const initialState = {
   error: false,
 }
 
-export default function weatherReducer(state = initialState, action: any) {
+export default function weatherReducer(state = initialState, action: { type: string; data: { weekTemps: number[]; currentTemp: number; }; }) {
   switch (action.type) {
     case FETCHING_WEATHER:
       return {

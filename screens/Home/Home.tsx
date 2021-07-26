@@ -11,8 +11,9 @@ import { backgroundGradient } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 import EditModal from "../../components/EditModal/EditModal";
 import Navbar from "../../components/Navbar/Navbar";
+import { NavigationStackProp } from "react-navigation-stack";
 
-const Home = ({ navigation }: any) => {
+const Home = ({ navigation }: NavigationStackProp) => {
   const { theme } = useContext(MainContext);
   const {
     page,

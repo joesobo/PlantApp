@@ -1,11 +1,26 @@
-import { DrawerItemList } from "@react-navigation/drawer";
+import { DrawerContentOptions, DrawerItemList } from "@react-navigation/drawer";
+import {
+  DrawerNavigationHelpers,
+  DrawerDescriptorMap,
+} from "@react-navigation/drawer/lib/typescript/src/types";
+import {
+  DrawerNavigationState,
+  ParamListBase,
+} from "@react-navigation/routers";
 import React, { useContext } from "react";
 import { Switch, View, Text } from "react-native";
 import { darkColor, mainColor, white } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 import { styles } from "./Sidebar.styled";
 
-const Sidebar = (props: any) => {
+type PropTypes = JSX.IntrinsicAttributes &
+  Omit<DrawerContentOptions, "style" | "contentContainerStyle"> & {
+    state: DrawerNavigationState<ParamListBase>;
+    navigation: DrawerNavigationHelpers;
+    descriptors: DrawerDescriptorMap;
+  };
+
+const Sidebar = (props: PropTypes) => {
   const { toggleTheme, theme, isDark } = useContext(MainContext);
   const { stretch, spaced, darkSwitch, text } = styles(theme.colors);
 

@@ -9,8 +9,13 @@ import { connect } from "react-redux";
 import { fetchWeatherFromAPI } from "../../actions/actions";
 
 type PropTypes = {
-  getWeather: any;
-  weather: any;
+  getWeather: () => void;
+  weather: {
+    error: string;
+    isFetching: boolean;
+    weekTemps: number[];
+    currentTemp: number;
+  };
 };
 
 const WeatherModule = (props: PropTypes) => {
@@ -119,7 +124,14 @@ const WeatherModule = (props: PropTypes) => {
   );
 };
 
-function mapStateToProps(state: { weather: any }) {
+function mapStateToProps(state: {
+  weather: {
+    error: string;
+    isFetching: boolean;
+    weekTemps: number[];
+    currentTemp: number;
+  };
+}) {
   return {
     weather: state.weather,
   };

@@ -10,8 +10,9 @@ import {
   mainColor,
   white,
 } from "../../constants/colors";
+import { NavigationStackProp } from "react-navigation-stack";
 
-const Settings = ({ navigation }: any) => {
+const Settings = ({ navigation }: NavigationStackProp) => {
   const { theme } = useContext(MainContext);
   const {
     background,

@@ -4,11 +4,12 @@ import { MainContext } from "../../constants/context";
 import { Task } from "../../constants/types";
 import { styles } from "./PlantDisplayModule.styled";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { NavigationStackProp } from "react-navigation-stack";
 
 type PropTypes = {
   task: Task;
   deleteTask: () => void;
-  navigation: any;
+  navigation: NavigationStackProp;
   setEditModalVisible: (res: boolean) => void;
 };
 

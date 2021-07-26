@@ -3,9 +3,10 @@ import { styles } from "./Navbar.styled";
 import { MainContext } from "../../constants/context";
 import { TouchableOpacity, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+import { NavigationStackProp } from 'react-navigation-stack';
 
 type PropTypes = {
-  navigation: any;
+  navigation: NavigationStackProp;
   useAddPlant?: boolean;
   setNewModalVisible?: Function;
 };

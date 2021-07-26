@@ -9,7 +9,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import { Ionicons } from "@expo/vector-icons";
 import { dark, light } from "../constants/colors";
 
-const Navigation = (props: { isDarkTheme: any }) => {
+const Navigation = (props: { isDarkTheme: boolean }) => {
   const { isDarkTheme } = props;
 
   return (
@@ -21,7 +21,7 @@ const Navigation = (props: { isDarkTheme: any }) => {
 
 const Drawer = createDrawerNavigator();
 
-function RootNavigator(props: { isDarkTheme: any }) {
+function RootNavigator(props: { isDarkTheme: boolean }) {
   const { isDarkTheme } = props;
 
   return (
