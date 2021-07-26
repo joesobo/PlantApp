@@ -8,6 +8,7 @@ export type Task = {
   title: string;
   description?: string;
   waterIncrement: number;
+  fertIncrement: number;
   image: string;
 };
 

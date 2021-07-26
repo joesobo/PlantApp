@@ -11,20 +11,13 @@ type PropTypes = {
   image: string;
   index: number;
   selectedTaskIndex: number;
-  // schedulePushNotification: Function;
   setSelectedTaskIndex: Function;
 };
 
 const Plant = (props: PropTypes) => {
   const { theme } = useContext(MainContext);
-  const {
-    title,
-    index,
-    selectedTaskIndex,
-    image,
-    // schedulePushNotification,
-    setSelectedTaskIndex,
-  } = props;
+  const { title, index, selectedTaskIndex, image, setSelectedTaskIndex } =
+    props;
   const {
     card,
     plant,

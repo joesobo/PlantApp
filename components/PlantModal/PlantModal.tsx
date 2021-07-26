@@ -313,9 +313,11 @@ const PlantModal = (props: PropTypes) => {
                     description,
                     currentDate,
                     waterIncrement,
+                    fertIncrement,
                     image,
                   });
-                  schedulePushNotification((currentDate - Date.now()) / 1000);
+                  useWater ? schedulePushNotification(waterIncrement) : null;
+                  useFert ? schedulePushNotification(fertIncrement) : null;
                   initialState();
                   setVisible(false);
                 }}
