@@ -223,7 +223,19 @@ const PlantModal = (props: PropTypes) => {
             <View style={row}>
               <Text style={commandText}>Water Increment</Text>
               <Switch
-                trackColor={{ false: darkColor, true: waterColor }}
+                {...Platform.select({
+                  web: {
+                    activeThumbColor: useWater
+                      ? isDark
+                        ? darkColor
+                        : white
+                      : waterColor,
+                  },
+                })}
+                trackColor={{
+                  false: isDark ? dark.barBackground : light.barBackground,
+                  true: waterColor,
+                }}
                 thumbColor={
                   useWater ? (isDark ? darkColor : white) : waterColor
                 }
@@ -254,7 +266,19 @@ const PlantModal = (props: PropTypes) => {
             <View style={row}>
               <Text style={commandText}>Fertilizer Increment</Text>
               <Switch
-                trackColor={{ false: darkColor, true: fertColor }}
+                {...Platform.select({
+                  web: {
+                    activeThumbColor: useFert
+                      ? isDark
+                        ? darkColor
+                        : white
+                      : fertColor,
+                  },
+                })}
+                trackColor={{
+                  false: isDark ? dark.barBackground : light.barBackground,
+                  true: fertColor,
+                }}
                 thumbColor={useFert ? (isDark ? darkColor : white) : fertColor}
                 ios_backgroundColor={
                   useFert
