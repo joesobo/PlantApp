@@ -40,12 +40,16 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const schedulePushNotification = async (time: number) => {
+const schedulePushNotification = async (
+  time: number,
+  title: string,
+  body?: string
+) => {
   if (Platform.OS !== "web") {
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: "Hey there! It's time to water your plant!",
-        body: "{X} plant needs {Y} amount of water",
+        title: title,
+        body: body,
         // data: { data: "goes here" },
       },
       trigger: { seconds: time },
@@ -158,6 +162,7 @@ const PlantModal = (props: PropTypes) => {
       <View style={background}>
         <KeyboardAvoidingView behavior="padding" enabled>
           <View style={modalView}>
+            {/* Title */}
             <View style={titleRow}>
               <Text style={titleText}>Plant Information</Text>
               <TouchableOpacity
@@ -316,8 +321,18 @@ const PlantModal = (props: PropTypes) => {
                     fertIncrement,
                     image,
                   });
-                  useWater ? schedulePushNotification(waterIncrement) : null;
-                  useFert ? schedulePushNotification(fertIncrement) : null;
+                  useWater
+                    ? schedulePushNotification(
+                        waterIncrement,
+                        "Hey there! It's time to water your plant!"
+                      )
+                    : null;
+                  useFert
+                    ? schedulePushNotification(
+                        fertIncrement,
+                        "Hey there! It's time to fertilizer your plant!"
+                      )
+                    : null;
                   initialState();
                   setVisible(false);
                 }}
