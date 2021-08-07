@@ -11,20 +11,27 @@ import {
   schedulePushNotification,
   registerForPushNotificationsAsync,
 } from "./constants/notifications";
+import Constants from "expo-constants";
 
 export default function App() {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
   const [useWeatherSwitch, setUseWeather] = useState<boolean>(false);
+  const [useNotificationsSwitch, setUseNotifications] =
+    useState<boolean>(false);
 
   const context = useMemo(
     () => ({
       isDark: isDarkTheme,
       useWeather: useWeatherSwitch,
+      useNotifications: useNotificationsSwitch,
       toggleTheme: () => {
         setIsDarkTheme(!isDarkTheme);
       },
       toggleWeather: () => {
         setUseWeather(!useWeatherSwitch);
+      },
+      toggleNotifications: () => {
+        setUseNotifications(!useNotificationsSwitch);
       },
       theme: {
         colors: isDarkTheme ? dark : light,
@@ -32,11 +39,11 @@ export default function App() {
       schedulePushNotification: schedulePushNotification,
       registerForPushNotificationsAsync: registerForPushNotificationsAsync,
     }),
-    [isDarkTheme, useWeatherSwitch]
+    [isDarkTheme, useWeatherSwitch, useNotificationsSwitch]
   );
 
   useEffect(() => {
-    if (Platform.OS !== "web") {
+    if (Platform.OS !== "web" && Constants.isDevice && useNotificationsSwitch) {
       registerForPushNotificationsAsync();
     }
   });

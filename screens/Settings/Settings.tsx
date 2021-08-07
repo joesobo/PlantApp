@@ -13,7 +13,13 @@ import {
 import { NavigationStackProp } from "react-navigation-stack";
 
 const Settings = ({ navigation }: NavigationStackProp) => {
-  const { theme, useWeather, toggleWeather } = useContext(MainContext);
+  const {
+    theme,
+    useWeather,
+    toggleWeather,
+    useNotifications,
+    toggleNotifications,
+  } = useContext(MainContext);
   const {
     background,
     container,
@@ -24,9 +30,6 @@ const Settings = ({ navigation }: NavigationStackProp) => {
     smallHeight,
     text,
   } = styles(theme.colors);
-
-  // const [useWeather, setUseWeather] = useState<boolean>(false);
-  const [useNotifications, setUseNotifications] = useState<boolean>(false);
 
   return (
     <View style={background}>
@@ -60,7 +63,7 @@ const Settings = ({ navigation }: NavigationStackProp) => {
           trackColor={{ false: darkColor, true: mainColor }}
           thumbColor={useNotifications ? darkColor : white}
           ios_backgroundColor={useNotifications ? darkColor : mainColor}
-          onValueChange={() => setUseNotifications(!useNotifications)}
+          onValueChange={toggleNotifications}
           value={useNotifications}
         />
       </View>
