@@ -10,7 +10,6 @@ import {
   KeyboardAvoidingView,
   Switch,
 } from "react-native";
-import * as Notifications from "expo-notifications";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { styles } from "./PlantModal.styled";
@@ -25,36 +24,12 @@ import {
   light,
   dark,
 } from "../../constants/colors";
+import { schedulePushNotification } from "../../constants/notifications";
 
 type PropTypes = {
   visible: boolean;
   setVisible: Function;
   addTask: Function;
-};
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
-
-const schedulePushNotification = async (
-  time: number,
-  title: string,
-  body?: string
-) => {
-  if (Platform.OS !== "web") {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: title,
-        body: body,
-        // data: { data: "goes here" },
-      },
-      trigger: { seconds: time },
-    });
-  }
 };
 
 const PlantModal = (props: PropTypes) => {
@@ -226,7 +201,7 @@ const PlantModal = (props: PropTypes) => {
 
             {/* Water */}
             <View style={row}>
-              <Text style={commandText}>Water Increment</Text>
+              <Text style={commandText}>Water Timer</Text>
               <Switch
                 {...Platform.select({
                   web: {
@@ -269,7 +244,7 @@ const PlantModal = (props: PropTypes) => {
 
             {/* Fertilizer */}
             <View style={row}>
-              <Text style={commandText}>Fertilizer Increment</Text>
+              <Text style={commandText}>Fertilizer Timer</Text>
               <Switch
                 {...Platform.select({
                   web: {

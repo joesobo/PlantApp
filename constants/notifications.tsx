@@ -1,6 +1,8 @@
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
+import { useContext } from "react";
 import { Platform } from "react-native";
+import { MainContext } from "./context";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -10,16 +12,24 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export async function schedulePushNotification() {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "You've got mail! 📬",
-      body: "Here is the notification body",
-      data: { data: "goes here" },
-    },
-    trigger: { seconds: 2 },
-  });
-}
+export const schedulePushNotification = async (
+  time: number,
+  title: string,
+  body?: string
+) => {
+  const { useNotifications } = useContext(MainContext);
+
+  if (Platform.OS !== "web" && Constants.isDevice && useNotifications) {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: title,
+        body: body,
+        // data: { data: "goes here" },
+      },
+      trigger: { seconds: time },
+    });
+  }
+};
 
 export const registerForPushNotificationsAsync = async () => {
   let token;

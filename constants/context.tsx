@@ -11,6 +11,10 @@ export const MainContext = createContext({
   theme: {
     colors: light,
   },
-  schedulePushNotification: () => {},
+  schedulePushNotification: (
+    _time: number,
+    _title: string,
+    _body?: string | undefined
+  ) => {},
   registerForPushNotificationsAsync: () => {},
 });
