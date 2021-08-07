@@ -29,6 +29,9 @@ const Settings = ({ navigation }: NavigationStackProp) => {
     backgroundContainer,
     smallHeight,
     text,
+    row,
+    col,
+    credits,
   } = styles(theme.colors);
 
   return (
@@ -50,22 +53,32 @@ const Settings = ({ navigation }: NavigationStackProp) => {
 
       {/* Body */}
       <View style={body}>
-        <Text style={text}>Weather Module</Text>
-        <Switch
-          trackColor={{ false: darkColor, true: mainColor }}
-          thumbColor={useWeather ? darkColor : white}
-          ios_backgroundColor={useWeather ? darkColor : mainColor}
-          onValueChange={toggleWeather}
-          value={useWeather}
-        />
-        <Text style={text}>Use Notifications</Text>
-        <Switch
-          trackColor={{ false: darkColor, true: mainColor }}
-          thumbColor={useNotifications ? darkColor : white}
-          ios_backgroundColor={useNotifications ? darkColor : mainColor}
-          onValueChange={toggleNotifications}
-          value={useNotifications}
-        />
+        <View style={col}>
+          <View style={row}>
+            <Text style={text}>Weather Module</Text>
+            <Switch
+              trackColor={{ false: darkColor, true: mainColor }}
+              thumbColor={useWeather ? darkColor : white}
+              ios_backgroundColor={useWeather ? darkColor : mainColor}
+              onValueChange={toggleWeather}
+              value={useWeather}
+            />
+          </View>
+          <View style={row}>
+            <Text style={text}>Use Notifications</Text>
+            <Switch
+              trackColor={{ false: darkColor, true: mainColor }}
+              thumbColor={useNotifications ? darkColor : white}
+              ios_backgroundColor={useNotifications ? darkColor : mainColor}
+              onValueChange={toggleNotifications}
+              value={useNotifications}
+            />
+          </View>
+        </View>
+        <View style={col}>
+          <Text style={credits}>Credits:</Text>
+          <Text style={credits}>Created by Joe Soboleski</Text>
+        </View>
       </View>
     </View>
   );

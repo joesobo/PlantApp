@@ -24,7 +24,20 @@ export let styles = (props: Colors) =>
     body: {
       display: "flex",
       flexDirection: "column",
+      justifyContent: "space-between",
       marginHorizontal: 16,
+      marginBottom: 25,
+      flex: 1,
+    },
+    col: {
+      display: "flex",
+      flexDirection: "column",
+    },
+    row: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      marginTop: 16,
     },
     backgroundContainer: {
       borderBottomLeftRadius: 50,
@@ -40,6 +53,10 @@ export let styles = (props: Colors) =>
       position: "relative",
     },
     text: {
-      marginTop: 16,
+      width: 125,
+    },
+    credits: {
+      color: props.descText,
+      fontSize: 12,
     },
   });
