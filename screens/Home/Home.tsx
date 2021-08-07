@@ -14,7 +14,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { NavigationStackProp } from "react-navigation-stack";
 
 const Home = ({ navigation }: NavigationStackProp) => {
-  const { theme } = useContext(MainContext);
+  const { theme, useWeather } = useContext(MainContext);
   const {
     page,
     container,
@@ -148,7 +148,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
                 setEditModalVisible={setEditModalVisible}
               />
             ) : null}
-            <WeatherModule />
+            {useWeather ? <WeatherModule /> : null}
           </ScrollView>
         </View>
       </View>

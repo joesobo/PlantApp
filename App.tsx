@@ -14,12 +14,17 @@ import {
 
 export default function App() {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
+  const [useWeatherSwitch, setUseWeather] = useState<boolean>(false);
 
   const context = useMemo(
     () => ({
       isDark: isDarkTheme,
+      useWeather: useWeatherSwitch,
       toggleTheme: () => {
         setIsDarkTheme(!isDarkTheme);
+      },
+      toggleWeather: () => {
+        setUseWeather(!useWeatherSwitch);
       },
       theme: {
         colors: isDarkTheme ? dark : light,
@@ -27,7 +32,7 @@ export default function App() {
       schedulePushNotification: schedulePushNotification,
       registerForPushNotificationsAsync: registerForPushNotificationsAsync,
     }),
-    [isDarkTheme]
+    [isDarkTheme, useWeatherSwitch]
   );
 
   useEffect(() => {
