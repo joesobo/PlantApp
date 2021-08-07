@@ -35,9 +35,10 @@ export let styles = (props: Colors) =>
       paddingHorizontal: 28,
       paddingBottom: 24,
       paddingTop: 20,
-      justifyContent: "space-around",
       borderTopRightRadius: 50,
       borderTopLeftRadius: 50,
+      height: 500,
+      overflow: "scroll",
     },
     titleText: {
       fontWeight: "bold",
@@ -48,7 +49,7 @@ export let styles = (props: Colors) =>
       textAlign: "center",
     },
     input: {
-      height: 40,
+      height: 30,
       marginVertical: 8,
       padding: 4,
       paddingLeft: 8,
@@ -56,8 +57,8 @@ export let styles = (props: Colors) =>
       borderColor: props.border,
       color: props.text,
       alignSelf: "stretch",
-      width: "40%",
-      borderRadius: 50,
+      width: "46%",
+      borderRadius: 8,
     },
     emptySpacing: {
       height: 40,
@@ -79,6 +80,7 @@ export let styles = (props: Colors) =>
     button: {
       borderRadius: 50,
       marginVertical: 8,
+      marginBottom: 50,
       flex: 1,
       overflow: "hidden",
     },

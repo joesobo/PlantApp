@@ -9,6 +9,7 @@ import {
   Image,
   KeyboardAvoidingView,
   Switch,
+  ScrollView,
 } from "react-native";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -25,6 +26,7 @@ import {
   dark,
 } from "../../constants/colors";
 import { schedulePushNotification } from "../../constants/notifications";
+import NumericInput from "react-native-numeric-input";
 
 type PropTypes = {
   visible: boolean;
@@ -79,14 +81,8 @@ const PlantModal = (props: PropTypes) => {
     setImage("");
   };
 
-  const onWaterChanged = (text: string) => {
-    text.replace(/[^0-9]/g, "");
-    if (text == "") {
-      setWaterIncrement(0);
-    } else {
-      let num = parseInt(text);
-      setWaterIncrement(num);
-    }
+  const onWaterChanged = (input: number) => {
+    setWaterIncrement(input);
   };
 
   const onFertChanged = (text: string) => {
@@ -136,7 +132,7 @@ const PlantModal = (props: PropTypes) => {
     <Modal style={modal} animationType="fade" visible={visible} transparent>
       <View style={background}>
         <KeyboardAvoidingView behavior="padding" enabled>
-          <View style={modalView}>
+          <ScrollView style={modalView}>
             {/* Title */}
             <View style={titleRow}>
               <Text style={titleText}>Plant Information</Text>
@@ -201,7 +197,7 @@ const PlantModal = (props: PropTypes) => {
 
             {/* Water */}
             <View style={row}>
-              <Text style={commandText}>Water Timer</Text>
+              <Text style={commandText}>Water</Text>
               <Switch
                 {...Platform.select({
                   web: {
@@ -230,13 +226,29 @@ const PlantModal = (props: PropTypes) => {
                 value={useWater}
               />
               {useWater ? (
-                <TextInput
-                  style={input}
-                  value={waterIncrement.toString()}
-                  onChangeText={onWaterChanged}
-                  keyboardType="numeric"
-                  maxLength={2}
-                />
+                // <TextInput
+                //   style={input}
+                //   value={waterIncrement.toString()}
+                //   onChangeText={onWaterChanged}
+                //   keyboardType="numeric"
+                //   maxLength={2}
+                // />
+                <View style={row}>
+                  <Text>days</Text>
+                  <NumericInput
+                    totalHeight={40}
+                    totalWidth={120}
+                    rounded
+                    textColor="#fff"
+                    rightButtonBackgroundColor="#123"
+                    leftButtonBackgroundColor="#123"
+                    borderColor="#123"
+                    onChange={onWaterChanged}
+                    value={waterIncrement}
+                    minValue={0}
+                    maxValue={100}
+                  />
+                </View>
               ) : (
                 <View style={emptySpacing} />
               )}
@@ -335,7 +347,7 @@ const PlantModal = (props: PropTypes) => {
                 </LinearGradient>
               </TouchableOpacity>
             </View>
-          </View>
+          </ScrollView>
         </KeyboardAvoidingView>
       </View>
     </Modal>
