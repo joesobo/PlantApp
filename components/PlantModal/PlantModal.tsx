@@ -36,7 +36,7 @@ type PropTypes = {
 };
 
 const PlantModal = (props: PropTypes) => {
-  const { theme, isDark } = useContext(MainContext);
+  const { theme, isDark, useNotifications } = useContext(MainContext);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [useWater, setWater] = useState<boolean>(false);
@@ -100,6 +100,47 @@ const PlantModal = (props: PropTypes) => {
     if (!result.cancelled) {
       setImage(result.uri);
     }
+  };
+
+  const incrementToSeconds = (days: number) => {
+    return days * 24 * 60 * 60;
+  };
+
+  const canNotifyForWater = () => {
+    return useNotifications && useWater && waterIncrement !== 0;
+  };
+
+  const canNotifyForFert = () => {
+    return useNotifications && useFert && fertIncrement !== 0;
+  };
+
+  const createTask = () => {
+    const newTask: Task = {
+      title,
+      description,
+      waterIncrement,
+      fertIncrement,
+      image,
+    };
+    addTask(newTask);
+    canNotifyForWater()
+      ? schedulePushNotification(
+          incrementToSeconds(waterIncrement),
+          "Hey there! It's time to water your plant!",
+          newTask,
+          true
+        )
+      : null;
+    canNotifyForFert()
+      ? schedulePushNotification(
+          incrementToSeconds(fertIncrement),
+          "Hey there! It's time to fertilizer your plant!",
+          newTask,
+          false
+        )
+      : null;
+    initialState();
+    setVisible(false);
   };
 
   useEffect(() => {
@@ -295,38 +336,12 @@ const PlantModal = (props: PropTypes) => {
               </View>
             ) : null}
 
+            {/* Create */}
             <View style={row}>
               <TouchableOpacity
                 style={button}
                 disabled={!isButtonEnabled}
-                onPress={() => {
-                  const newTask: Task = {
-                    title,
-                    description,
-                    waterIncrement,
-                    fertIncrement,
-                    image,
-                  };
-                  addTask(newTask);
-                  useWater
-                    ? schedulePushNotification(
-                        waterIncrement,
-                        "Hey there! It's time to water your plant!",
-                        newTask,
-                        true
-                      )
-                    : null;
-                  useFert
-                    ? schedulePushNotification(
-                        fertIncrement,
-                        "Hey there! It's time to fertilizer your plant!",
-                        newTask,
-                        false
-                      )
-                    : null;
-                  initialState();
-                  setVisible(false);
-                }}
+                onPress={createTask}
               >
                 <LinearGradient
                   colors={[
