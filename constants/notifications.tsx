@@ -1,8 +1,7 @@
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import { useContext } from "react";
 import { Platform } from "react-native";
-import { MainContext } from "./context";
+import { Task } from "./types";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -15,9 +14,17 @@ Notifications.setNotificationHandler({
 export const schedulePushNotification = async (
   time: number,
   title: string,
+  task: Task,
+  isWater: boolean,
   body?: string
 ) => {
   if (Platform.OS !== "web" && Constants.isDevice) {
+    if (isWater) {
+      task.needWatering = true;
+    } else {
+      task.needFertilizer = true;
+    }
+
     await Notifications.scheduleNotificationAsync({
       content: {
         title: title,

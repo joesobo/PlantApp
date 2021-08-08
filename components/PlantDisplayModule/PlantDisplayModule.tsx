@@ -8,15 +8,32 @@ import { NavigationStackProp } from "react-navigation-stack";
 
 type PropTypes = {
   task: Task;
+  index: number;
   deleteTask: () => void;
   navigation: NavigationStackProp;
   setEditModalVisible: (res: boolean) => void;
+  updateTask: (task: Task, index: number) => void;
 };
 
 const PlantDisplayModule = (props: PropTypes) => {
   const { theme } = useContext(MainContext);
-  const { task, deleteTask, navigation, setEditModalVisible } = props;
-  const { title, description, image } = task;
+  const {
+    task,
+    index,
+    deleteTask,
+    navigation,
+    setEditModalVisible,
+    updateTask,
+  } = props;
+  const {
+    title,
+    description,
+    image,
+    fertIncrement,
+    waterIncrement,
+    needWatering,
+    needFertilizer,
+  } = task;
   const {
     fullPlant,
     card,
@@ -31,11 +48,23 @@ const PlantDisplayModule = (props: PropTypes) => {
     spacedCol,
     icon,
     moreText,
-  } = styles(theme.colors);
+    waterIcon,
+    fertIcon,
+  } = styles(theme.colors, needWatering as boolean, needFertilizer as boolean);
 
   const openEditModal = () => {
     setEditModalVisible(true);
-  }
+  };
+
+  const waterPlant = () => {
+    task.needWatering = false;
+    updateTask(task, index);
+  };
+
+  const fertilizePlant = () => {
+    task.needFertilizer = false;
+    updateTask(task, index);
+  };
 
   return (
     <View style={[fullPlant, card]}>
@@ -61,15 +90,37 @@ const PlantDisplayModule = (props: PropTypes) => {
               </View>
               <Text style={descText}>{description}</Text>
             </View>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("PlantInfo", {
-                  task: task,
-                })
-              }
-            >
-              <Text style={moreText}>See more...</Text>
-            </TouchableOpacity>
+            <View style={spacedRow}>
+              <View style={row}>
+                {waterIncrement !== 0 ? (
+                  <TouchableOpacity onPress={waterPlant}>
+                    <MaterialCommunityIcons
+                      name="watering-can-outline"
+                      size={22}
+                      style={waterIcon}
+                    />
+                  </TouchableOpacity>
+                ) : null}
+                {fertIncrement !== 0 ? (
+                  <TouchableOpacity onPress={fertilizePlant}>
+                    <MaterialCommunityIcons
+                      name="tree-outline"
+                      size={22}
+                      style={fertIcon}
+                    />
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("PlantInfo", {
+                    task: task,
+                  })
+                }
+              >
+                <Text style={moreText}>See more...</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>

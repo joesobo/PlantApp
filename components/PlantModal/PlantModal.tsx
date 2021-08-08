@@ -27,6 +27,7 @@ import {
 } from "../../constants/colors";
 import { schedulePushNotification } from "../../constants/notifications";
 import NumericInput from "react-native-numeric-input";
+import { Task } from "../../constants/types";
 
 type PropTypes = {
   visible: boolean;
@@ -42,7 +43,6 @@ const PlantModal = (props: PropTypes) => {
   const [waterIncrement, setWaterIncrement] = useState<number>(0);
   const [useFert, setFert] = useState<boolean>(false);
   const [fertIncrement, setFertIncrement] = useState<number>(0);
-  const [currentDate, setCurrentDate] = useState<number>(Date.now());
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
 
@@ -78,7 +78,6 @@ const PlantModal = (props: PropTypes) => {
     setWater(false);
     setFertIncrement(0);
     setFert(false);
-    setCurrentDate(Date.now());
     setImage("");
   };
 
@@ -301,24 +300,28 @@ const PlantModal = (props: PropTypes) => {
                 style={button}
                 disabled={!isButtonEnabled}
                 onPress={() => {
-                  addTask({
+                  const newTask: Task = {
                     title,
                     description,
-                    currentDate,
                     waterIncrement,
                     fertIncrement,
                     image,
-                  });
+                  };
+                  addTask(newTask);
                   useWater
                     ? schedulePushNotification(
                         waterIncrement,
-                        "Hey there! It's time to water your plant!"
+                        "Hey there! It's time to water your plant!",
+                        newTask,
+                        true
                       )
                     : null;
                   useFert
                     ? schedulePushNotification(
                         fertIncrement,
-                        "Hey there! It's time to fertilizer your plant!"
+                        "Hey there! It's time to fertilizer your plant!",
+                        newTask,
+                        false
                       )
                     : null;
                   initialState();

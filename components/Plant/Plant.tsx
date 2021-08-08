@@ -15,7 +15,14 @@ type PropTypes = {
 const Plant = (props: PropTypes) => {
   const { theme } = useContext(MainContext);
   const { index, selectedTaskIndex, task, setSelectedTaskIndex } = props;
-  const { title, image, fertIncrement, waterIncrement } = task;
+  const {
+    title,
+    image,
+    fertIncrement,
+    waterIncrement,
+    needWatering,
+    needFertilizer,
+  } = task;
   const {
     card,
     plant,
@@ -29,7 +36,7 @@ const Plant = (props: PropTypes) => {
     fertIcon,
     selected,
     unselected,
-  } = styles(theme.colors);
+  } = styles(theme.colors, needWatering as boolean, needFertilizer as boolean);
 
   const isCurrentTaskSelected = selectedTaskIndex === index;
 

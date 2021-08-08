@@ -30,19 +30,31 @@ const Home = ({ navigation }: NavigationStackProp) => {
   //TODO: Test data remove!
   const [taskItems, setTaskItems] = useState<Task[]>([
     {
-      title: "1",
+      title: "Plant #1",
+      description: "This is a description of the first plant",
       waterIncrement: 1,
+      needWatering: true,
       fertIncrement: 0,
       image: "https://reactjs.org/logo-og.png",
     },
     {
       title: "2",
       waterIncrement: 1,
+      needWatering: true,
       fertIncrement: 1,
+      needFertilizer: true,
       image: "https://reactjs.org/logo-og.png",
     },
     {
       title: "3",
+      waterIncrement: 1,
+      needWatering: false,
+      fertIncrement: 1,
+      needFertilizer: false,
+      image: "https://reactjs.org/logo-og.png",
+    },
+    {
+      title: "4",
       waterIncrement: 0,
       fertIncrement: 0,
       image: "https://reactjs.org/logo-og.png",
@@ -135,9 +147,11 @@ const Home = ({ navigation }: NavigationStackProp) => {
             {selectedTaskIndex !== -1 ? (
               <PlantDisplayModule
                 task={taskItems[selectedTaskIndex]}
+                index={selectedTaskIndex}
                 deleteTask={deleteTask}
                 navigation={navigation}
                 setEditModalVisible={setEditModalVisible}
+                updateTask={updateTask}
               />
             ) : null}
             {useWeather ? <WeatherModule /> : null}

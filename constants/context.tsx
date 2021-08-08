@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import { light } from "./colors";
+import { Task } from "./types";
 
 export const MainContext = createContext({
   isDark: false,
@@ -14,6 +15,7 @@ export const MainContext = createContext({
   schedulePushNotification: (
     _time: number,
     _title: string,
+    _task: Task,
     _body?: string | undefined
   ) => {},
   registerForPushNotificationsAsync: () => {},

@@ -1,7 +1,11 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "../../constants/types";
 
-export let styles = (props: Colors) =>
+export let styles = (
+  props: Colors,
+  needWatering: boolean,
+  needFertilizer: boolean
+) =>
   StyleSheet.create({
     plant: {
       width: 110,
@@ -58,9 +62,9 @@ export let styles = (props: Colors) =>
       paddingTop: 3,
     },
     waterIcon: {
-      color: props.waterColor,
+      color: needWatering ? props.waterColor : props.mainColor,
     },
     fertIcon: {
-      color: props.fertColor,
+      color: needFertilizer ? props.fertColor : props.mainColor,
     },
   });

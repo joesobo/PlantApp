@@ -3,7 +3,11 @@ import { Colors } from "../../constants/types";
 
 var width = Dimensions.get("window").width; //full width
 
-export let styles = (props: Colors) =>
+export let styles = (
+  props: Colors,
+  needWatering: boolean,
+  needFertilizer: boolean
+) =>
   StyleSheet.create({
     fullPlant: {
       width: width - 24,
@@ -55,6 +59,7 @@ export let styles = (props: Colors) =>
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
+      alignItems: "center",
     },
     spacedCol: {
       display: "flex",
@@ -67,5 +72,22 @@ export let styles = (props: Colors) =>
     },
     moreText: {
       color: props.lightText,
+    },
+    waterIcon: {
+      color: needWatering ? props.waterColor : props.mainColor,
+      borderWidth: 1,
+      borderColor: needWatering ? props.waterColor : props.mainColor,
+      borderStyle: "solid",
+      borderRadius: 16,
+      padding: 3,
+      marginRight: 8,
+    },
+    fertIcon: {
+      color: needFertilizer ? props.fertColor : props.mainColor,
+      borderWidth: 1,
+      borderColor: needFertilizer ? props.fertColor : props.mainColor,
+      borderStyle: "solid",
+      borderRadius: 16,
+      padding: 3,
     },
   });
