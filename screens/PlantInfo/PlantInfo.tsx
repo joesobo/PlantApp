@@ -13,7 +13,11 @@ import { Task } from "../../constants/types";
 import { styles } from "./PlantInfo.styled";
 import { LinearGradient } from "expo-linear-gradient";
 import { RouteProp } from "@react-navigation/native";
-import { waterGradient, fertGradient } from "../../constants/colors";
+import {
+  waterGradient,
+  fertGradient,
+  disabledButton,
+} from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 
 type PropTypes = {
@@ -22,7 +26,7 @@ type PropTypes = {
 };
 
 const PlantInfo = ({ route, navigation }: PropTypes) => {
-  const { theme } = useContext(MainContext);
+  const { theme, isDark } = useContext(MainContext);
   const { task } = route.params;
   const {
     title,
@@ -152,9 +156,20 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
               </View>
             </View>
 
-            <TouchableOpacity style={button}>
+            <TouchableOpacity disabled={!needWatering} style={button}>
               <LinearGradient
-                colors={[waterGradient.start, waterGradient.end]}
+                colors={[
+                  needWatering
+                    ? waterGradient.start
+                    : isDark
+                    ? disabledButton.dark
+                    : disabledButton.light,
+                  needWatering
+                    ? waterGradient.end
+                    : isDark
+                    ? disabledButton.dark
+                    : disabledButton.light,
+                ]}
                 start={[0, 0]}
                 end={[1, 1]}
                 style={gradientButton}
@@ -196,9 +211,20 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
               </View>
             </View>
 
-            <TouchableOpacity style={button}>
+            <TouchableOpacity disabled={!needFertilizer} style={button}>
               <LinearGradient
-                colors={[fertGradient.start, fertGradient.end]}
+                colors={[
+                  needFertilizer
+                    ? fertGradient.start
+                    : isDark
+                    ? disabledButton.dark
+                    : disabledButton.light,
+                  needFertilizer
+                    ? fertGradient.end
+                    : isDark
+                    ? disabledButton.dark
+                    : disabledButton.light,
+                ]}
                 start={[0, 0]}
                 end={[1, 1]}
                 style={gradientButton}
