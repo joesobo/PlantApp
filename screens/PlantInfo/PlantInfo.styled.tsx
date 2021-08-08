@@ -38,6 +38,7 @@ export let styles = (props: Colors) =>
       paddingLeft: 105,
     },
     infoText: {
+      marginTop: 8,
       fontSize: 14,
       color: props.text,
     },
@@ -61,7 +62,7 @@ export let styles = (props: Colors) =>
       position: "absolute",
     },
     infoTitle: {
-      fontSize: 22,
+      fontSize: 20,
       fontWeight: "bold",
       color: props.titleText,
       marginLeft: 8,
@@ -72,7 +73,7 @@ export let styles = (props: Colors) =>
       alignItems: "center",
     },
     fertIcon: {
-      color: props.mainColor,
+      color: props.fertColor,
     },
     waterIcon: {
       color: props.waterColor,
@@ -102,11 +103,12 @@ export let styles = (props: Colors) =>
       shadowRadius: 5,
       borderRadius: 100,
       position: "absolute",
-      top: -150,
+      top: 75,
+      zIndex: 1,
       left: width / 2 - 100,
     },
     button: {
-      marginTop: 2,
+      marginTop: 8,
       marginBottom: 24,
       borderRadius: 50,
       overflow: "hidden",
@@ -119,5 +121,14 @@ export let styles = (props: Colors) =>
     },
     gradientButton: {
       padding: 8,
+    },
+    titleText: {
+      fontSize: 22,
+      fontWeight: "bold",
+      color: props.titleText,
+    },
+    descriptionText: {
+      marginVertical: 8,
+      color: props.descText,
     },
   });

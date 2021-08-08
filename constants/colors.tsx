@@ -59,7 +59,7 @@ export const dark = {
   mainColor: mainColor,
   descText: "#acacac",
   titleText: "#ECECEC",
-  buttonText: "#2c2c2c",
+  buttonText: "#ECECEC",
   text: "#b9b9b9",
   lightText: "#494949",
   darkText: "#414141",

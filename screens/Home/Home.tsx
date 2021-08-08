@@ -32,17 +32,17 @@ const Home = ({ navigation }: NavigationStackProp) => {
     {
       title: "Plant #1",
       description: "This is a description of the first plant",
-      waterIncrement: 1,
+      waterIncrement: 5,
       needWatering: true,
-      fertIncrement: 0,
+      fertIncrement: 14,
+      needFertilizer: true,
       image: "https://reactjs.org/logo-og.png",
     },
     {
       title: "2",
       waterIncrement: 1,
       needWatering: true,
-      fertIncrement: 1,
-      needFertilizer: true,
+      fertIncrement: 0,
       image: "https://reactjs.org/logo-og.png",
     },
     {

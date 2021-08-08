@@ -1,5 +1,12 @@
 import React, { useContext } from "react";
-import { View, Text, TouchableOpacity, Image, ImageStyle } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ImageStyle,
+  ScrollView,
+} from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Task } from "../../constants/types";
@@ -17,7 +24,15 @@ type PropTypes = {
 const PlantInfo = ({ route, navigation }: PropTypes) => {
   const { theme } = useContext(MainContext);
   const { task } = route.params;
-  const { title, description, image } = task;
+  const {
+    title,
+    description,
+    image,
+    fertIncrement,
+    waterIncrement,
+    needWatering,
+    needFertilizer,
+  } = task;
   const {
     container,
     row,
@@ -38,6 +53,8 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     fertIcon,
     waterIcon,
     gradientButton,
+    titleText,
+    descriptionText,
   } = styles(theme.colors);
 
   const data1 = {
@@ -74,104 +91,124 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     fillShadowGradientOpacity: 1,
   };
 
+  const intervalText = (days: number) => {
+    if (days === 1) {
+      return "1 day";
+    } else if (days < 7) {
+      return `${days} days`;
+    } else {
+      const weeks = Math.floor(days / 7);
+      if (weeks === 1) {
+        return "1 week";
+      } else {
+        return `${weeks} weeks +`;
+      }
+    }
+  };
+
   return (
     <View style={container}>
       <TouchableOpacity onPress={() => navigation.navigate("Home")}>
         <MaterialIcons style={backIcon} name="arrow-back" size={26} />
       </TouchableOpacity>
 
-      <View style={bottomInfo}>
-        <View style={imgWrapper}>
-          <Image source={{ uri: image }} style={img as ImageStyle} />
-        </View>
-
+      <View style={imgWrapper}>
+        <Image source={{ uri: image }} style={img as ImageStyle} />
+      </View>
+      <ScrollView style={bottomInfo}>
         <View style={col}>
-          <Text>{title}</Text>
-          <Text>{description}</Text>
+          <Text style={titleText}>{title}</Text>
+          <Text style={descriptionText}>{description}</Text>
         </View>
 
         {/* Water */}
-        <View style={col}>
-          <View style={[row, generalContainer]}>
-            <View style={infoContainer}>
-              <Text style={infoValue}>5 days</Text>
-              <ProgressChart
-                data={data1}
-                width={100}
-                height={100}
-                strokeWidth={12}
-                radius={40}
-                chartConfig={chartConfig1}
-                hideLegend={true}
-              />
-            </View>
-            <View style={[col, generalInfo]}>
-              <View style={titleRow}>
-                <MaterialCommunityIcons
-                  name="watering-can-outline"
-                  size={26}
-                  style={waterIcon}
+        {waterIncrement !== 0 ? (
+          <View style={col}>
+            <View style={[row, generalContainer]}>
+              <View style={infoContainer}>
+                <Text style={infoValue}>5 days</Text>
+                <ProgressChart
+                  data={data1}
+                  width={100}
+                  height={100}
+                  strokeWidth={12}
+                  radius={40}
+                  chartConfig={chartConfig1}
+                  hideLegend={true}
                 />
-                <Text style={infoTitle}>Hydration</Text>
               </View>
-              <Text style={infoText}>Interval: 3 days</Text>
-              <Text style={infoText}>Water: 3 gallons</Text>
+              <View style={[col, generalInfo]}>
+                <View style={titleRow}>
+                  <MaterialCommunityIcons
+                    name="watering-can-outline"
+                    size={26}
+                    style={waterIcon}
+                  />
+                  <Text style={infoTitle}>Hydration</Text>
+                </View>
+                <Text style={infoText}>
+                  Interval: {intervalText(waterIncrement as number)}
+                </Text>
+              </View>
             </View>
-          </View>
 
-          <TouchableOpacity style={button}>
-            <LinearGradient
-              colors={[waterGradient.start, waterGradient.end]}
-              start={[0, 0]}
-              end={[1, 1]}
-              style={gradientButton}
-            >
-              <Text style={buttonText}>Feed</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity style={button}>
+              <LinearGradient
+                colors={[waterGradient.start, waterGradient.end]}
+                start={[0, 0]}
+                end={[1, 1]}
+                style={gradientButton}
+              >
+                <Text style={buttonText}>Feed</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        ) : null}
 
         {/* Fertilizer */}
-        <View style={col}>
-          <View style={[row, generalContainer]}>
-            <View style={infoContainer}>
-              <Text style={infoValue}>2 weeks</Text>
-              <ProgressChart
-                data={data2}
-                width={100}
-                height={100}
-                strokeWidth={12}
-                radius={40}
-                chartConfig={chartConfig2}
-                hideLegend={true}
-              />
-            </View>
-            <View style={[col, generalInfo]}>
-              <View style={titleRow}>
-                <MaterialCommunityIcons
-                  name="tree-outline"
-                  size={26}
-                  style={fertIcon}
+        {fertIncrement != 0 ? (
+          <View style={col}>
+            <View style={[row, generalContainer]}>
+              <View style={infoContainer}>
+                <Text style={infoValue}>2 weeks</Text>
+                <ProgressChart
+                  data={data2}
+                  width={100}
+                  height={100}
+                  strokeWidth={12}
+                  radius={40}
+                  chartConfig={chartConfig2}
+                  hideLegend={true}
                 />
-                <Text style={infoTitle}>Fertilizer</Text>
               </View>
-              <Text style={infoText}>Interval: 1 week</Text>
-              <Text style={infoText}>Fertalizer: 2 scoops</Text>
+              <View style={[col, generalInfo]}>
+                <View style={titleRow}>
+                  <MaterialCommunityIcons
+                    name="tree-outline"
+                    size={26}
+                    style={fertIcon}
+                  />
+                  <Text style={infoTitle}>Fertilizer</Text>
+                </View>
+                <Text style={infoText}>
+                  Interval: {intervalText(fertIncrement as number)}
+                </Text>
+              </View>
             </View>
-          </View>
 
-          <TouchableOpacity style={button}>
-            <LinearGradient
-              colors={[fertGradient.start, fertGradient.end]}
-              start={[0, 0]}
-              end={[1, 1]}
-              style={gradientButton}
-            >
-              <Text style={buttonText}>Feed</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
-      </View>
+            <TouchableOpacity style={button}>
+              <LinearGradient
+                colors={[fertGradient.start, fertGradient.end]}
+                start={[0, 0]}
+                end={[1, 1]}
+                style={gradientButton}
+              >
+                <Text style={buttonText}>Feed</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        ) : null}
+      </ScrollView>
     </View>
   );
 };
