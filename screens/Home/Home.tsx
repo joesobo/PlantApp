@@ -33,22 +33,19 @@ const Home = ({ navigation }: NavigationStackProp) => {
       title: "1",
       waterIncrement: 1,
       fertIncrement: 0,
-      image:
-        "file:///Users/joesoboleski/Library/Developer/CoreSimulator/Devices/1649EB64-C7C3-4809-8282-55967BDED21C/data/Containers/Data/Application/E1BABDE4-AC46-4CDE-AC44-141C790F96D0/Library/Caches/ExponentExperienceData/%2540joesobo%252FPlantApp/ImagePicker/85B2D44A-77AF-4B11-B982-804CE79B6017.jpg",
+      image: "https://reactjs.org/logo-og.png",
     },
     {
       title: "2",
       waterIncrement: 1,
       fertIncrement: 1,
-      image:
-        "file:///Users/joesoboleski/Library/Developer/CoreSimulator/Devices/1649EB64-C7C3-4809-8282-55967BDED21C/data/Containers/Data/Application/E1BABDE4-AC46-4CDE-AC44-141C790F96D0/Library/Caches/ExponentExperienceData/%2540joesobo%252FPlantApp/ImagePicker/85B2D44A-77AF-4B11-B982-804CE79B6017.jpg",
+      image: "https://reactjs.org/logo-og.png",
     },
     {
       title: "3",
       waterIncrement: 0,
       fertIncrement: 0,
-      image:
-        "file:///Users/joesoboleski/Library/Developer/CoreSimulator/Devices/1649EB64-C7C3-4809-8282-55967BDED21C/data/Containers/Data/Application/E1BABDE4-AC46-4CDE-AC44-141C790F96D0/Library/Caches/ExponentExperienceData/%2540joesobo%252FPlantApp/ImagePicker/85B2D44A-77AF-4B11-B982-804CE79B6017.jpg",
+      image: "https://reactjs.org/logo-og.png",
     },
   ]);
   const [selectedTaskIndex, setSelectedTaskIndex] = useState<number>(-1);
