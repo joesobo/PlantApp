@@ -7,14 +7,14 @@ import WeatherModule from "../../components/WeatherModule/WeatherModule";
 import PlantDisplayModule from "../../components/PlantDisplayModule/PlantDisplayModule";
 import { Task } from "../../constants/types";
 import { styles } from "./Home.styled";
-import { backgroundGradient } from "../../constants/colors";
+import { backgroundGradient, light, dark } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 import EditModal from "../../components/EditModal/EditModal";
 import Navbar from "../../components/Navbar/Navbar";
 import { NavigationStackProp } from "react-navigation-stack";
 
 const Home = ({ navigation }: NavigationStackProp) => {
-  const { theme, useWeather } = useContext(MainContext);
+  const { theme, useWeather, isDark } = useContext(MainContext);
   const {
     page,
     container,
@@ -128,6 +128,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
             onChangeText={setText}
             value={text}
             style={search}
+            placeholderTextColor={isDark ? dark.descText : light.descText}
             placeholder="Search..."
           ></TextInput>
           <ScrollView showsVerticalScrollIndicator={false} style={mainScroll}>
