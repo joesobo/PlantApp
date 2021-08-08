@@ -60,16 +60,14 @@ export let styles = (props: Colors) =>
       width: "46%",
       borderRadius: 8,
     },
-    emptySpacing: {
-      height: 40,
-      marginVertical: 8,
-      padding: 4,
-      width: "40%",
-    },
     commandText: {
       color: props.text,
       marginRight: 8,
-      width: "35%",
+    },
+    subCommandText: {
+      fontSize: 13,
+      color: props.text,
+      marginRight: 8,
     },
     buttonText: {
       color: props.buttonText,
@@ -132,4 +130,7 @@ export let styles = (props: Colors) =>
     disabledText: {
       color: props.disabledText,
     },
+    spaced: {
+      marginTop: 8,
+    }
   });

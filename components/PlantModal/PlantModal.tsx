@@ -54,7 +54,6 @@ const PlantModal = (props: PropTypes) => {
     titleText,
     input,
     row,
-    emptySpacing,
     commandText,
     button,
     icon,
@@ -68,6 +67,8 @@ const PlantModal = (props: PropTypes) => {
     areaContainer,
     gradientButton,
     disabledText,
+    subCommandText,
+    spaced,
   } = styles(theme.colors);
 
   const initialState = () => {
@@ -85,14 +86,8 @@ const PlantModal = (props: PropTypes) => {
     setWaterIncrement(input);
   };
 
-  const onFertChanged = (text: string) => {
-    text.replace(/[^0-9]/g, "");
-    if (text == "") {
-      setFertIncrement(0);
-    } else {
-      let num = parseInt(text);
-      setFertIncrement(num);
-    }
+  const onFertChanged = (input: number) => {
+    setFertIncrement(input);
   };
 
   const pickImage = async () => {
@@ -171,7 +166,7 @@ const PlantModal = (props: PropTypes) => {
               </View>
             </View>
 
-            {/* Date Upload */}
+            {/* Text */}
             <View style={row}>
               <Text style={commandText}>Title</Text>
               <TextInput
@@ -225,37 +220,32 @@ const PlantModal = (props: PropTypes) => {
                 onValueChange={() => setWater(!useWater)}
                 value={useWater}
               />
-              {useWater ? (
-                // <TextInput
-                //   style={input}
-                //   value={waterIncrement.toString()}
-                //   onChangeText={onWaterChanged}
-                //   keyboardType="numeric"
-                //   maxLength={2}
-                // />
-                <View style={row}>
-                  <Text>days</Text>
-                  <NumericInput
-                    totalHeight={40}
-                    totalWidth={120}
-                    rounded
-                    textColor="#fff"
-                    rightButtonBackgroundColor="#123"
-                    leftButtonBackgroundColor="#123"
-                    borderColor="#123"
-                    onChange={onWaterChanged}
-                    value={waterIncrement}
-                    minValue={0}
-                    maxValue={100}
-                  />
-                </View>
-              ) : (
-                <View style={emptySpacing} />
-              )}
             </View>
+            {useWater ? (
+              <View style={[row, spaced]}>
+                <Text style={subCommandText}>Days between watering</Text>
+                <NumericInput
+                  totalHeight={35}
+                  totalWidth={120}
+                  rounded
+                  textColor={isDark ? dark.descText : light.descText}
+                  rightButtonBackgroundColor={
+                    isDark ? dark.displayBackground : light.displayBackground
+                  }
+                  leftButtonBackgroundColor={
+                    isDark ? dark.displayBackground : light.displayBackground
+                  }
+                  borderColor={isDark ? dark.border : light.border}
+                  onChange={onWaterChanged}
+                  value={waterIncrement}
+                  minValue={0}
+                  maxValue={100}
+                />
+              </View>
+            ) : null}
 
             {/* Fertilizer */}
-            <View style={row}>
+            <View style={[row, spaced]}>
               <Text style={commandText}>Fertilizer Timer</Text>
               <Switch
                 {...Platform.select({
@@ -282,18 +272,29 @@ const PlantModal = (props: PropTypes) => {
                 onValueChange={() => setFert(!useFert)}
                 value={useFert}
               />
-              {useFert ? (
-                <TextInput
-                  style={input}
-                  value={fertIncrement.toString()}
-                  onChangeText={onFertChanged}
-                  keyboardType="numeric"
-                  maxLength={2}
-                />
-              ) : (
-                <View style={emptySpacing} />
-              )}
             </View>
+            {useFert ? (
+              <View style={[row, spaced]}>
+                <Text style={subCommandText}>Days between fertilizer</Text>
+                <NumericInput
+                  totalHeight={35}
+                  totalWidth={120}
+                  rounded
+                  textColor={isDark ? dark.descText : light.descText}
+                  rightButtonBackgroundColor={
+                    isDark ? dark.displayBackground : light.displayBackground
+                  }
+                  leftButtonBackgroundColor={
+                    isDark ? dark.displayBackground : light.displayBackground
+                  }
+                  borderColor={isDark ? dark.border : light.border}
+                  onChange={onFertChanged}
+                  value={fertIncrement}
+                  minValue={0}
+                  maxValue={100}
+                />
+              </View>
+            ) : null}
 
             <View style={row}>
               <TouchableOpacity
