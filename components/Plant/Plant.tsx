@@ -3,12 +3,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View, Text, Image, TouchableOpacity, ImageStyle } from "react-native";
 import { styles } from "./Plant.styled";
 import { MainContext } from "../../constants/context";
+import { Task } from "../../constants/types";
 
 type PropTypes = {
-  title?: String;
-  subtitle?: String;
-  waterIncrement: number;
-  image: string;
+  task: Task;
   index: number;
   selectedTaskIndex: number;
   setSelectedTaskIndex: Function;
@@ -16,19 +14,19 @@ type PropTypes = {
 
 const Plant = (props: PropTypes) => {
   const { theme } = useContext(MainContext);
-  const { title, index, selectedTaskIndex, image, setSelectedTaskIndex } =
-    props;
+  const { index, selectedTaskIndex, task, setSelectedTaskIndex } = props;
+  const { title, image, fertIncrement, waterIncrement } = task;
   const {
     card,
     plant,
     plantSelected,
     column,
     titleStyle,
-    textStyle,
     img,
     imgLg,
     row,
     waterIcon,
+    fertIcon,
     selected,
     unselected,
   } = styles(theme.colors);
@@ -57,12 +55,20 @@ const Plant = (props: PropTypes) => {
             <Text style={titleStyle}>{title}</Text>
           </View>
           <View style={row}>
-            <MaterialCommunityIcons
-              name="watering-can-outline"
-              size={22}
-              style={waterIcon}
-            />
-            <Text style={textStyle}>5 days</Text>
+            {waterIncrement !== 0 ? (
+              <MaterialCommunityIcons
+                name="watering-can-outline"
+                size={22}
+                style={waterIcon}
+              />
+            ) : null}
+            {fertIncrement !== 0 ? (
+              <MaterialCommunityIcons
+                name="tree-outline"
+                size={22}
+                style={fertIcon}
+              />
+            ) : null}
           </View>
         </View>
       </View>

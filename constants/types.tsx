@@ -7,8 +7,8 @@ export type RootStackParamList = {
 export type Task = {
   title: string;
   description?: string;
-  waterIncrement: number;
-  fertIncrement: number;
+  waterIncrement?: number;
+  fertIncrement?: number;
   image: string;
 };
 
@@ -19,6 +19,7 @@ export type Colors = {
   displayBackground: string;
   darkBackground: string;
   waterColor: string;
+  fertColor: string;
   mainColor: string;
   descText: string;
   titleText: string;

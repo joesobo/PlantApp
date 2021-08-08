@@ -31,15 +31,15 @@ const Home = ({ navigation }: NavigationStackProp) => {
   const [taskItems, setTaskItems] = useState<Task[]>([
     {
       title: "1",
-      waterIncrement: 0,
+      waterIncrement: 1,
       fertIncrement: 0,
       image:
         "file:///Users/joesoboleski/Library/Developer/CoreSimulator/Devices/1649EB64-C7C3-4809-8282-55967BDED21C/data/Containers/Data/Application/E1BABDE4-AC46-4CDE-AC44-141C790F96D0/Library/Caches/ExponentExperienceData/%2540joesobo%252FPlantApp/ImagePicker/85B2D44A-77AF-4B11-B982-804CE79B6017.jpg",
     },
     {
       title: "2",
-      waterIncrement: 0,
-      fertIncrement: 0,
+      waterIncrement: 1,
+      fertIncrement: 1,
       image:
         "file:///Users/joesoboleski/Library/Developer/CoreSimulator/Devices/1649EB64-C7C3-4809-8282-55967BDED21C/data/Containers/Data/Application/E1BABDE4-AC46-4CDE-AC44-141C790F96D0/Library/Caches/ExponentExperienceData/%2540joesobo%252FPlantApp/ImagePicker/85B2D44A-77AF-4B11-B982-804CE79B6017.jpg",
     },
@@ -124,15 +124,10 @@ const Home = ({ navigation }: NavigationStackProp) => {
           <ScrollView showsVerticalScrollIndicator={false} style={mainScroll}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {taskItems.map((item, index) => {
-                const { title, description, waterIncrement, image } = item;
-
                 return (
                   <Plant
                     key={index}
-                    title={title}
-                    subtitle={description}
-                    waterIncrement={waterIncrement}
-                    image={image}
+                    task={item}
                     index={index}
                     selectedTaskIndex={selectedTaskIndex}
                     setSelectedTaskIndex={setSelectedTaskIndex}

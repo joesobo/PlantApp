@@ -17,9 +17,7 @@ export const schedulePushNotification = async (
   title: string,
   body?: string
 ) => {
-  const { useNotifications } = useContext(MainContext);
-
-  if (Platform.OS !== "web" && Constants.isDevice && useNotifications) {
+  if (Platform.OS !== "web" && Constants.isDevice) {
     await Notifications.scheduleNotificationAsync({
       content: {
         title: title,

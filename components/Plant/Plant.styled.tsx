@@ -37,11 +37,6 @@ export let styles = (props: Colors) =>
       fontSize: 16,
       paddingLeft: 2,
     },
-    textStyle: {
-      color: props.text,
-      fontSize: 14,
-      paddingLeft: 4,
-    },
     img: {
       width: 110,
       height: 100,
@@ -64,5 +59,8 @@ export let styles = (props: Colors) =>
     },
     waterIcon: {
       color: props.waterColor,
+    },
+    fertIcon: {
+      color: props.fertColor,
     },
   });
