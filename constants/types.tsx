@@ -9,8 +9,10 @@ export type Task = {
   description?: string;
   waterIncrement?: number;
   needWatering?: boolean;
+  lastWaterTime?: Date;
   fertIncrement?: number;
   needFertilizer?: boolean;
+  lastFertTime?: Date;
   image: string;
 };
 

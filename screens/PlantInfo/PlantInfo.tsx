@@ -34,6 +34,14 @@ type PropTypes = {
   navigation: any;
 };
 
+const findBarPercentage = (lastTime: Date, increment: number) => {
+  const now = new Date();
+  const diff = now.getTime() - lastTime.getTime();
+  const days = diff / 1000 / 60 / 60 / 24;
+
+  return 1 - days / increment;
+};
+
 const PlantInfo = ({ route, navigation }: PropTypes) => {
   const { theme, isDark } = useContext(MainContext);
   const { task, index, updateTask } = route.params;
@@ -47,6 +55,8 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     waterIncrement,
     needWatering,
     needFertilizer,
+    lastWaterTime,
+    lastFertTime,
   } = curTask;
   const {
     container,
@@ -73,7 +83,7 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
   } = styles(theme.colors, needWatering as boolean, needFertilizer as boolean);
 
   const data1 = {
-    data: [0.3],
+    data: [findBarPercentage(lastWaterTime as Date, waterIncrement as number)],
   };
 
   const chartConfig1 = {
@@ -83,14 +93,13 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     backgroundGradientToOpacity: 0,
     color: (opacity = 1) => `rgba(99, 191, 189, ${opacity})`,
     strokeWidth: 2, // optional, default 3
-    barPercentage: 0.75,
     useShadowColorFromDataset: false, // optional
     fillShadowGradient: "#000",
     fillShadowGradientOpacity: 1,
   };
 
   const data2 = {
-    data: [0.4],
+    data: [findBarPercentage(lastFertTime as Date, fertIncrement as number)],
   };
 
   const chartConfig2 = {
@@ -100,7 +109,6 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     backgroundGradientToOpacity: 0,
     color: (opacity = 1) => `rgba(239, 176, 81, ${opacity})`,
     strokeWidth: 2, // optional, default 3
-    barPercentage: 0.75,
     useShadowColorFromDataset: false, // optional
     fillShadowGradient: "#000",
     fillShadowGradientOpacity: 1,
@@ -123,14 +131,14 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
 
   const water = () => {
     task.needWatering = false;
-    needWatering = false;
+    task.lastWaterTime = new Date();
     setCurTask({ ...task });
     updateTask(task, index);
   };
 
   const fertilize = () => {
     task.needFertilizer = false;
-    needFertilizer = false;
+    task.lastFertTime = new Date();
     setCurTask({ ...task });
     updateTask(task, index);
   };

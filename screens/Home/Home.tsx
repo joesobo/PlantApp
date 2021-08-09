@@ -12,6 +12,7 @@ import { MainContext } from "../../constants/context";
 import EditModal from "../../components/EditModal/EditModal";
 import Navbar from "../../components/Navbar/Navbar";
 import { NavigationStackProp } from "react-navigation-stack";
+import Moment from "moment";
 
 const Home = ({ navigation }: NavigationStackProp) => {
   const { theme, useWeather, isDark } = useContext(MainContext);
@@ -25,6 +26,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
     search,
     mainScroll,
   } = styles(theme.colors);
+  Moment.locale("en");
 
   const [text, setText] = useState("");
   //TODO: Test data remove!
@@ -34,14 +36,17 @@ const Home = ({ navigation }: NavigationStackProp) => {
       description: "This is a description of the first plant",
       waterIncrement: 5,
       needWatering: true,
+      lastWaterTime: Moment("2021-08-07").toDate(),
       fertIncrement: 14,
       needFertilizer: true,
+      lastFertTime: Moment("2021-08-07").toDate(),
       image: "https://reactjs.org/logo-og.png",
     },
     {
       title: "2",
       waterIncrement: 1,
       needWatering: true,
+      lastWaterTime: Moment("2021-08-07").toDate(),
       fertIncrement: 0,
       image: "https://reactjs.org/logo-og.png",
     },
@@ -49,8 +54,10 @@ const Home = ({ navigation }: NavigationStackProp) => {
       title: "3",
       waterIncrement: 1,
       needWatering: false,
+      lastWaterTime: Moment("2021-08-07").toDate(),
       fertIncrement: 1,
       needFertilizer: false,
+      lastFertTime: Moment("2021-08-07").toDate(),
       image: "https://reactjs.org/logo-og.png",
     },
     {

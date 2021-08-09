@@ -119,7 +119,11 @@ const PlantModal = (props: PropTypes) => {
       title,
       description,
       waterIncrement,
+      needWatering: useWater && waterIncrement !== 0,
+      lastWaterTime: new Date(),
       fertIncrement,
+      needFertilizer: useWater && waterIncrement !== 0,
+      lastFertTime: new Date(),
       image,
     };
     addTask(newTask);
