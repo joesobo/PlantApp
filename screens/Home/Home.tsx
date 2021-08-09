@@ -40,7 +40,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
       lastWaterTime: Moment("2021-08-07").toDate(),
       fertIncrement: 14,
       needFertilizer: true,
-      lastFertTime: Moment("2021-08-07").toDate(),
+      lastFertTime: Moment("2021-08-01").toDate(),
       image: "https://reactjs.org/logo-og.png",
     },
     {

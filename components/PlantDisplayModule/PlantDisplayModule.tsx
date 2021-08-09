@@ -106,13 +106,13 @@ const PlantDisplayModule = (props: PropTypes) => {
                 ) : null}
               </View>
               <TouchableOpacity
-                onPress={() =>
+                onPress={() => {
                   navigation.navigate("PlantInfo", {
                     task: task,
                     index: index,
                     updateTask: updateTask,
-                  })
-                }
+                  });
+                }}
               >
                 <Text style={moreText}>See more...</Text>
               </TouchableOpacity>

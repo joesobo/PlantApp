@@ -33,10 +33,16 @@ type PropTypes = {
   navigation: any;
 };
 
-const findBarPercentage = (lastTime: Date, increment: number) => {
+const findDays = (lastTime: Date) => {
   const now = new Date();
   const diff = now.getTime() - lastTime.getTime();
   const days = diff / 1000 / 60 / 60 / 24;
+
+  return days;
+};
+
+const findBarPercentage = (lastTime: Date, increment: number) => {
+  const days = findDays(lastTime);
 
   return 1 - days / increment;
 };
@@ -83,7 +89,11 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
   } = styles(theme.colors, needWatering as boolean, needFertilizer as boolean);
 
   const data1 = {
-    data: [findBarPercentage(lastWaterTime as Date, waterIncrement as number)],
+    data: [
+      waterIncrement !== 0
+        ? findBarPercentage(lastWaterTime as Date, waterIncrement as number)
+        : 0,
+    ],
   };
 
   const chartConfig1 = {
@@ -99,7 +109,11 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
   };
 
   const data2 = {
-    data: [findBarPercentage(lastFertTime as Date, fertIncrement as number)],
+    data: [
+      fertIncrement !== 0
+        ? findBarPercentage(lastFertTime as Date, fertIncrement as number)
+        : 0,
+    ],
   };
 
   const chartConfig2 = {
@@ -118,7 +132,7 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     if (days === 1) {
       return "1 day";
     } else if (days < 7) {
-      return `${days} days`;
+      return `${Math.floor(days)} days`;
     } else {
       const weeks = Math.floor(days / 7);
       if (weeks === 1) {
@@ -163,7 +177,9 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
           <View style={col}>
             <View style={[row, generalContainer]}>
               <View style={infoContainer}>
-                <Text style={infoValue}>5 days</Text>
+                <Text style={infoValue}>
+                  {intervalText(findDays(lastWaterTime as Date))}
+                </Text>
                 <ProgressChart
                   data={data1}
                   width={100}
@@ -222,7 +238,9 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
           <View style={col}>
             <View style={[row, generalContainer]}>
               <View style={infoContainer}>
-                <Text style={infoValue}>2 weeks</Text>
+                <Text style={infoValue}>
+                  {intervalText(findDays(lastFertTime as Date))}
+                </Text>
                 <ProgressChart
                   data={data2}
                   width={100}
