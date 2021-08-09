@@ -57,6 +57,10 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
   const { task, updateTask } = route.params;
   const [curTask, setCurTask] = useState<Task>(task);
 
+  useEffect(() => {
+    setCurTask(task);
+  }, [task])
+
   let {
     title,
     index,
