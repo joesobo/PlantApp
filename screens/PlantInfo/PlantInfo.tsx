@@ -43,8 +43,13 @@ const findDays = (lastTime: Date) => {
 
 const findBarPercentage = (lastTime: Date, increment: number) => {
   const days = findDays(lastTime);
+  const percentage = 1 - days / increment;
 
-  return 1 - days / increment;
+  if (percentage < 0) {
+    return 0;
+  }
+
+  return percentage;
 };
 
 const PlantInfo = ({ route, navigation }: PropTypes) => {
@@ -101,7 +106,12 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     backgroundGradientTo: "transparent",
     backgroundGradientFromOpacity: 0,
     backgroundGradientToOpacity: 0,
-    color: (opacity = 1) => `rgba(99, 191, 189, ${opacity})`,
+    color: (opacity = 1) =>
+      data1.data[0] > 0.99
+        ? `rgba(163, 203, 112, ${opacity})`
+        : data1.data[0] === 0
+        ? `rgba(225, 69, 69, ${opacity})`
+        : `rgba(99, 191, 189, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     useShadowColorFromDataset: false, // optional
     fillShadowGradient: "#000",
@@ -121,7 +131,12 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     backgroundGradientTo: "transparent",
     backgroundGradientFromOpacity: 0,
     backgroundGradientToOpacity: 0,
-    color: (opacity = 1) => `rgba(239, 176, 81, ${opacity})`,
+    color: (opacity = 1) =>
+      data2.data[0] > 0.99
+        ? `rgba(163, 203, 112, ${opacity})`
+        : data2.data[0] === 0
+        ? `rgba(225, 69, 69, ${opacity})`
+        : `rgba(239, 176, 81, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     useShadowColorFromDataset: false, // optional
     fillShadowGradient: "#000",

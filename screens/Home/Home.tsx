@@ -37,7 +37,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
       description: "This is a description of the first plant",
       waterIncrement: 5,
       needWatering: true,
-      lastWaterTime: Moment("2021-08-07").toDate(),
+      lastWaterTime: Moment("2021-07-06").toDate(),
       fertIncrement: 14,
       needFertilizer: true,
       lastFertTime: Moment("2021-08-01").toDate(),
