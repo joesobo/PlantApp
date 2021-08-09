@@ -118,7 +118,7 @@ const PlantModal = (props: PropTypes) => {
   const createTask = () => {
     const newTask: Task = {
       title,
-      index: newIndex,
+      index: newIndex + 1,
       description,
       waterIncrement,
       needWatering: useWater && waterIncrement !== 0,
