@@ -8,7 +8,6 @@ import { NavigationStackProp } from "react-navigation-stack";
 
 type PropTypes = {
   task: Task;
-  index: number;
   deleteTask: () => void;
   navigation: NavigationStackProp;
   setEditModalVisible: (res: boolean) => void;
@@ -17,16 +16,11 @@ type PropTypes = {
 
 const PlantDisplayModule = (props: PropTypes) => {
   const { theme } = useContext(MainContext);
-  const {
-    task,
-    index,
-    deleteTask,
-    navigation,
-    setEditModalVisible,
-    updateTask,
-  } = props;
+  const { task, deleteTask, navigation, setEditModalVisible, updateTask } =
+    props;
   const {
     title,
+    index,
     description,
     image,
     fertIncrement,

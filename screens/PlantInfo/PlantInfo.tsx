@@ -25,7 +25,6 @@ type PropTypes = {
     {
       params: {
         task: Task;
-        index: number;
         updateTask: (task: Task, index: number) => void;
       };
     },
@@ -44,11 +43,12 @@ const findBarPercentage = (lastTime: Date, increment: number) => {
 
 const PlantInfo = ({ route, navigation }: PropTypes) => {
   const { theme, isDark } = useContext(MainContext);
-  const { task, index, updateTask } = route.params;
+  const { task, updateTask } = route.params;
   const [curTask, setCurTask] = useState<Task>(task);
 
   let {
     title,
+    index,
     description,
     image,
     fertIncrement,

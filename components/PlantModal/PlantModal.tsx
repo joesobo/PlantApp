@@ -33,6 +33,7 @@ type PropTypes = {
   visible: boolean;
   setVisible: Function;
   addTask: Function;
+  newIndex: number;
 };
 
 const PlantModal = (props: PropTypes) => {
@@ -46,7 +47,7 @@ const PlantModal = (props: PropTypes) => {
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
 
-  const { visible, setVisible, addTask } = props;
+  const { visible, setVisible, addTask, newIndex } = props;
   const {
     modal,
     background,
@@ -117,6 +118,7 @@ const PlantModal = (props: PropTypes) => {
   const createTask = () => {
     const newTask: Task = {
       title,
+      index: newIndex,
       description,
       waterIncrement,
       needWatering: useWater && waterIncrement !== 0,

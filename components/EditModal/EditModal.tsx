@@ -22,16 +22,16 @@ type PropTypes = {
   setVisible: Function;
   updateTask: Function;
   task: Task;
-  index: number;
 };
 
 const EditModal = (props: PropTypes) => {
   const { theme } = useContext(MainContext);
   const [title, setTitle] = useState<string>("");
+  const [index, setIndex] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
   const [waterIncrement, setWaterIncrement] = useState<number>(0);
   const [image, setImage] = useState<string>("");
-  const { visible, setVisible, updateTask, task, index } = props;
+  const { visible, setVisible, updateTask, task } = props;
 
   const {
     modal,
@@ -92,11 +92,12 @@ const EditModal = (props: PropTypes) => {
   }, []);
 
   useEffect(() => {
-    const { title, description, waterIncrement, image } = task;
+    const { title, description, waterIncrement, image, index } = task;
     setTitle(title);
     setDescription(description as string);
-    setWaterIncrement(waterIncrement);
+    setWaterIncrement(waterIncrement as number);
     setImage(image);
+    setIndex(index);
   }, [task]);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from "react";
+import React, { useState, useContext, useCallback, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { View, Text, ScrollView, TextInput } from "react-native";
 import PlantModal from "../../components/PlantModal/PlantModal";
@@ -33,6 +33,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
   const [taskItems, setTaskItems] = useState<Task[]>([
     {
       title: "Plant #1",
+      index: 0,
       description: "This is a description of the first plant",
       waterIncrement: 5,
       needWatering: true,
@@ -44,6 +45,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
     },
     {
       title: "2",
+      index: 1,
       waterIncrement: 1,
       needWatering: true,
       lastWaterTime: Moment("2021-08-07").toDate(),
@@ -52,6 +54,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
     },
     {
       title: "3",
+      index: 2,
       waterIncrement: 1,
       needWatering: false,
       lastWaterTime: Moment("2021-08-07").toDate(),
@@ -62,11 +65,13 @@ const Home = ({ navigation }: NavigationStackProp) => {
     },
     {
       title: "4",
+      index: 3,
       waterIncrement: 0,
       fertIncrement: 0,
       image: "https://reactjs.org/logo-og.png",
     },
   ]);
+  const [displayTaskItems, setDisplayTaskItems] = useState<Task[]>(taskItems);
   const [selectedTaskIndex, setSelectedTaskIndex] = useState<number>(-1);
   const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
@@ -99,6 +104,11 @@ const Home = ({ navigation }: NavigationStackProp) => {
     }
   };
 
+  const updateText = (text: string) => {
+    setText(text);
+    setDisplayTaskItems(taskItems.filter((task) => task.title.includes(text)));
+  };
+
   return (
     <View style={page}>
       <Navbar
@@ -110,14 +120,14 @@ const Home = ({ navigation }: NavigationStackProp) => {
         visible={newModalVisible}
         setVisible={setNewModalVisible}
         addTask={addTask}
+        newIndex={taskItems.length}
       />
       {selectedTaskIndex !== -1 ? (
         <EditModal
           visible={editModalVisible}
           setVisible={setEditModalVisible}
           updateTask={updateTask}
-          task={taskItems[selectedTaskIndex]}
-          index={selectedTaskIndex}
+          task={displayTaskItems[selectedTaskIndex]}
         />
       ) : null}
       <View style={container}>
@@ -132,7 +142,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
         <View style={topContainer}>
           <Text style={titleText}>Your Plants</Text>
           <TextInput
-            onChangeText={setText}
+            onChangeText={updateText}
             value={text}
             style={search}
             placeholderTextColor={isDark ? dark.descText : light.descText}
@@ -140,12 +150,12 @@ const Home = ({ navigation }: NavigationStackProp) => {
           ></TextInput>
           <ScrollView showsVerticalScrollIndicator={false} style={mainScroll}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {taskItems.map((item, index) => {
+              {displayTaskItems.map((item, index) => {
                 return (
                   <Plant
                     key={index}
                     task={item}
-                    index={index}
+                    index={displayTaskItems.indexOf(item)}
                     selectedTaskIndex={selectedTaskIndex}
                     setSelectedTaskIndex={setSelectedTaskIndex}
                   />
@@ -154,8 +164,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
             </ScrollView>
             {selectedTaskIndex !== -1 ? (
               <PlantDisplayModule
-                task={taskItems[selectedTaskIndex]}
-                index={selectedTaskIndex}
+                task={displayTaskItems[selectedTaskIndex]}
                 deleteTask={deleteTask}
                 navigation={navigation}
                 setEditModalVisible={setEditModalVisible}

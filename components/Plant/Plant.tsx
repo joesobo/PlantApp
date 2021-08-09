@@ -14,7 +14,7 @@ type PropTypes = {
 
 const Plant = (props: PropTypes) => {
   const { theme } = useContext(MainContext);
-  const { index, selectedTaskIndex, task, setSelectedTaskIndex } = props;
+  const { selectedTaskIndex, task, setSelectedTaskIndex, index } = props;
   const {
     title,
     image,
