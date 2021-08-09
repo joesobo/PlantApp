@@ -115,6 +115,8 @@ const PlantDisplayModule = (props: PropTypes) => {
                 onPress={() =>
                   navigation.navigate("PlantInfo", {
                     task: task,
+                    index: index,
+                    updateTask: updateTask,
                   })
                 }
               >

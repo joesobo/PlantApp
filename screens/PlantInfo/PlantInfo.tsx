@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -21,14 +21,25 @@ import {
 import { MainContext } from "../../constants/context";
 
 type PropTypes = {
-  route: RouteProp<{ params: { task: Task } }, "params">;
+  route: RouteProp<
+    {
+      params: {
+        task: Task;
+        index: number;
+        updateTask: (task: Task, index: number) => void;
+      };
+    },
+    "params"
+  >;
   navigation: any;
 };
 
 const PlantInfo = ({ route, navigation }: PropTypes) => {
   const { theme, isDark } = useContext(MainContext);
-  const { task } = route.params;
-  const {
+  const { task, index, updateTask } = route.params;
+  const [curTask, setCurTask] = useState<Task>(task);
+
+  let {
     title,
     description,
     image,
@@ -36,7 +47,7 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     waterIncrement,
     needWatering,
     needFertilizer,
-  } = task;
+  } = curTask;
   const {
     container,
     row,
@@ -59,7 +70,7 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     gradientButton,
     titleText,
     descriptionText,
-  } = styles(theme.colors);
+  } = styles(theme.colors, needWatering as boolean, needFertilizer as boolean);
 
   const data1 = {
     data: [0.3],
@@ -110,6 +121,20 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     }
   };
 
+  const water = () => {
+    task.needWatering = false;
+    needWatering = false;
+    setCurTask({ ...task });
+    updateTask(task, index);
+  };
+
+  const fertilize = () => {
+    task.needFertilizer = false;
+    needFertilizer = false;
+    setCurTask({ ...task });
+    updateTask(task, index);
+  };
+
   return (
     <View style={container}>
       <TouchableOpacity onPress={() => navigation.navigate("Home")}>
@@ -156,7 +181,11 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
               </View>
             </View>
 
-            <TouchableOpacity disabled={!needWatering} style={button}>
+            <TouchableOpacity
+              disabled={!needWatering}
+              style={button}
+              onPress={water}
+            >
               <LinearGradient
                 colors={[
                   needWatering
@@ -211,7 +240,11 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
               </View>
             </View>
 
-            <TouchableOpacity disabled={!needFertilizer} style={button}>
+            <TouchableOpacity
+              disabled={!needFertilizer}
+              style={button}
+              onPress={fertilize}
+            >
               <LinearGradient
                 colors={[
                   needFertilizer

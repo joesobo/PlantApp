@@ -3,7 +3,11 @@ import { Colors } from "../../constants/types";
 
 var width = Dimensions.get("window").width; //full width
 
-export let styles = (props: Colors) =>
+export let styles = (
+  props: Colors,
+  needWatering: boolean,
+  needFertilizer: boolean
+) =>
   StyleSheet.create({
     container: {
       backgroundColor: props.displayBackground,
@@ -73,10 +77,10 @@ export let styles = (props: Colors) =>
       alignItems: "center",
     },
     fertIcon: {
-      color: props.fertColor,
+      color: needFertilizer ? props.fertColor : props.mainColor,
     },
     waterIcon: {
-      color: props.waterColor,
+      color: needWatering ? props.waterColor : props.mainColor,
     },
     backIcon: {
       marginLeft: 12,
