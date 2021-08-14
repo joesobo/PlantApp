@@ -19,11 +19,11 @@ export const mainGradient = {
 export const backgroundGradient = {
   start: "#9ac565",
   end: "#406428",
-}
+};
 export const disabledButton = {
   light: "#e4e4e4",
-  dark: "#353535"
-}
+  dark: "#353535",
+};
 
 export const light = {
   shadow: "#000",
@@ -67,6 +67,6 @@ export const dark = {
   border: "#373737",
   topIcon: "#1D1D1D",
   generalIcon: "#b6b6b6",
-  cardBackground: "#232323",
-  selectedBackground: "#2b2a2a",
+  cardBackground: "#2a2a2a",
+  selectedBackground: "#353535",
 };
