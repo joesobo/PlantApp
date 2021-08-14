@@ -40,7 +40,7 @@ export let styles = (props: Colors) =>
       height: 500,
       overflow: "scroll",
     },
-    titleText: {
+    titleTextStyle: {
       fontWeight: "bold",
       fontSize: 18,
       color: props.titleText,
@@ -69,7 +69,7 @@ export let styles = (props: Colors) =>
       color: props.text,
       marginRight: 8,
     },
-    buttonText: {
+    buttonTextStyle: {
       color: props.buttonText,
       fontWeight: "bold",
       fontSize: 18,
@@ -132,5 +132,5 @@ export let styles = (props: Colors) =>
     },
     spaced: {
       marginTop: 8,
-    }
+    },
   });

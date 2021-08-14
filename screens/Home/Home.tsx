@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { View, Text, ScrollView, TextInput } from "react-native";
 import PlantModal from "../../components/PlantModal/PlantModal";
@@ -9,13 +9,14 @@ import { Task } from "../../constants/types";
 import { styles } from "./Home.styled";
 import { backgroundGradient, light, dark } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
-import EditModal from "../../components/EditModal/EditModal";
 import Navbar from "../../components/Navbar/Navbar";
 import { NavigationStackProp } from "react-navigation-stack";
+import { schedulePushNotification } from "../../constants/notifications";
 import Moment from "moment";
 
 const Home = ({ navigation }: NavigationStackProp) => {
-  const { theme, useWeather, isDark } = useContext(MainContext);
+  const { theme, useWeather, isDark, useNotifications } =
+    useContext(MainContext);
   const {
     page,
     container,
@@ -26,14 +27,13 @@ const Home = ({ navigation }: NavigationStackProp) => {
     search,
     mainScroll,
   } = styles(theme.colors);
-  // Moment.locale("en");
+  Moment.locale("en");
 
   const [text, setText] = useState("");
   //TODO: Test data remove!
   const [taskItems, setTaskItems] = useState<Task[]>([
     {
       title: "Plant #1",
-      index: 0,
       description: "This is a description of the first plant",
       waterIncrement: 5,
       needWatering: true,
@@ -45,7 +45,6 @@ const Home = ({ navigation }: NavigationStackProp) => {
     },
     {
       title: "2",
-      index: 1,
       waterIncrement: 1,
       needWatering: true,
       lastWaterTime: Moment("2021-08-07").toDate(),
@@ -54,7 +53,6 @@ const Home = ({ navigation }: NavigationStackProp) => {
     },
     {
       title: "3",
-      index: 2,
       waterIncrement: 1,
       needWatering: false,
       lastWaterTime: Moment("2021-08-07").toDate(),
@@ -65,7 +63,6 @@ const Home = ({ navigation }: NavigationStackProp) => {
     },
     {
       title: "4",
-      index: 3,
       waterIncrement: 0,
       fertIncrement: 0,
       image: "https://reactjs.org/logo-og.png",
@@ -73,18 +70,14 @@ const Home = ({ navigation }: NavigationStackProp) => {
   ]);
   const [displayTaskItems, setDisplayTaskItems] = useState<Task[]>(taskItems);
   const [selectedTaskIndex, setSelectedTaskIndex] = useState<number>(-1);
-  const [newModalVisible, setNewModalVisible] = useState<boolean>(false);
+  const [plantModalVisible, setPlantModalVisible] = useState<boolean>(false);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [, updateState] = useState<any>();
   const forceUpdate = useCallback(() => updateState({}), []);
 
-  const updateTask = (task: Task, index: number) => {
-    setTaskItems([
-      ...taskItems.slice(0, index),
-      task,
-      ...taskItems.slice(index + 1),
-    ]);
-  };
+  useEffect(() => {
+    setDisplayTaskItems(taskItems);
+  }, [taskItems]);
 
   const addTask = (task: Task) => {
     if (taskItems.length === 0) setSelectedTaskIndex(0);
@@ -109,27 +102,64 @@ const Home = ({ navigation }: NavigationStackProp) => {
     setDisplayTaskItems(taskItems.filter((task) => task.title.includes(text)));
   };
 
+  const daysToSeconds = (days: number) => {
+    return days * 24 * 60 * 60;
+  };
+
+  const canNotifyForEl = (elIncrement: number) => {
+    return useNotifications && elIncrement !== 0;
+  };
+
+  const createTask = (task: Task) => {
+    const { waterIncrement, fertIncrement } = task;
+    addTask(task);
+    canNotifyForEl(waterIncrement)
+      ? schedulePushNotification(
+          daysToSeconds(waterIncrement),
+          "Hey there! It's time to water your plant!",
+          task,
+          true
+        )
+      : null;
+    canNotifyForEl(fertIncrement)
+      ? schedulePushNotification(
+          daysToSeconds(fertIncrement),
+          "Hey there! It's time to fertilizer your plant!",
+          task,
+          false
+        )
+      : null;
+  };
+
+  const updateTask = (task: Task) => {
+    setTaskItems([
+      ...taskItems.slice(0, selectedTaskIndex),
+      task,
+      ...taskItems.slice(selectedTaskIndex + 1),
+    ]);
+  };
+
   return (
     <View style={page}>
       <Navbar
         navigation={navigation}
-        setNewModalVisible={setNewModalVisible}
+        setNewModalVisible={setPlantModalVisible}
         useAddPlant
       />
       <PlantModal
-        visible={newModalVisible}
-        setVisible={setNewModalVisible}
-        addTask={addTask}
-        newIndex={taskItems.length}
+        visible={plantModalVisible || editModalVisible}
+        setVisible={
+          editModalVisible ? setEditModalVisible : setPlantModalVisible
+        }
+        buttonFunc={editModalVisible ? updateTask : createTask}
+        buttonText={editModalVisible ? "Save" : "Create"}
+        titleText={
+          editModalVisible ? "Update Information" : "Plant Information"
+        }
+        startTask={
+          editModalVisible ? displayTaskItems[selectedTaskIndex] : undefined
+        }
       />
-      {selectedTaskIndex !== -1 ? (
-        <EditModal
-          visible={editModalVisible}
-          setVisible={setEditModalVisible}
-          updateTask={updateTask}
-          task={displayTaskItems[selectedTaskIndex]}
-        />
-      ) : null}
       <View style={container}>
         <View style={[background, smallHeight]}>
           <LinearGradient
@@ -169,6 +199,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
                 navigation={navigation}
                 setEditModalVisible={setEditModalVisible}
                 updateTask={updateTask}
+                index={selectedTaskIndex}
               />
             ) : null}
             {useWeather ? <WeatherModule /> : null}

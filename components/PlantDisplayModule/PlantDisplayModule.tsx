@@ -11,16 +11,22 @@ type PropTypes = {
   deleteTask: () => void;
   navigation: NavigationStackProp;
   setEditModalVisible: (res: boolean) => void;
-  updateTask: (task: Task, index: number) => void;
+  updateTask: (task: Task) => void;
+  index: number;
 };
 
 const PlantDisplayModule = (props: PropTypes) => {
   const { theme } = useContext(MainContext);
-  const { task, deleteTask, navigation, setEditModalVisible, updateTask } =
-    props;
+  const {
+    task,
+    deleteTask,
+    navigation,
+    setEditModalVisible,
+    updateTask,
+    index,
+  } = props;
   const {
     title,
-    index,
     description,
     image,
     fertIncrement,
@@ -52,12 +58,12 @@ const PlantDisplayModule = (props: PropTypes) => {
 
   const waterPlant = () => {
     task.needWatering = false;
-    updateTask(task, index);
+    updateTask(task);
   };
 
   const fertilizePlant = () => {
     task.needFertilizer = false;
-    updateTask(task, index);
+    updateTask(task);
   };
 
   return (

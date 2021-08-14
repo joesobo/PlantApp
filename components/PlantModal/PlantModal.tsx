@@ -25,19 +25,20 @@ import {
   light,
   dark,
 } from "../../constants/colors";
-import { schedulePushNotification } from "../../constants/notifications";
 import NumericInput from "react-native-numeric-input";
 import { Task } from "../../constants/types";
 
 type PropTypes = {
   visible: boolean;
-  setVisible: Function;
-  addTask: Function;
-  newIndex: number;
+  setVisible: (res: boolean) => void;
+  buttonFunc: (task: Task) => void;
+  buttonText: string;
+  titleText: string;
+  startTask?: Task;
 };
 
 const PlantModal = (props: PropTypes) => {
-  const { theme, isDark, useNotifications } = useContext(MainContext);
+  const { theme, isDark } = useContext(MainContext);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [useWater, setWater] = useState<boolean>(false);
@@ -47,19 +48,20 @@ const PlantModal = (props: PropTypes) => {
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
 
-  const { visible, setVisible, addTask, newIndex } = props;
+  const { visible, setVisible, buttonFunc, buttonText, titleText, startTask } =
+    props;
   const {
     modal,
     background,
     modalView,
-    titleText,
+    titleTextStyle,
     input,
     row,
     commandText,
     button,
     icon,
     titleRow,
-    buttonText,
+    buttonTextStyle,
     imageUpload,
     uploadColumn,
     uploadButton,
@@ -103,52 +105,6 @@ const PlantModal = (props: PropTypes) => {
     }
   };
 
-  const incrementToSeconds = (days: number) => {
-    return days * 24 * 60 * 60;
-  };
-
-  const canNotifyForWater = () => {
-    return useNotifications && useWater && waterIncrement !== 0;
-  };
-
-  const canNotifyForFert = () => {
-    return useNotifications && useFert && fertIncrement !== 0;
-  };
-
-  const createTask = () => {
-    const newTask: Task = {
-      title,
-      index: newIndex + 1,
-      description,
-      waterIncrement,
-      needWatering: useWater && waterIncrement !== 0,
-      lastWaterTime: new Date(),
-      fertIncrement,
-      needFertilizer: useWater && waterIncrement !== 0,
-      lastFertTime: new Date(),
-      image,
-    };
-    addTask(newTask);
-    canNotifyForWater()
-      ? schedulePushNotification(
-          incrementToSeconds(waterIncrement),
-          "Hey there! It's time to water your plant!",
-          newTask,
-          true
-        )
-      : null;
-    canNotifyForFert()
-      ? schedulePushNotification(
-          incrementToSeconds(fertIncrement),
-          "Hey there! It's time to fertilizer your plant!",
-          newTask,
-          false
-        )
-      : null;
-    initialState();
-    setVisible(false);
-  };
-
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -160,6 +116,20 @@ const PlantModal = (props: PropTypes) => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (startTask) {
+      const { title, description, waterIncrement, fertIncrement, image } =
+        startTask;
+      setTitle(title);
+      setDescription(description as string);
+      setWater(waterIncrement !== 0);
+      setWaterIncrement(waterIncrement as number);
+      setFert(fertIncrement !== 0);
+      setFertIncrement(fertIncrement as number);
+      setImage(image);
+    }
+  }, [startTask]);
 
   useEffect(() => {
     if (image !== "" && title !== "") {
@@ -176,7 +146,7 @@ const PlantModal = (props: PropTypes) => {
           <ScrollView style={modalView}>
             {/* Title */}
             <View style={titleRow}>
-              <Text style={titleText}>Plant Information</Text>
+              <Text style={titleTextStyle}>{titleText}</Text>
               <TouchableOpacity
                 onPress={() => {
                   initialState();
@@ -263,7 +233,12 @@ const PlantModal = (props: PropTypes) => {
                     ? dark.barBackground
                     : light.barBackground
                 }
-                onValueChange={() => setWater(!useWater)}
+                onValueChange={() => {
+                  if (useWater) {
+                    setWaterIncrement(0);
+                  }
+                  setWater(!useWater);
+                }}
                 value={useWater}
               />
             </View>
@@ -315,7 +290,12 @@ const PlantModal = (props: PropTypes) => {
                     ? dark.barBackground
                     : light.barBackground
                 }
-                onValueChange={() => setFert(!useFert)}
+                onValueChange={() => {
+                  if (useFert) {
+                    setFertIncrement(0);
+                  }
+                  setFert(!useFert);
+                }}
                 value={useFert}
               />
             </View>
@@ -342,12 +322,33 @@ const PlantModal = (props: PropTypes) => {
               </View>
             ) : null}
 
-            {/* Create */}
+            {/* Button */}
             <View style={row}>
               <TouchableOpacity
                 style={button}
                 disabled={!isButtonEnabled}
-                onPress={createTask}
+                onPress={() => {
+                  const newTask: Task = {
+                    title,
+                    description,
+                    waterIncrement,
+                    needWatering: startTask ? startTask.needWatering : false,
+                    lastWaterTime: startTask
+                      ? startTask.lastWaterTime
+                      : new Date(),
+                    fertIncrement,
+                    needFertilizer: startTask
+                      ? startTask.needFertilizer
+                      : false,
+                    lastFertTime: startTask
+                      ? startTask.lastFertTime
+                      : new Date(),
+                    image,
+                  };
+                  buttonFunc(newTask);
+                  initialState();
+                  setVisible(false);
+                }}
               >
                 <LinearGradient
                   colors={[
@@ -366,8 +367,10 @@ const PlantModal = (props: PropTypes) => {
                   end={[1, 1]}
                   style={gradientButton}
                 >
-                  <Text style={[buttonText, !isButtonEnabled && disabledText]}>
-                    Create
+                  <Text
+                    style={[buttonTextStyle, !isButtonEnabled && disabledText]}
+                  >
+                    {buttonText}
                   </Text>
                 </LinearGradient>
               </TouchableOpacity>
