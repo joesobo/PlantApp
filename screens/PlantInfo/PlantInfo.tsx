@@ -17,6 +17,7 @@ import {
   waterGradient,
   fertGradient,
   disabledButton,
+  backgroundGradient,
 } from "../../constants/colors";
 import { MainContext } from "../../constants/context";
 
@@ -59,7 +60,7 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
 
   useEffect(() => {
     setCurTask(task);
-  }, [task])
+  }, [task]);
 
   let {
     title,
@@ -74,7 +75,9 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     lastFertTime,
   } = curTask;
   const {
-    container,
+    page,
+    smallHeight,
+    background,
     row,
     generalContainer,
     infoContainer,
@@ -177,9 +180,17 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
   };
 
   return (
-    <View style={container}>
+    <View style={page}>
+      <View style={[background, smallHeight]}>
+        <LinearGradient
+          colors={[backgroundGradient.start, backgroundGradient.end]}
+          start={[1, 0]}
+          end={[0, 1]}
+          style={smallHeight}
+        ></LinearGradient>
+      </View>
       <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-        <MaterialIcons style={backIcon} name="arrow-back" size={26} />
+        <MaterialIcons style={backIcon} name="arrow-back" size={22} />
       </TouchableOpacity>
 
       <View style={imgWrapper}>

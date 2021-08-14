@@ -9,10 +9,21 @@ export let styles = (
   needFertilizer: boolean
 ) =>
   StyleSheet.create({
-    container: {
-      backgroundColor: props.displayBackground,
+    page: {
       flex: 1,
-      paddingTop: 50,
+      backgroundColor: props.background,
+      paddingTop: 30,
+    },
+    smallHeight: {
+      alignSelf: "stretch",
+      height: 280,
+    },
+    background: {
+      position: "absolute",
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
     },
     row: {
       display: "flex",
@@ -84,12 +95,12 @@ export let styles = (
     },
     backIcon: {
       marginLeft: 12,
-      color: props.generalIcon,
+      color: props.topIcon,
     },
     bottomInfo: {
       backgroundColor: props.background,
       paddingHorizontal: 24,
-      paddingTop: 50,
+      paddingTop: 60,
       marginTop: 150,
       flex: 1,
       borderTopRightRadius: 50,

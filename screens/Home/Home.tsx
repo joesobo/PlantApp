@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback, useEffect } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { View, Text, ScrollView, TextInput } from "react-native";
 import PlantModal from "../../components/PlantModal/PlantModal";
@@ -26,7 +26,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
     search,
     mainScroll,
   } = styles(theme.colors);
-  Moment.locale("en");
+  // Moment.locale("en");
 
   const [text, setText] = useState("");
   //TODO: Test data remove!
