@@ -10,6 +10,7 @@
   "dependencies": {
     "@babel/runtime": "^7.14.6",
     "@expo/ngrok": "^2.4.3",
+    "@react-native-async-storage/async-storage": "^1.13.0",
     "@react-native-community/datetimepicker": "3.2.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-community/push-notification-ios": "^1.8.0",

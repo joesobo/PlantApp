@@ -15,6 +15,7 @@ import Constants from "expo-constants";
 import { Task } from "./constants/types";
 import Moment from "moment";
 import { addTask, deleteTask, createTask, updateTask } from "./constants/tasks";
+import { storeObject, getObject } from "./constants/storage";
 
 export default function App() {
   Moment.locale("en");
@@ -62,24 +63,34 @@ export default function App() {
     },
   ]);
 
+  useEffect(() => {
+    async function fetchDataFromStorage() {
+      let isDark = await getObject("@isDark");
+      setIsDarkTheme(isDark);
+    }
+
+    fetchDataFromStorage();
+  });
+
   const context = useMemo(
     () => ({
       isDark: isDarkTheme,
       useWeather: useWeatherSwitch,
       useNotifications: useNotificationsSwitch,
+      taskItems: taskItems,
+      selectedTaskIndex: selectedTaskIndex,
       addTask: addTask,
       deleteTask: deleteTask,
       createTask: createTask,
       updateTask: updateTask,
-      taskItems: taskItems,
       updateTaskItems: (tasks: Task[]) => {
         setTaskItems(tasks);
       },
-      selectedTaskIndex: selectedTaskIndex,
       updateSelectedIndex: (value: number) => {
         setSelectedTaskIndex(value);
       },
       toggleTheme: () => {
+        storeObject("@isDark", !isDarkTheme);
         setIsDarkTheme(!isDarkTheme);
       },
       toggleWeather: () => {
