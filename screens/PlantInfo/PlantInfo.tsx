@@ -6,6 +6,7 @@ import {
   Image,
   ImageStyle,
   ScrollView,
+  LogBox,
 } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
@@ -26,7 +27,6 @@ type PropTypes = {
     {
       params: {
         task: Task;
-        updateTask: (task: Task, index: number) => void;
       };
     },
     "params"
@@ -54,9 +54,20 @@ const findBarPercentage = (lastTime: Date, increment: number) => {
 };
 
 const PlantInfo = ({ route, navigation }: PropTypes) => {
-  const { theme, isDark } = useContext(MainContext);
-  const { task, updateTask } = route.params;
+  const {
+    theme,
+    isDark,
+    updateTask,
+    taskItems,
+    updateTaskItems,
+    selectedTaskIndex,
+  } = useContext(MainContext);
+  const { task } = route.params;
   const [curTask, setCurTask] = useState<Task>(task);
+
+  LogBox.ignoreLogs([
+    "Non-serializable values were found in the navigation state",
+  ]);
 
   useEffect(() => {
     setCurTask(task);
@@ -64,7 +75,6 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
 
   let {
     title,
-    index,
     description,
     image,
     fertIncrement,
@@ -169,14 +179,14 @@ const PlantInfo = ({ route, navigation }: PropTypes) => {
     task.needWatering = false;
     task.lastWaterTime = new Date();
     setCurTask({ ...task });
-    updateTask(task, index);
+    updateTask(task, taskItems, updateTaskItems, selectedTaskIndex);
   };
 
   const fertilize = () => {
     task.needFertilizer = false;
     task.lastFertTime = new Date();
     setCurTask({ ...task });
-    updateTask(task, index);
+    updateTask(task, taskItems, updateTaskItems, selectedTaskIndex);
   };
 
   return (
