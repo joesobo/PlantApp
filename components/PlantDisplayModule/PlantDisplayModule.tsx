@@ -13,8 +13,15 @@ type PropTypes = {
 };
 
 const PlantDisplayModule = (props: PropTypes) => {
-  const { theme, deleteTask, updateTask, selectedTaskIndex } =
-    useContext(MainContext);
+  const {
+    theme,
+    deleteTask,
+    updateTask,
+    selectedTaskIndex,
+    taskItems,
+    updateTaskItems,
+    updateSelectedIndex,
+  } = useContext(MainContext);
   const { task, navigation, setEditModalVisible } = props;
   const {
     title,
@@ -49,12 +56,12 @@ const PlantDisplayModule = (props: PropTypes) => {
 
   const waterPlant = () => {
     task.needWatering = false;
-    updateTask(task);
+    updateTask(task, taskItems, updateTaskItems, selectedTaskIndex);
   };
 
   const fertilizePlant = () => {
     task.needFertilizer = false;
-    updateTask(task);
+    updateTask(task, taskItems, updateTaskItems, selectedTaskIndex);
   };
 
   return (
@@ -70,7 +77,16 @@ const PlantDisplayModule = (props: PropTypes) => {
                   <TouchableOpacity onPress={openEditModal}>
                     <MaterialIcons style={icon} name="edit" size={22} />
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={deleteTask}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      deleteTask(
+                        taskItems,
+                        updateTaskItems,
+                        selectedTaskIndex,
+                        updateSelectedIndex
+                      )
+                    }
+                  >
                     <MaterialCommunityIcons
                       name="delete-empty-outline"
                       style={icon}

@@ -30,10 +30,13 @@ export const deleteTask = (
 ) => {
   let temp = taskItems;
   temp.splice(selectedTaskIndex, 1);
-  updateTaskItems(temp);
+  updateTaskItems([...temp]);
 
-  if (temp.length <= 0) {
+  if (temp.length <= 0 || selectedTaskIndex === taskItems.length) {
     updateSelectedIndex(-1);
+  } else {
+    const index = selectedTaskIndex;
+    updateSelectedIndex(index);
   }
 };
 
