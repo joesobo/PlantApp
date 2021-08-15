@@ -8,13 +8,12 @@ import { Task } from "../../constants/types";
 type PropTypes = {
   task: Task;
   index: number;
-  selectedTaskIndex: number;
-  setSelectedTaskIndex: Function;
 };
 
 const Plant = (props: PropTypes) => {
-  const { theme } = useContext(MainContext);
-  const { selectedTaskIndex, task, setSelectedTaskIndex, index } = props;
+  const { theme, selectedTaskIndex, updateSelectedIndex } =
+    useContext(MainContext);
+  const { task, index } = props;
   const {
     title,
     image,
@@ -41,7 +40,7 @@ const Plant = (props: PropTypes) => {
   const isCurrentTaskSelected = selectedTaskIndex === index;
 
   return (
-    <TouchableOpacity onPress={() => setSelectedTaskIndex(index)}>
+    <TouchableOpacity onPress={() => updateSelectedIndex(index)}>
       <View
         style={[
           card,

@@ -8,23 +8,14 @@ import { NavigationStackProp } from "react-navigation-stack";
 
 type PropTypes = {
   task: Task;
-  deleteTask: () => void;
   navigation: NavigationStackProp;
   setEditModalVisible: (res: boolean) => void;
-  updateTask: (task: Task) => void;
-  index: number;
 };
 
 const PlantDisplayModule = (props: PropTypes) => {
-  const { theme } = useContext(MainContext);
-  const {
-    task,
-    deleteTask,
-    navigation,
-    setEditModalVisible,
-    updateTask,
-    index,
-  } = props;
+  const { theme, deleteTask, updateTask, selectedTaskIndex } =
+    useContext(MainContext);
+  const { task, navigation, setEditModalVisible } = props;
   const {
     title,
     description,
@@ -115,7 +106,7 @@ const PlantDisplayModule = (props: PropTypes) => {
                 onPress={() => {
                   navigation.navigate("PlantInfo", {
                     task: task,
-                    index: index,
+                    index: selectedTaskIndex,
                     updateTask: updateTask,
                   });
                 }}

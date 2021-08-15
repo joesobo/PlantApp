@@ -31,14 +31,24 @@ import { Task } from "../../constants/types";
 type PropTypes = {
   visible: boolean;
   setVisible: (res: boolean) => void;
-  buttonFunc: (task: Task) => void;
   buttonText: string;
   titleText: string;
   startTask?: Task;
+  isEdit: boolean;
 };
 
 const PlantModal = (props: PropTypes) => {
-  const { theme, isDark } = useContext(MainContext);
+  const {
+    theme,
+    isDark,
+    updateTask,
+    createTask,
+    taskItems,
+    updateTaskItems,
+    selectedTaskIndex,
+    updateSelectedIndex,
+    useNotifications,
+  } = useContext(MainContext);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [useWater, setWater] = useState<boolean>(false);
@@ -48,7 +58,7 @@ const PlantModal = (props: PropTypes) => {
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
 
-  const { visible, setVisible, buttonFunc, buttonText, titleText, startTask } =
+  const { visible, setVisible, buttonText, titleText, startTask, isEdit } =
     props;
   const {
     modal,
@@ -82,14 +92,6 @@ const PlantModal = (props: PropTypes) => {
     setFertIncrement(0);
     setFert(false);
     setImage("");
-  };
-
-  const onWaterChanged = (input: number) => {
-    setWaterIncrement(input);
-  };
-
-  const onFertChanged = (input: number) => {
-    setFertIncrement(input);
   };
 
   const pickImage = async () => {
@@ -257,7 +259,7 @@ const PlantModal = (props: PropTypes) => {
                     isDark ? dark.displayBackground : light.displayBackground
                   }
                   borderColor={isDark ? dark.border : light.border}
-                  onChange={onWaterChanged}
+                  onChange={setWaterIncrement}
                   value={waterIncrement}
                   minValue={0}
                   maxValue={100}
@@ -314,7 +316,7 @@ const PlantModal = (props: PropTypes) => {
                     isDark ? dark.displayBackground : light.displayBackground
                   }
                   borderColor={isDark ? dark.border : light.border}
-                  onChange={onFertChanged}
+                  onChange={setFertIncrement}
                   value={fertIncrement}
                   minValue={0}
                   maxValue={100}
@@ -345,7 +347,23 @@ const PlantModal = (props: PropTypes) => {
                       : new Date(),
                     image,
                   };
-                  buttonFunc(newTask);
+                  if (isEdit) {
+                    updateTask(
+                      newTask,
+                      taskItems,
+                      updateTaskItems,
+                      selectedTaskIndex
+                    );
+                  } else {
+                    createTask(
+                      newTask,
+                      taskItems,
+                      updateTaskItems,
+                      updateSelectedIndex,
+                      useNotifications
+                    );
+                  }
+
                   initialState();
                   setVisible(false);
                 }}
