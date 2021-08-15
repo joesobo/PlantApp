@@ -1,5 +1,6 @@
 import { Task } from "./types";
 import { schedulePushNotification } from "./notifications";
+import { storeObject } from "./storage";
 
 const daysToSeconds = (days: number) => {
   return days * 24 * 60 * 60;
@@ -15,11 +16,18 @@ export const addTask = (
   updateTaskItems: (arg0: any) => void,
   updateSelectedIndex: (arg0: number) => void
 ) => {
-  if (taskItems.length === 0) {
+  if (!taskItems || taskItems.length === 0) {
     updateSelectedIndex(0);
   }
-  const temp = taskItems.concat(task);
-  updateTaskItems(temp);
+
+  if (!taskItems) {
+    updateTaskItems([task]);
+    storeObject("@taskItems", [task]);
+  } else {
+    const temp = taskItems.concat(task);
+    updateTaskItems(temp);
+    storeObject("@taskItems", temp);
+  }
 };
 
 export const deleteTask = (
@@ -31,12 +39,14 @@ export const deleteTask = (
   let temp = taskItems;
   temp.splice(selectedTaskIndex, 1);
   updateTaskItems([...temp]);
+  storeObject("@taskItems", [...temp]);
 
-  if (temp.length <= 0 || selectedTaskIndex === taskItems.length) {
+  if (
+    temp.length <= 0 ||
+    selectedTaskIndex === taskItems.length ||
+    selectedTaskIndex === 0
+  ) {
     updateSelectedIndex(-1);
-  } else {
-    const index = selectedTaskIndex;
-    updateSelectedIndex(index);
   }
 };
 
@@ -74,6 +84,12 @@ export const updateTask = (
   selectedTaskIndex: number
 ) => {
   updateTaskItems([
+    ...taskItems.slice(0, selectedTaskIndex),
+    task,
+    ...taskItems.slice(selectedTaskIndex + 1),
+  ]);
+
+  storeObject("@taskItems", [
     ...taskItems.slice(0, selectedTaskIndex),
     task,
     ...taskItems.slice(selectedTaskIndex + 1),

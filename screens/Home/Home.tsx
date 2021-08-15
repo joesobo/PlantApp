@@ -32,7 +32,7 @@ const Home = ({ navigation }: NavigationStackProp) => {
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    setDisplayTaskItems(taskItems);
+    taskItems ? setDisplayTaskItems(taskItems) : setDisplayTaskItems([]);
   }, [taskItems]);
 
   const updateText = (text: string) => {
@@ -81,17 +81,20 @@ const Home = ({ navigation }: NavigationStackProp) => {
           ></TextInput>
           <ScrollView showsVerticalScrollIndicator={false} style={mainScroll}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {displayTaskItems.map((item, index) => {
-                return (
-                  <Plant
-                    key={index}
-                    task={item}
-                    index={displayTaskItems.indexOf(item)}
-                  />
-                );
-              })}
+              {displayTaskItems
+                ? displayTaskItems.map((item, index) => {
+                    return (
+                      <Plant
+                        key={index}
+                        task={item}
+                        index={displayTaskItems.indexOf(item)}
+                      />
+                    );
+                  })
+                : null}
             </ScrollView>
-            {selectedTaskIndex !== -1 ? (
+            {displayTaskItems.length > selectedTaskIndex &&
+            selectedTaskIndex !== -1 ? (
               <PlantDisplayModule
                 task={displayTaskItems[selectedTaskIndex]}
                 navigation={navigation}

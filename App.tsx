@@ -25,51 +25,25 @@ export default function App() {
   const [useNotificationsSwitch, setUseNotifications] =
     useState<boolean>(false);
   const [selectedTaskIndex, setSelectedTaskIndex] = useState<number>(-1);
-  const [taskItems, setTaskItems] = useState<Task[]>([
-    {
-      title: "Plant #1",
-      description: "This is a description of the first plant",
-      waterIncrement: 5,
-      needWatering: true,
-      lastWaterTime: Moment("2021-07-06").toDate(),
-      fertIncrement: 14,
-      needFertilizer: true,
-      lastFertTime: Moment("2021-08-01").toDate(),
-      image: "https://reactjs.org/logo-og.png",
-    },
-    {
-      title: "2",
-      waterIncrement: 1,
-      needWatering: true,
-      lastWaterTime: Moment("2021-08-07").toDate(),
-      fertIncrement: 0,
-      image: "https://reactjs.org/logo-og.png",
-    },
-    {
-      title: "3",
-      waterIncrement: 1,
-      needWatering: false,
-      lastWaterTime: Moment("2021-08-07").toDate(),
-      fertIncrement: 1,
-      needFertilizer: false,
-      lastFertTime: Moment("2021-08-07").toDate(),
-      image: "https://reactjs.org/logo-og.png",
-    },
-    {
-      title: "4",
-      waterIncrement: 0,
-      fertIncrement: 0,
-      image: "https://reactjs.org/logo-og.png",
-    },
-  ]);
+  const [taskItems, setTaskItems] = useState<Task[]>([]);
 
   useEffect(() => {
-    async function fetchDataFromStorage() {
-      let isDark = await getObject("@isDark");
-      setIsDarkTheme(isDark);
-    }
+    if (Platform.OS !== "web") {
+      async function fetchDataFromStorage() {
+        let isDark = await getObject("@isDark");
+        let useWeather = await getObject("@useWeather");
+        let useNotifications = await getObject("@useNotifications");
+        let taskItems = await getObject("@taskItems");
 
-    fetchDataFromStorage();
+        isDark != null ? setIsDarkTheme(isDark) : null;
+        useWeather != null ? setUseWeather(useWeather) : null;
+        useNotifications != null ? setUseNotifications(useNotifications) : null;
+        taskItems != null ? setTaskItems(taskItems) : null;
+        taskItems != null ? setSelectedTaskIndex(0) : null;
+      }
+
+      fetchDataFromStorage();
+    }
   });
 
   const context = useMemo(
@@ -94,9 +68,11 @@ export default function App() {
         setIsDarkTheme(!isDarkTheme);
       },
       toggleWeather: () => {
+        storeObject("@useWeather", !useWeatherSwitch);
         setUseWeather(!useWeatherSwitch);
       },
       toggleNotifications: () => {
+        storeObject("@useNotifications", !useNotificationsSwitch);
         setUseNotifications(!useNotificationsSwitch);
       },
       theme: {
@@ -115,8 +91,10 @@ export default function App() {
   );
 
   useEffect(() => {
-    if (Platform.OS !== "web" && Constants.isDevice && useNotificationsSwitch) {
-      registerForPushNotificationsAsync();
+    if (Platform.OS !== "web" && Constants.isDevice) {
+      if (useNotificationsSwitch) {
+        registerForPushNotificationsAsync();
+      }
     }
   });
 
